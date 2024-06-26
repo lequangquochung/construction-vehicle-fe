@@ -1,0 +1,28 @@
+<div class="col-md-6">
+  <div class="row">
+    <form [formGroup]="categoryForm" (ngSubmit)="submitForm()">
+      <div class="form-group mb-2">
+        <label for="nameEng">Name (English)</label>
+        <input type="text" class="form-control" id="nameEng" placeholder="Enter name" formControlName="nameEng">
+      </div>
+      <div class="form-group mb-2">
+        <label for="nameVie">Name (Vie)</label>
+        <input type="text" class="form-control" id="nameVie" placeholder="Enter name" formControlName="nameVie">
+      </div>
+      <div class="form-group mb-2">
+        <label for="imageCategory">Example file input</label>
+        <input type="file" class="form-control-file" id="imageCategory" (change)="onFileSelect($event)">
+      </div>
+      <button type="submit" class="btn btn-primary mb-2" [disabled]="!categoryForm.valid">Submit</button>
+    </form>
+  </div>
+</div>
+
+<c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast" [color]="toastColors" >
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Successfully</c-toast-body>
+  </c-toast>
+</c-toaster>
+
+  

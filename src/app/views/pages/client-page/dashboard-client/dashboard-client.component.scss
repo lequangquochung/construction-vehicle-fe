@@ -1,0 +1,20 @@
+.nav-product-preview {
+    background: #080b8f;
+    height: 50px;
+
+    h3 {
+        color: white;
+    }
+}
+
+.product {
+    .product-item {
+        img {
+            object-fit: contain;
+        }
+
+        .product-item-title {
+            background: #c7c7c7;
+        }
+    }
+}

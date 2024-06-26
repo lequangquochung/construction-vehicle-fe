@@ -1,26 +1,30 @@
-import { Routes } from '@angular/router';
+import { CategoryComponent } from './views/pages/auth/category/category.component';
+import { DashboardClientComponent } from './views/pages/client-page/dashboard-client/dashboard-client.component';
+import { Routes, provideRouter } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { AuthGuard } from './guard/auth.guard';
+import { CategoryListComponent } from './views/pages/auth/category-list/category-list.component';
+
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    component: DashboardClientComponent
   },
   {
-    path: '',
+    path: 'auth',
     component: DefaultLayoutComponent,
-    data: {
-      title: 'Home'
-    },
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
+        pathMatch:'full',
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
       },
       {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/routes').then((m) => m.routes)
+        path: 'category',
+        loadChildren: () => import('./views/pages/auth/category.routes').then(m => m.routes)
       },
       {
         path: 'base',
@@ -84,5 +88,5 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: '' }
 ];

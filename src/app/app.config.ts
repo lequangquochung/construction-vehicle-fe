@@ -8,7 +8,9 @@ import {
   withRouterConfig,
   withViewTransitions
 } from '@angular/router';
+import { AuthInterceptor } from './interceptor/interceptor';
 
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { DropdownModule, SidebarModule } from '@coreui/angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { routes } from './app.routes';
@@ -27,6 +29,11 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withHashLocation()
     ),
+    provideHttpClient(
+      withInterceptorsFromDi()
+    ),
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor , multi: true},
+    
     importProvidersFrom(SidebarModule, DropdownModule),
     IconSetService,
     provideAnimations()

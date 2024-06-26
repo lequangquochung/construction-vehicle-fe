@@ -3,7 +3,7 @@ import { INavData } from '@coreui/angular';
 export const navItems: INavData[] = [
   {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: '/auth/dashboard',
     iconComponent: { name: 'cil-speedometer' },
     badge: {
       color: 'info',
@@ -12,12 +12,24 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Category'
   },
   {
-    name: 'Colors',
-    url: '/theme/colors',
-    iconComponent: { name: 'cil-drop' }
+    name: 'Category',
+    url: '/auth/category',
+    iconComponent: { name: 'cil-drop' },
+    children: [
+      {
+        name: 'Category List',
+        url: '/auth/category/list',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'New Category',
+        url: '/auth/category/new',
+        icon: 'nav-icon-bullet'
+      },
+    ]
   },
   {
     name: 'Typography',

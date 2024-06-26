@@ -67,13 +67,13 @@
               <c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
                 <c-toast [autohide]="false" [fade]="true" [visible]="true" color="danger">
                   <c-toast-header>Toast title</c-toast-header>
-                  <c-toast-body>This is a static toast in a static toaster</c-toast-body>
+                  <c-toast-body>This is a static toast in a static toaster13213</c-toast-body>
                 </c-toast>
                 <c-toast [fade]="true" [visible]="true" color="dark" >
                   <c-toast-header [closeButton]="false">Toast title</c-toast-header>
                   <c-toast-body cTextColor="secondary">This is a static toast in a static toaster</c-toast-body>
                 </c-toast>
-                <app-toast-simple #toast [autohide]="false" [fade]="true" [visible]="true" [title]="'App Toast'"
+                <app-toast-simple #toast [autohide]="true" [fade]="true" [visible]="true" [title]="'App Toast'"
                                   color="secondary">
                   This is a toast in static positioned App toaster! {{ toast.index }}
                 </app-toast-simple>
