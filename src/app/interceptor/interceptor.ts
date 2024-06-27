@@ -17,7 +17,9 @@ export class AuthInterceptor implements HttpInterceptor {
         const accessToken = this.authService.accessToken;
         if (accessToken) {
             request = request.clone({
-                headers: request.headers.append('Authorization', 'Bearer ' + accessToken).append('Access-Control-Allow-Origin', '*'),
+                headers: request.headers.append('Authorization', 'Bearer ' + accessToken)
+                .append('Access-Control-Allow-Origin', '*')
+                .append("ngrok-skip-browser-warning", "ngrok-skip-browser-warning"),
             });
         }
 

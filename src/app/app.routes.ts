@@ -1,16 +1,28 @@
-import { CategoryComponent } from './views/pages/auth/category/category.component';
-import { DashboardClientComponent } from './views/pages/client-page/dashboard-client/dashboard-client.component';
-import { Routes, provideRouter } from '@angular/router';
-import { DefaultLayoutComponent } from './layout';
+import { PreviewComponent } from './views/pages/client-page/preview/preview.component';
+import { Routes } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
-import { CategoryListComponent } from './views/pages/auth/category-list/category-list.component';
+import { DefaultLayoutComponent } from './layout';
+import { AboutUsComponent } from './views/pages/client-page/about-us/about-us.component';
+import { DashboardClientComponent } from './views/pages/client-page/dashboard-client/dashboard-client.component';
 
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
-    path: '',
-    pathMatch: 'full',
-    component: DashboardClientComponent
+    path: 'dashboard',
+    component: DashboardClientComponent,
+    children: [
+      {
+        path:'',
+        pathMatch: 'full',
+        component: PreviewComponent
+      }
+      ,
+      {
+        path: 'about-us',
+        component: AboutUsComponent
+      },
+    ]
   },
   {
     path: 'auth',
@@ -19,7 +31,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        pathMatch:'full',
+        pathMatch: 'full',
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
       },
       {
@@ -30,34 +42,34 @@ export const routes: Routes = [
         path: 'base',
         loadChildren: () => import('./views/base/routes').then((m) => m.routes)
       },
-      {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/routes').then((m) => m.routes)
-      },
-      {
-        path: 'forms',
-        loadChildren: () => import('./views/forms/routes').then((m) => m.routes)
-      },
-      {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/routes').then((m) => m.routes)
-      },
-      {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/routes').then((m) => m.routes)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/routes').then((m) => m.routes)
-      },
-      {
-        path: 'charts',
-        loadChildren: () => import('./views/charts/routes').then((m) => m.routes)
-      },
-      {
-        path: 'pages',
-        loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
-      }
+      // {
+      //   path: 'buttons',
+      //   loadChildren: () => import('./views/buttons/routes').then((m) => m.routes)
+      // },
+      // {
+      //   path: 'forms',
+      //   loadChildren: () => import('./views/forms/routes').then((m) => m.routes)
+      // },
+      // {
+      //   path: 'icons',
+      //   loadChildren: () => import('./views/icons/routes').then((m) => m.routes)
+      // },
+      // {
+      //   path: 'notifications',
+      //   loadChildren: () => import('./views/notifications/routes').then((m) => m.routes)
+      // },
+      // {
+      //   path: 'widgets',
+      //   loadChildren: () => import('./views/widgets/routes').then((m) => m.routes)
+      // },
+      // {
+      //   path: 'charts',
+      //   loadChildren: () => import('./views/charts/routes').then((m) => m.routes)
+      // },
+      // {
+      //   path: 'pages',
+      //   loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
+      // }
     ]
   },
   {
@@ -88,5 +100,6 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
-  { path: '**', redirectTo: '' }
-];
+  { path: '**', redirectTo: '' },
+
+]

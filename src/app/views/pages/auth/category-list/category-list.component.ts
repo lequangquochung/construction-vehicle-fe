@@ -14,12 +14,12 @@ export class CategoryListComponent implements OnInit {
     private categoryService: CategoryService
   ) { }
   ngOnInit(): void {
-    // this.categoryService.getAll(this.keyword).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //   },
-    //   error: () => { }
-    // })
+    this.categoryService.getAll(this.keyword).subscribe({
+      next: (res) => {
+        console.log('res', res);
+      },
+      error: () => { }
+    })
   }
 
 

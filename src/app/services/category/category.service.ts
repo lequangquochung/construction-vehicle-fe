@@ -22,11 +22,11 @@ export class CategoryService {
         const options = createRequestOptions({
             params: { keyword: param },
         });
-        return this.httpClient.get<any>(this.baseUrl + `cms/category`, options);
+        return this.httpClient.get<any>(this.baseUrl + `/cms/category`, options);
     }
 
     getById(id: string): Observable<any> {
-        return this.httpClient.get<any>(this.baseUrl + `cms/category/${id}`);
+        return this.httpClient.get<any>(this.baseUrl + `/cms/category/${id}`);
     }
 
     edit(id: string, payload: CategoryRequestModel): Observable<any> {
@@ -34,6 +34,6 @@ export class CategoryService {
     }
 
     delete(id: string): Observable<any> {
-        return this.httpClient.delete<any>(this.baseUrl + `cms/category/${id}`);
+        return this.httpClient.delete<any>(this.baseUrl + `/cms/category/${id}`);
     }
 }

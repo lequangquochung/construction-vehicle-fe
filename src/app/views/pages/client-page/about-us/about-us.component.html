@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-12 mb-3 carousel-block">
+    <c-carousel [interval]="0">
+      <c-carousel-inner>
+        <c-carousel-item *ngFor="let slide of slides">
+          <img [src]="slide.src" alt="{{slide.title}}" class="d-block w-100 carousel-item" loading="lazy" />
+        </c-carousel-item>
+      </c-carousel-inner>
+      <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+      <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+    </c-carousel>
+  </div>
+</div>
+<div class="row information">
+  <div class="d-flex align-items-center mb-3">
+    <div class="circle me-3">1</div>
+    <p class="me-3"><b>Địa chỉ</b></p>
+    <p> 72 Xa lộ Hà Nội, Ấp Ngãi Thắng, Xã Bình Thắng, Thành Phố Dĩ An, Tỉnh Bình Dương</p>
+  </div>
+  <div class="d-flex align-items-center mb-3">
+    <div class="circle me-3">2</div>
+    <p class="me-3"><b>Bãi xe</b></p>
+    <p> 72 Xa lộ Hà Nội, Ấp Ngãi Thắng, Xã Bình Thắng, Thành Phố Dĩ An, Tỉnh Bình Dương</p>
+  </div>
+  <div class="d-flex align-items-center mb-3">
+    <div class="circle me-3">3</div>
+    <p class="me-3"><b>Số điện thoại</b></p>
+    <p>0903900294</p>
+  </div>
+  <!-- <div class="d-flex">
+    <p>Bãi xe</p>
+    <p> 72 Xa lộ Hà Nội, Ấp Ngãi Thắng, Xã Bình Thắng, Thành Phố Dĩ An, Tỉnh Bình Dương</p>
+  </div>
+  <div class="d-flex">
+    <p>Số điện thoại</p>
+    <p> 72 Xa lộ Hà Nội, Ấp Ngãi Thắng, Xã Bình Thắng, Thành Phố Dĩ An, Tỉnh Bình Dương</p>
+  </div>
+  <div class="d-flex">
+    <p>Email</p>
+    <p> 72 Xa lộ Hà Nội, Ấp Ngãi Thắng, Xã Bình Thắng, Thành Phố Dĩ An, Tỉnh Bình Dương</p>
+  </div>
+  <div class="d-flex">
+    <p>Webstite</p>
+    <p><a href="">cogioiducanh.com</a></p>
+  </div> -->
+</div>
+<div class="row map mb-3">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15304.948042360935!2d107.5935838!3d16.4635323!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a13e984a1761%3A0x3d6f0bf7cccab36e!2zSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1719465056093!5m2!1svi!2s"
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
