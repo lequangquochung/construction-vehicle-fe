@@ -14,10 +14,10 @@ export class FileService {
     private baseUrl = `${environment.APIURL}`
 
     uploadSingle(payload: FormData): Observable<IResponseData<any>> {
-        return this.httpClient.post<any>(this.baseUrl + 'cms/upload/single', payload);
+        return this.httpClient.post<any>(this.baseUrl + '/cms/upload/single', payload);
     }
 
     uploadMultiple(payload: Array<File>): Observable<IResponseData<any>> {
-        return this.httpClient.post<any>(this.baseUrl + 'cms/upload/single', payload);
+        return this.httpClient.post<any>(this.baseUrl + '/cms/upload/single', payload);
     }
 }

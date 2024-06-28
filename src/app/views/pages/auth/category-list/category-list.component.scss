@@ -9,4 +9,20 @@ h4 {
         vertical-align: middle;
         text-align: center;
     }
+
+    .img-thumbnail {
+        height: 160px;
+        width: 180px;
+        object-fit: cover;
+    }
+
+    .action-row {
+        .edit, .delete {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .delete{
+            color: red;
+        }
+    }
 }

@@ -1,3 +1,5 @@
+import { InstallmentComponent } from './views/pages/client-page/installment/installment.component';
+import { ParkingLotComponent } from './views/pages/client-page/parking-lot/parking-lot.component';
 import { PreviewComponent } from './views/pages/client-page/preview/preview.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
@@ -22,6 +24,14 @@ export const routes: Routes = [
         path: 'about-us',
         component: AboutUsComponent
       },
+      {
+        path:'parking',
+        component: ParkingLotComponent
+      },
+      {
+        path: 'installment',
+        component: InstallmentComponent
+      }
     ]
   },
   {

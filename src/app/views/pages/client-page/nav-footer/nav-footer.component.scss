@@ -1,7 +1,8 @@
 .footer {
-    bottom: 0;
     background: #080b8f;
-
+    // bottom: 0;
+    position: absolute;
+    width: 100%;
     p {
         color: white;
     }

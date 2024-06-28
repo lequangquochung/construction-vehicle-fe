@@ -52,7 +52,7 @@ export class AuthService {
     }
 
     public refreshToken(token: string): Observable<Required<IResponseData<any>>> {
-        return this.httpClient.post<Required<IResponseData<any>>>(this.baseUrl + 'cms/auth/request-access-token', { refreshToken: token });
+        return this.httpClient.post<Required<IResponseData<any>>>(this.baseUrl + '/cms/auth/request-access-token', { refreshToken: token });
     }
 
     public logout(): void {

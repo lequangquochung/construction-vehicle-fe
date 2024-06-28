@@ -5,8 +5,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component, NO_ERRORS_SCHEMA, OnInit } from '@an
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryRequestModel } from 'src/app/models/category/category-request.model';
-import { TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
+import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
 import { AppToastComponent } from 'src/app/views/notifications/toasters/toast-simple/toast.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @Component({
@@ -19,7 +20,8 @@ import { AppToastComponent } from 'src/app/views/notifications/toasters/toast-si
     ToastBodyComponent,
     ToastComponent,
     ToasterComponent,
-    ToastHeaderComponent
+    ToastHeaderComponent,
+   
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
@@ -65,30 +67,29 @@ export class CategoryComponent implements OnInit {
     }
     const formData: FormData = new FormData();
     formData.append('file', this.categoryImg!);
-   
+
     this.fileService.uploadSingle(formData).subscribe({
       next: (res) => {
-        // categoryName.image = 
-        console.log('file', res);
-      }, error: () => {
-
+        categoryName.image = res.data;
+        this.createCategory(categoryName);
+      }, error: (e: Error) => {
+        this.isShowToast = true;
+        this.toastColors = ColorsToast.danger;
       }
-    })
-    
- 
-    // this.categoryService.create(categoryName).subscribe({
-    //   next: (res: any) => {
-    //     console.log(res);
-    //   },
-    //   error: (e: Error) => {
-    //     console.log(e);
-    //   },
-    //   complete: () => {
-    //     this.isShowToast = true;
-    //   },
-    // });
-
+    });
   }
 
-
+  createCategory(categoryName: CategoryRequestModel) {
+    this.categoryService.create(categoryName).subscribe({
+      next: (res: any) => {
+        this.isShowToast = true;
+        console.log('res', res);
+      },
+      error: (e: Error) => {
+        console.log(e);
+      },
+      complete: () => {
+      },
+    });
+  }
 }

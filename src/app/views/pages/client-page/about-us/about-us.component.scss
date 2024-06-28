@@ -1,20 +1,12 @@
+.about-us {
+    min-height: 100%;
+}
+
 .carousel-block {
     min-height: 600px;
+
     img.carousel-item {
         object-fit: contain;
         width: 100%;
-        // height: 100%;
-    }
-}
-
-.information {
-    .circle {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid #e60c139e;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 }
