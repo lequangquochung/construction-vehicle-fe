@@ -1,3 +1,4 @@
+import { ContactUsComponent } from './views/pages/client-page/contact-us/contact-us.component';
 import { InstallmentComponent } from './views/pages/client-page/installment/installment.component';
 import { ParkingLotComponent } from './views/pages/client-page/parking-lot/parking-lot.component';
 import { PreviewComponent } from './views/pages/client-page/preview/preview.component';
@@ -31,6 +32,10 @@ export const routes: Routes = [
       {
         path: 'installment',
         component: InstallmentComponent
+      },
+      {
+        path: 'contact-us',
+        component: ContactUsComponent
       }
     ]
   },
@@ -46,7 +51,7 @@ export const routes: Routes = [
       },
       {
         path: 'category',
-        loadChildren: () => import('./views/pages/auth/category.routes').then(m => m.routes)
+        loadChildren: () => import('./views/pages/auth/category-module/category.routes').then(m => m.routes)
       },
       {
         path: 'base',

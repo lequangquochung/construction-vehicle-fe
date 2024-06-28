@@ -1,6 +1,6 @@
-import { ColorsToast } from './../../../../enum/colors';
-import { FileService } from './../../../../services/file/file.service';
-import { CategoryService } from './../../../../services/category/category.service';
+import { ColorsToast } from '../../../../../enum/colors';
+import { FileService } from '../../../../../services/file/file.service';
+import { CategoryService } from '../../../../../services/category/category.service';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

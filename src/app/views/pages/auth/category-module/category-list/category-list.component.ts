@@ -1,11 +1,11 @@
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CategoryService } from './../../../../services/category/category.service';
+import { CategoryService } from '../../../../../services/category/category.service';
 import { Component, OnInit } from '@angular/core';
 import { CategoryTableList } from 'src/app/models/category/category-request.model';
 import { NgFor } from '@angular/common';
 import { faParking, faPencil, faPencilSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { SpinnerModule } from '@coreui/angular';
+import { ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, SpinnerModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -14,7 +14,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrl: 'category-list.component.scss',
   standalone: true,
   imports: [NgFor, FontAwesomeModule,
-    SpinnerModule]
+    SpinnerModule,
+    ModalComponent, ModalHeaderComponent, ModalTitleDirective,
+    ModalBodyComponent, ModalFooterComponent]
 })
 export class CategoryListComponent implements OnInit {
   faEdit = faPencil;
@@ -22,6 +24,8 @@ export class CategoryListComponent implements OnInit {
   data: any;
   keyword: string = "";
   baseApi = environment.APIURL;
+  visible = false;
+
   constructor(
     private categoryService: CategoryService
   ) { }
@@ -32,11 +36,18 @@ export class CategoryListComponent implements OnInit {
           item.image = `${this.baseApi}/${item.image}`;
           return item;
         });
-        console.log(this.data);
+        console.log(res);
+        
       },
       error: () => { }
     })
   }
 
-
+  toggleLiveDemo() {
+    this.visible = !this.visible;
+  }
+  
+  handleLiveDemoChange(event: any) {
+    this.visible = event;
+  }
 }
