@@ -1,3 +1,4 @@
+
 h4 {
     margin: 2rem 0rem 1rem;
 }
@@ -7,13 +8,12 @@ h4 {
     td,
     th {
         vertical-align: middle;
-        text-align: center;
     }
 
     .img-thumbnail {
         height: 160px;
         width: 180px;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     .action-row {
@@ -25,4 +25,8 @@ h4 {
             color: red;
         }
     }
+}
+
+.btn-delete {
+    color: white;
 }

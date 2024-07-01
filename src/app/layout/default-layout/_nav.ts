@@ -32,6 +32,23 @@ export const navItems: INavData[] = [
     ]
   },
   {
+    name: 'Product',
+    url: '/auth/product',
+    iconComponent: { name: 'cil-drop' },
+    children: [
+      {
+        name: 'Product List',
+        url: '/auth/product/list',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'New Product',
+        url: '/auth/product/new',
+        icon: 'nav-icon-bullet',
+      },
+    ]
+  },
+  {
     name: 'Typography',
     url: '/theme/typography',
     linkProps: { fragment: 'headings' },

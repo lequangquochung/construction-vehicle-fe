@@ -29,8 +29,8 @@ export class CategoryService {
         return this.httpClient.get<any>(this.baseUrl + `/cms/category/${id}`);
     }
 
-    edit(id: string, payload: CategoryRequestModel): Observable<any> {
-        return this.httpClient.put<any>(this.baseUrl + `/cms/category/${id}`, payload);
+    edit(payload: CategoryRequestModel): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + `/cms/category/`, payload);
     }
 
     delete(id: string): Observable<any> {

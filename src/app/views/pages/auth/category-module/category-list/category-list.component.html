@@ -15,29 +15,76 @@
             onerror="this.src='/assets/images/img-error.jpg';">
         </td>
         <td>{{category.name?.contentEng}}</td>
-        <td>{{category.name?.contentVie}} {{category?.image}}</td>
+        <td>{{category.name?.contentVie}}</td>
         <td>
           <div class="action-row">
-            <fa-icon class="action-row-icon edit me-5"  [icon]="faEdit"></fa-icon>
-            <fa-icon class="action-row-icon delete" [icon]="faDelete"></fa-icon>
+            <fa-icon class="action-row-icon edit me-5" [icon]="faEdit"
+              (click)="toggleEditModal(category?.id)"></fa-icon>
+            <fa-icon class="action-row-icon delete" [icon]="faDelete" (click)="toggleDelete(category.id)"></fa-icon>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-
 </div>
-<button class="btn btn-primary" (click)="toggleLiveDemo()" cButton>Launch demo modal</button>
-<c-modal id="liveDemoModal" [visible]="visible" >
+
+<c-modal id="liveDemoModal" [visible]="visibleForm.edit" alignment="center">
   <c-modal-header>
-    <h5 cModalTitle>Modal title</h5>
-    <button (click)="toggleLiveDemo()" cButtonClose></button>
+    <h5 cModalTitle>Edit</h5>
   </c-modal-header>
-  <c-modal-body>Woohoo, you are reading this text in a modal!</c-modal-body>
+  <c-modal-body>
+    <div class="col-md-6">
+      <div class="row">
+        <form [formGroup]="categoryEditForm" (ngSubmit)="submitForm()">
+          <div class="form-group mb-2">
+            <label for="nameEng">Name (English)</label>
+            <input type="text" class="form-control" id="nameEng" placeholder="Enter name" formControlName="nameEng">
+          </div>
+          <div class="form-group mb-2">
+            <label for="nameVie">Name (Vie)</label>
+            <input type="text" class="form-control" id="nameVie" placeholder="Enter name" formControlName="nameVie">
+          </div>
+          <div class="form-group mb-2">
+            <label for="imageCategory">Example file input</label>
+            <input #inputFile type="file" class="form-control-file" id="imageCategory" (change)="onFileSelect($event)">
+          </div>
+        </form>
+      </div>
+    </div>
+  </c-modal-body>
   <c-modal-footer>
-    <button (click)="toggleLiveDemo()" cButton color="secondary">
+    <button (click)="toggleEditModal()" cButton class="btn btn-secondary">
       Close
     </button>
-    <button cButton color="primary">Save changes</button>
+    <button cButton class="btn btn-primary" (click)="submitForm()" [disabled]="!categoryEditForm.valid">Save</button>
   </c-modal-footer>
 </c-modal>
+
+<c-modal id="liveDemoModal" [visible]="visibleForm.delete" alignment="center">
+  <c-modal-header>
+    <h5 cModalTitle>Delete</h5>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="row">
+      <div class="col-md-12">Are you sure you want to delete ?</div>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleDelete()" cButton class="btn">Cancel</button>
+    <button cButton class="btn btn-danger btn-delete" (click)="handleDelete()" >Delete</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Successfully</c-toast-body>
+  </c-toast>
+</c-toaster>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.error" [color]="toastColors.error">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Error</c-toast-body>
+  </c-toast>
+</c-toaster>

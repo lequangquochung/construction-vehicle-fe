@@ -1,3 +1,3 @@
 export const environment = {
-    APIURL : 'https://2609-14-165-39-248.ngrok-free.app'
+    APIURL : 'http://103.149.87.78:8080'
 };

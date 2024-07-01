@@ -1,4 +1,5 @@
 export class CategoryRequestModel {
+    id?: string | undefined;
     name: CategoryName | undefined;
     image: string | undefined;
 }

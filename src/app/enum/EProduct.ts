@@ -1,0 +1,4 @@
+export enum EPRODUCT_TYPE {
+    VEHICLE = "VEHICLE",
+    SPARE_PARTS = "SPARE_PARTS"
+}

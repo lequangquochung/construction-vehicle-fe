@@ -44,7 +44,7 @@ export class AuthService {
                     localStorage.setItem(EStorageKey.AccessToken, result.data.accessToken);
                     localStorage.setItem(EStorageKey.RefreshToken, result.data.refreshToken);
                     this.currentUserChanged.next(result);
-                    return result;
+                    return result;  
                 }
                 return result;
             })

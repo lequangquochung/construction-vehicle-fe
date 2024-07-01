@@ -1,13 +1,10 @@
-import { ColorsToast } from '../../../../../enum/colors';
-import { FileService } from '../../../../../services/file/file.service';
-import { CategoryService } from '../../../../../services/category/category.service';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { Component, ElementRef, NO_ERRORS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
 import { CategoryRequestModel } from 'src/app/models/category/category-request.model';
-import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
-import { AppToastComponent } from 'src/app/views/notifications/toasters/toast-simple/toast.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ColorsToast } from '../../../../../enum/colors';
+import { CategoryService } from '../../../../../services/category/category.service';
+import { FileService } from '../../../../../services/file/file.service';
 
 
 @Component({
@@ -21,11 +18,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ToastComponent,
     ToasterComponent,
     ToastHeaderComponent,
-   
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class CategoryComponent implements OnInit {
+  @ViewChild('inputFile') inputFile!: ElementRef;
+
   categoryImg?: any;
   categoryForm = this.fb.group({
     nameEng: new FormControl<string>('', [Validators.required]),
@@ -65,6 +63,7 @@ export class CategoryComponent implements OnInit {
       },
       image: ""
     }
+
     const formData: FormData = new FormData();
     formData.append('file', this.categoryImg!);
 
@@ -80,15 +79,18 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory(categoryName: CategoryRequestModel) {
+    
     this.categoryService.create(categoryName).subscribe({
       next: (res: any) => {
         this.isShowToast = true;
-        console.log('res', res);
       },
-      error: (e: Error) => {
-        console.log(e);
-      },
+      error: (e: Error) => {},
       complete: () => {
+        this.categoryForm.patchValue({
+          nameEng: '',
+          nameVie: ''
+        });
+        this.inputFile.nativeElement.value = null;
       },
     });
   }

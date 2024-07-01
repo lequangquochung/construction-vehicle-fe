@@ -1,3 +1,53 @@
-<pre>
-  app-product
-</pre>
+<div class="row">
+  <div class="col-md-10 mb-3">
+    <form [formGroup]="productForm">
+      <div class="mb-3">
+        <label for="englishName" class="form-label">Name (English)</label>
+        <input type="text" class="form-control" id="englishName" formControlName="nameContentEng">
+      </div>
+
+      <div class="mb-3">
+        <label for="vieName" class="form-label">Name (Vie)</label>
+        <input type="text" class="form-control" id="vieName" formControlName="nameContentVie">
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" aria-label="Default select example" id="category" formControlName="categoryId">
+          <option *ngFor="let category of categoryType" [value]="category.id">{{category.name.contentVie}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="descriptionEng" class="form-label">Description (Eng)</label>
+        <textarea class="form-control" placeholder="Enter here" id="descriptionEng" style="height: 100px"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="descriptionVie" class="form-label">Description (Vie)</label>
+        <textarea class="form-control" placeholder="Enter here" id="descriptionVie" style="height: 100px"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="model" class="form-label">Model</label>
+        <input type="text" class="form-control" id="model" formControlName="model">
+      </div>
+      <div class="mb-3">
+        <label for="contact" class="form-label">Contact</label>
+        <input type="email" class="form-control" id="contact" formControlName="contact">
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" formControlName="price">
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="amount" formControlName="amount">  
+      </div>
+
+      <div class="mb-3">
+        <label for="category" class="form-label">Type</label>
+        <select class="form-select" aria-label="Default select example" id="category" formControlName="type">
+          <option *ngFor="let item of productType" [value]="item">{{item == 'VEHICLE' ? 'Vehicle' : 'Spare Parts'}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+    </form>
+  </div>
+</div>
