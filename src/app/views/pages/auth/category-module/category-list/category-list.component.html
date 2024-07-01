@@ -45,8 +45,8 @@
             <input type="text" class="form-control" id="nameVie" placeholder="Enter name" formControlName="nameVie">
           </div>
           <div class="form-group mb-2">
-            <label for="imageCategory">Example file input</label>
-            <input #inputFile type="file" class="form-control-file" id="imageCategory" (change)="onFileSelect($event)">
+            <label for="imageCategory">Current Image</label>
+            <input #inputFile type="file" class="form-control-file form-control" id="imageCategory" (change)="onFileSelect($event)">
           </div>
         </form>
       </div>

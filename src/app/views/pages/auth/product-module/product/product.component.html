@@ -40,14 +40,16 @@
         <label for="amount" class="form-label">Amount</label>
         <input type="number" class="form-control" id="amount" formControlName="amount">  
       </div>
-
       <div class="mb-3">
         <label for="category" class="form-label">Type</label>
         <select class="form-select" aria-label="Default select example" id="category" formControlName="type">
           <option *ngFor="let item of productType" [value]="item">{{item == 'VEHICLE' ? 'Vehicle' : 'Spare Parts'}}</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+      <div class="mb-3">
+        <input class="form-control" type="file" name="" id="" multiple (change)="onFileSelected($event)">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit <c-spinner size="sm"></c-spinner></button>
     </form>
   </div>
 </div>

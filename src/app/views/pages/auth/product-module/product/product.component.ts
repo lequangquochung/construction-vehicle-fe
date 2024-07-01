@@ -1,19 +1,22 @@
-import { IProductRequest } from './../../../../../models/product/IProductRequest';
+import { Description, IProductRequest, ProductName } from './../../../../../models/product/IProductRequest';
 import { NgFor } from '@angular/common';
 import { EPRODUCT_TYPE } from './../../../../../enum/EProduct';
 import { CategoryService } from './../../../../../services/category/category.service';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SpinnerModule } from '@coreui/angular';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrl: 'product.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor]
+  imports: [ReactiveFormsModule, NgFor, FormsModule, SpinnerModule]
 })
 export class ProductComponent implements OnInit {
-  gallery?: File[];
+  // gallery?: File[];
+  // filesData?: File[];
+  selectedFiles: File[] = [];
   productForm = this.fb.group({
     nameContentEng: ['', Validators.required],
     nameContentVie: ['', Validators.required],
@@ -29,7 +32,7 @@ export class ProductComponent implements OnInit {
   productType = Object.values(EPRODUCT_TYPE);
   categoryType?: any;
   keyword: string = "";
-  constructor(
+  constructor(  
     private fb: FormBuilder,
     private categoryService: CategoryService
   ) { }
@@ -39,18 +42,40 @@ export class ProductComponent implements OnInit {
 
   submitForm() {
     console.log(this.productForm.value);
-  //   const productName
-  //   const request: IProductRequest = {
-  //     name: new ProductName,
-  //     categoryId: '',
-  //     description: new Description,
-  //     model: '',
-  //     contact: '',
-  //     price: 0,
-  //     amount: 0,
-  //     type: '',
-  //     gallery: []
-  //   }
+    console.log('filesData', this.selectedFiles);
+    
+    const productName: ProductName = {
+      contentEng: this.productForm.get('nameContentEng')?.value!,
+      contentVie: this.productForm.get('nameContentVie')?.value!,
+    }
+
+    const description: Description = {
+      contentEng: undefined,
+      contentVie: undefined
+    }
+
+    // const formData: FormData;
+    const formData: FormData = new FormData();
+    // formData.append('file', this.selectedFiles!);
+
+    const request: IProductRequest = {
+      name: new ProductName,
+      categoryId: '',
+      description: new Description,
+      model: '',
+      contact: '',
+      price: 0,
+      amount: 0,
+      type: '',
+      gallery: []
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFiles = event.target.files;
+    for (let i = 0; i < event.target.files; i++) {
+      this.selectedFiles.push(event.target.files[i]);
+    };
   }
 
   private getCategory() {
