@@ -17,7 +17,7 @@ export class FileService {
         return this.httpClient.post<any>(this.baseUrl + '/cms/upload/single', payload);
     }
 
-    uploadMultiple(payload: Array<File>): Observable<IResponseData<any>> {
-        return this.httpClient.post<any>(this.baseUrl + '/cms/upload/single', payload);
+    uploadMultiple(payload: FormData): Observable<IResponseData<any>> {
+        return this.httpClient.post<any>(this.baseUrl + '/cms/upload/array', payload);
     }
 }
