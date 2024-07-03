@@ -1,3 +1,28 @@
-<pre>
-  app-product-list
-</pre>
+<!-- <div class="col-md-12">
+  <table class="table table-image">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">English Name</th>
+        <th scope="col">Vietnamese Name</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of data">
+        <td class="w-25">
+          <img [src]="category?.image" class="img-fluid img-thumbnail" [alt]="category.name.contentEng"
+            onerror="this.src='/assets/images/img-error.jpg';">
+        </td>
+        <td>{{category.name?.contentEng}}</td>
+        <td>{{category.name?.contentVie}}</td>
+        <td>
+          <div class="action-row">
+            <fa-icon class="action-row-icon edit me-5" [icon]="faEdit"
+              (click)="toggleEditModal(category?.id)"></fa-icon>
+            <fa-icon class="action-row-icon delete" [icon]="faDelete" (click)="toggleDelete(category.id)"></fa-icon>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </tabl -->

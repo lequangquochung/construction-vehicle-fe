@@ -17,7 +17,7 @@ import { SpinnerModule } from '@coreui/angular';
 export class ProductComponent implements OnInit {
   // gallery?: File[];
   // filesData?: File[];
-  selectedFiles: any = [];
+  selectedFiles: File[] = [];
   productForm = this.fb.group({
     nameContentEng: ['', Validators.required],
     nameContentVie: ['', Validators.required],
@@ -43,51 +43,34 @@ export class ProductComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.productForm.value);
-    console.log('filesData', this.selectedFiles);
-    const formData = new FormData();
+    // console.log(this.productForm.value);
+    const formData: FormData = new FormData();
+    this.selectedFiles.forEach((file, index) => {
+      formData.append('files', file, file.name);
+    });
+    this.fileService.uploadMultiple(formData!)
     
-    // this.selectedFiles.forEach((item) => {
-    //   formData.append('files[]', item);
-    // })
+    let productName: ProductName = {
+      contentEng: this.productForm.get('nameContentEng')?.value!,
+      contentVie: this.productForm.get('nameContentVie')?.value!,
+    }
 
-  for (let index = 0; index < this.selectedFiles; index++) {
-    // formData = this.selectedFiles[index];
-    formData.append('files[]', this.selectedFiles[index]);
-    
-  }
-    this.fileService.uploadMultiple(formData).subscribe({
-      next: (res) => {
-        console.log('res', res);
-      }
-    })
+    let description: Description = {
+      contentEng: "",
+      contentVie: "undefined"
+    }
 
-
-    // const productName: ProductName = {
-    //   contentEng: this.productForm.get('nameContentEng')?.value!,
-    //   contentVie: this.productForm.get('nameContentVie')?.value!,
-    // }
-
-    // const description: Description = {
-    //   contentEng: undefined,
-    //   contentVie: undefined
-    // }
-
-    // // const formData: FormData;
-    // const formData: FormData = new FormData();
-    // // formData.append('file', this.selectedFiles!);
-
-    // const request: IProductRequest = {
-    //   name: new ProductName,
-    //   categoryId: '',
-    //   description: new Description,
-    //   model: '',
-    //   contact: '',
-    //   price: 0,
-    //   amount: 0,
-    //   type: '',
-    //   gallery: []
-    // }
+    const request: IProductRequest = {
+      name: productName,
+      categoryId: '',
+      description:description,
+      model: '',
+      contact: '',
+      price: 0,
+      amount: 0,
+      type: '',
+      gallery: []
+    }
   }
 
   onFileSelected(event: any) {
