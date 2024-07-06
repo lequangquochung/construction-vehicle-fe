@@ -1,6 +1,6 @@
 export class IProductRequest {
     name: ProductName| undefined;
-    categoryId: string | undefined;
+    categoryId: number | undefined;
     description: Description | undefined;
     model: string | undefined;
     contact: string | undefined;

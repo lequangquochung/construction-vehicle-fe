@@ -18,11 +18,11 @@
       </div>
       <div class="mb-3">
         <label for="descriptionEng" class="form-label">Description (Eng)</label>
-        <textarea class="form-control" placeholder="Enter here" id="descriptionEng" style="height: 100px"></textarea>
+        <textarea class="form-control" placeholder="Enter here" id="descriptionEng" formControlName="descriptionEng" style="height: 100px"></textarea>
       </div>
       <div class="mb-3">
         <label for="descriptionVie" class="form-label">Description (Vie)</label>
-        <textarea class="form-control" placeholder="Enter here" id="descriptionVie" style="height: 100px"></textarea>
+        <textarea class="form-control" placeholder="Enter here" id="descriptionVie" formControlName="descriptionVie" style="height: 100px"></textarea>
       </div>
       <div class="mb-3">
         <label for="model" class="form-label">Model</label>
@@ -53,3 +53,18 @@
     </form>
   </div>
 </div>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast" [color]="toastColors" >
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Successfully</c-toast-body>
+  </c-toast>
+</c-toaster>
+
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.error" [color]="toastColors.error">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Error</c-toast-body>
+  </c-toast>
+</c-toaster>

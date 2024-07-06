@@ -79,7 +79,6 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory(categoryName: CategoryRequestModel) {
-    
     this.categoryService.create(categoryName).subscribe({
       next: (res: any) => {
         this.isShowToast = true;
