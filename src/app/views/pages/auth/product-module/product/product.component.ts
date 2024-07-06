@@ -27,11 +27,17 @@ export class ProductComponent implements OnInit {
   positions = Object.values(ToasterPlacement);
   position = ToasterPlacement.TopEnd;
   positionStatic = ToasterPlacement.BottomEnd;
-  toastColors = ColorsToast.success;
+  toastColors = {
+    success: ColorsToast.success,
+    error: ColorsToast.danger
+  };
   autoHide = true;
   delay = 3000;
   fade = true;
-  isShowToast = false;
+  isShowToast = {
+    success: false,
+    error: false
+  }
 
   selectedFiles: File[] = new Array();
   productForm = this.fb.group({
@@ -114,10 +120,10 @@ export class ProductComponent implements OnInit {
     this.productService.create(payload).subscribe({
       next: (res) => {
         console.log('create', res);
-        this.isShowToast = true;
+        this.isShowToast.success = true;
       },
       error: (error: Error) => {
-        
+
       }
 
     })
