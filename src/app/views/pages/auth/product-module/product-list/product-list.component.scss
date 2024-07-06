@@ -1,0 +1,37 @@
+table.table-product {
+    tr:first-child {}
+}
+
+
+h4 {
+    margin: 2rem 0rem 1rem;
+}
+
+.table-image {
+
+    td,
+    th {
+        vertical-align: middle;
+    }
+
+    .img-thumbnail {
+        height: 160px;
+        width: 180px;
+        min-width: 180px;
+        object-fit: cover;
+    }
+
+    .action-row {
+        .edit, .delete {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .delete{
+            color: red;
+        }
+    }
+}
+
+.btn-delete {
+    color: white;
+}
