@@ -69,8 +69,8 @@ export class CategoryListComponent implements OnInit {
   }
 
   toggleEditModal(id?: string) {
-    this.currentID = id;
     this.visibleForm.edit = !this.visibleForm.edit;
+    this.currentID = id;
     if (this.visibleForm.edit) {
       this.categoryService.getById(id!).subscribe({
         next: (res) => {

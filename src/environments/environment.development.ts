@@ -1,3 +1,3 @@
 export const environment = {
-    APIURL : 'http://103.149.87.78:8080'
+    APIURL : 'https://backend-construc.website'
 };

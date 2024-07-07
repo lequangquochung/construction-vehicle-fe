@@ -1,5 +1,5 @@
-<div class="col-md-12">
-  <table class="table table-image table-product">
+<div class="col-md-12 overflow-scroll">
+  <table class="table table-image table-product table-hover">
     <thead>
       <tr>
         <th scope="col">Image</th>
@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of products" (dblclick)="toggleEditModal(product?.id)">
         <td class="">
           <img [src]="product?.image" class="img-fluid img-thumbnail" [alt]="product.name.contentEng"
             onerror="this.src='/assets/images/img-error.jpg';">
@@ -50,8 +50,8 @@
           <p class="ellipsis" cTooltip="{{product.contact}}">{{product.contact}}</p>
         </td>
         <td>
-          <div class="action-row">
-            <fa-icon class="action-row-icon edit me-5" [icon]="faEdit" (click)="toggleEditModal(product?.id)"></fa-icon>
+          <div class="action-row pe-2">
+            <fa-icon class="action-row-icon edit me-3" [icon]="faEdit" (click)="toggleEditModal(product?.id)"></fa-icon>
             <fa-icon class="action-row-icon delete" [icon]="faDelete" (click)="toggleDelete(product.id)"></fa-icon>
           </div>
         </td>
@@ -59,3 +59,91 @@
     </tbody>
   </table>
 </div>
+
+<c-modal id="liveDemoModal" [visible]="visibleForm.edit" alignment="center" size="lg">
+  <c-modal-header>
+    <h5 cModalTitle>Edit</h5>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="col-md-12">
+      <div class="row">
+        <form [formGroup]="productEditForm" (ngSubmit)="submitForm()">
+          <div class="form-group mb-2">
+            <label for="nameContentEng">Name (English)</label>
+            <input type="text" class="form-control" id="nameContentEng" placeholder="Enter name" formControlName="nameContentEng">
+          </div>
+          <div class="form-group mb-2">
+            <label for="nameContentVie">Name (Vie)</label>
+            <input type="text" class="form-control" id="nameContentVie" placeholder="Enter name" formControlName="nameContentVie">
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" formControlName="categoryId">
+              <option *ngFor="let category of categoryType" [value]="category.id">{{category.name.contentVie}}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="nameVie">Description (Vie)</label>
+            <input type="text" class="form-control" id="descriptionEng" placeholder="Enter here"
+              formControlName="descriptionEng">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="nameVie">Description (Vie)</label>
+            <input type="text" class="form-control" id="descriptionVie" placeholder="Enter here"
+              formControlName="descriptionVie">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="nameVie">Model</label>
+            <input type="text" class="form-control" id="model" placeholder="Enter here" formControlName="model">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="nameVie">Contact</label>
+            <input type="text" class="form-control" id="contact" placeholder="Enter here" formControlName="contact">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="nameVie">Price</label>
+            <input type="text" class="form-control" id="price" placeholder="Enter here" formControlName="price">
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="nameVie">Amount</label>
+            <input type="text" class="form-control" id="amount" placeholder="Enter here" formControlName="amount">
+          </div>
+
+          <div class="mb-2">
+            <label for="">Thumbnails</label>
+            <div class="thumbnails">
+              <img *ngFor="let img of currentImgs" [src]="img" class="me-3 rounded float-start thumbnails-item" alt="...">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleEditModal()" cButton class="btn btn-secondary">
+      Close
+    </button>
+    <button cButton class="btn btn-primary" (click)="submitForm()" [disabled]="!productEditForm.valid">Save</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-modal id="liveDemoModal" [visible]="visibleForm.delete" alignment="center">
+  <c-modal-header>
+    <h5 cModalTitle>Delete</h5>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="row">
+      <div class="col-md-12">Are you sure you want to delete ?</div>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleDelete()" cButton class="btn">Cancel</button>
+    <button cButton class="btn btn-danger btn-delete" (click)="handleDelete()">Delete</button>
+  </c-modal-footer>
+</c-modal>

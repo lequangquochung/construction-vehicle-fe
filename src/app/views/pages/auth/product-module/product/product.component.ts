@@ -4,7 +4,7 @@ import { Description, IProductRequest, ProductName } from './../../../../../mode
 import { NgFor } from '@angular/common';
 import { EPRODUCT_TYPE } from './../../../../../enum/EProduct';
 import { CategoryService } from './../../../../../services/category/category.service';
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, ElementRef, NgModule, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
 import { ColorsToast } from 'src/app/enum/colors';
@@ -24,8 +24,7 @@ import { ColorsToast } from 'src/app/enum/colors';
 })
 export class ProductComponent implements OnInit {
 
-  positions = Object.values(ToasterPlacement);
-  position = ToasterPlacement.TopEnd;
+  @ViewChild('inputFiles') inputFiles!: ElementRef;
   positionStatic = ToasterPlacement.BottomEnd;
   toastColors = {
     success: ColorsToast.success,
@@ -55,6 +54,8 @@ export class ProductComponent implements OnInit {
   productType = Object.values(EPRODUCT_TYPE);
   categoryType?: any;
   keyword: string = "";
+
+  
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
@@ -92,13 +93,20 @@ export class ProductComponent implements OnInit {
       type: this.productForm.get('type')?.value!,
       gallery: []
     }
+    if (formData) {
+      this.fileService.uploadMultiple(formData!).subscribe({
+        next: (res) => {
+          request.gallery = res.data;
+          this.createProduct(request);
+        },
+        error: (e: Error) => {
+          this.isShowToast.error = true;
+        },
+      })
+    } else {
+      this.createProduct(request);
+    }
 
-    this.fileService.uploadMultiple(formData!).subscribe({
-      next: (res) => {
-        request.gallery = res.data;
-        this.createProduct(request);
-      }
-    })
   }
 
   onFileSelected(event: any) {
@@ -112,20 +120,23 @@ export class ProductComponent implements OnInit {
     this.categoryService.getAll(this.keyword).subscribe({
       next: (res) => {
         this.categoryType = res.data.data;
+      },
+      error: (e: Error) => {
+        this.isShowToast.error = true;
       }
-    })
+    });
   }
 
   createProduct(payload: IProductRequest) {
     this.productService.create(payload).subscribe({
       next: (res) => {
-        console.log('create', res);
         this.isShowToast.success = true;
+        this.productForm.reset();
+        this.inputFiles.nativeElement.value = null;
       },
       error: (error: Error) => {
-
-      }
-
-    })
+        this.isShowToast.error = true;
+      },
+    });
   }
 }

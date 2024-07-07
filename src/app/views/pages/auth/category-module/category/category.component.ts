@@ -33,11 +33,18 @@ export class CategoryComponent implements OnInit {
   positions = Object.values(ToasterPlacement);
   position = ToasterPlacement.TopEnd;
   positionStatic = ToasterPlacement.BottomEnd;
-  toastColors = ColorsToast.success;
   autoHide = true;
   delay = 3000;
   fade = true;
-  isShowToast = false;
+  isShowToast = {
+    success: false,
+    error: false
+  };
+
+  toastColors = {
+    success: ColorsToast.success,
+    error: ColorsToast.danger
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -66,24 +73,30 @@ export class CategoryComponent implements OnInit {
 
     const formData: FormData = new FormData();
     formData.append('file', this.categoryImg!);
-
-    this.fileService.uploadSingle(formData).subscribe({
-      next: (res) => {
-        categoryName.image = res.data;
-        this.createCategory(categoryName);
-      }, error: (e: Error) => {
-        this.isShowToast = true;
-        this.toastColors = ColorsToast.danger;
-      }
-    });
+    if (formData) {
+      this.fileService.uploadSingle(formData).subscribe({
+        next: (res) => {
+          categoryName.image = res.data;
+          this.createCategory(categoryName);
+        }, error: (e: Error) => {
+          this.isShowToast.error = true;
+          this.toastColors.error = ColorsToast.danger;
+        }
+      });
+    } else {
+      this.createCategory(categoryName);
+    }
   }
 
   createCategory(categoryName: CategoryRequestModel) {
     this.categoryService.create(categoryName).subscribe({
       next: (res: any) => {
-        this.isShowToast = true;
+        this.isShowToast.success = true;
       },
-      error: (e: Error) => {},
+      error: (e: Error) => {
+        this.isShowToast.error = true;
+        this.toastColors.error = ColorsToast.danger;
+      },
       complete: () => {
         this.categoryForm.patchValue({
           nameEng: '',

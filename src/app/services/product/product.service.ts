@@ -25,4 +25,16 @@ export class ProductService {
         });
         return this.httpClient.get<any>(this.baseUrl + `/cms/product`, options);
     }
+
+    getById(id: string): Observable<any> {
+        return this.httpClient.get<any>(this.baseUrl + `/cms/product/${id}`);
+    }
+
+    edit(payload: IProductRequest): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + `/cms/product/`, payload);
+    }
+
+    delete(id: string): Observable<any> {
+        return this.httpClient.delete<any>(this.baseUrl + `/cms/product/${id}`);
+    }
 }
