@@ -1,5 +1,6 @@
 export class IProductRequest {
-    name: ProductName| undefined;
+    id?: string | undefined;
+    name: ProductName | undefined;
     categoryId: number | undefined;
     description: Description | undefined;
     model: string | undefined;
@@ -7,7 +8,8 @@ export class IProductRequest {
     price: number | undefined;
     amount: number | undefined;
     type: string | undefined;
-    gallery: File[] | undefined;
+    gallery: any[] | undefined;
+    status?: number | undefined;
 }
 
 export class ProductName {

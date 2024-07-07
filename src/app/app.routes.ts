@@ -1,3 +1,5 @@
+import { AccessaryComponent } from './views/pages/client-page/accessary/accessary.component';
+import { ProductsComponent } from './views/pages/client-page/products/products.component';
 import { ContactUsComponent } from './views/pages/client-page/contact-us/contact-us.component';
 import { InstallmentComponent } from './views/pages/client-page/installment/installment.component';
 import { ParkingLotComponent } from './views/pages/client-page/parking-lot/parking-lot.component';
@@ -16,7 +18,7 @@ export const routes: Routes = [
     component: DashboardClientComponent,
     children: [
       {
-        path:'',
+        path: '',
         pathMatch: 'full',
         component: PreviewComponent
       }
@@ -26,7 +28,7 @@ export const routes: Routes = [
         component: AboutUsComponent
       },
       {
-        path:'parking',
+        path: 'parking',
         component: ParkingLotComponent
       },
       {
@@ -36,6 +38,14 @@ export const routes: Routes = [
       {
         path: 'contact-us',
         component: ContactUsComponent
+      },
+      {
+        path: 'products',
+        component: ProductsComponent
+      },
+      {
+        path: 'product-accessary',
+        component: AccessaryComponent
       }
     ]
   },

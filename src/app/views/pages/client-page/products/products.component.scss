@@ -1,0 +1,34 @@
+.nav-product-preview {
+    background: #080b8f;
+    height: 50px;
+
+    h3 {
+        color: white;
+    }
+}
+
+.product {
+    .product-item {
+        cursor: pointer;
+
+        img {
+            object-fit: cover;
+        }
+
+        .product-item-title {
+            font-size: 1rem;
+            font-weight: 600;
+            background: #c7c7c7;
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .product-item-count {
+            font-size: 1rem;
+            font-weight: bold;
+            background: #afafaf;
+        }
+    }
+}

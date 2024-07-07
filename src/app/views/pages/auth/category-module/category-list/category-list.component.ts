@@ -122,7 +122,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   editCategory(payload: CategoryRequestModel) {
-    console.log(payload);
     this.categoryService.edit(payload).subscribe({
       next: (res) => {
         this.isShowToast.success = true;

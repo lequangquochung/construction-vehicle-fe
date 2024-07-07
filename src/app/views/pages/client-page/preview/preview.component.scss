@@ -9,14 +9,26 @@
 
 .product {
     .product-item {
+        cursor: pointer;
+
         img {
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .product-item-title {
-            font-size: 1.25rem;
+            font-size: 1rem;
             font-weight: 600;
             background: #c7c7c7;
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .product-item-count {
+            font-size: 1rem;
+            font-weight: bold;
+            background: #afafaf;
         }
     }
 }

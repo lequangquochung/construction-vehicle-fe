@@ -7,7 +7,7 @@ import { environment } from './../../../../environments/environment';
     providedIn: 'root'
 })
 
-export class ProductClientService {
+export class CategoryClientService {
     constructor(private httpClient: HttpClient) {
     }
     private baseUrl = `${environment.APIURL}`

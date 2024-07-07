@@ -70,11 +70,13 @@
         <form [formGroup]="productEditForm" (ngSubmit)="submitForm()">
           <div class="form-group mb-2">
             <label for="nameContentEng">Name (English)</label>
-            <input type="text" class="form-control" id="nameContentEng" placeholder="Enter name" formControlName="nameContentEng">
+            <input type="text" class="form-control" id="nameContentEng" placeholder="Enter name"
+              formControlName="nameContentEng">
           </div>
           <div class="form-group mb-2">
             <label for="nameContentVie">Name (Vie)</label>
-            <input type="text" class="form-control" id="nameContentVie" placeholder="Enter name" formControlName="nameContentVie">
+            <input type="text" class="form-control" id="nameContentVie" placeholder="Enter name"
+              formControlName="nameContentVie">
           </div>
           <div class="mb-3">
             <label for="category" class="form-label">Category</label>
@@ -84,42 +86,50 @@
           </div>
 
           <div class="form-group mb-2">
-            <label for="nameVie">Description (Vie)</label>
+            <label for="descriptionEng">Description (Vie)</label>
             <input type="text" class="form-control" id="descriptionEng" placeholder="Enter here"
               formControlName="descriptionEng">
           </div>
 
           <div class="form-group mb-2">
-            <label for="nameVie">Description (Vie)</label>
+            <label for="descriptionVie">Description (Vie)</label>
             <input type="text" class="form-control" id="descriptionVie" placeholder="Enter here"
               formControlName="descriptionVie">
           </div>
 
           <div class="form-group mb-2">
-            <label for="nameVie">Model</label>
+            <label for="model">Model</label>
             <input type="text" class="form-control" id="model" placeholder="Enter here" formControlName="model">
           </div>
 
           <div class="form-group mb-2">
-            <label for="nameVie">Contact</label>
+            <label for="contact">Contact</label>
             <input type="text" class="form-control" id="contact" placeholder="Enter here" formControlName="contact">
           </div>
 
           <div class="form-group mb-2">
-            <label for="nameVie">Price</label>
-            <input type="text" class="form-control" id="price" placeholder="Enter here" formControlName="price">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" formControlName="price">
           </div>
 
           <div class="form-group mb-2">
-            <label for="nameVie">Amount</label>
-            <input type="text" class="form-control" id="amount" placeholder="Enter here" formControlName="amount">
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" id="amount" placeholder="Enter here" formControlName="amount">
           </div>
 
-          <div class="mb-2">
+          <div class="form-group mb-2">
             <label for="">Thumbnails</label>
             <div class="thumbnails">
-              <img *ngFor="let img of currentImgs" [src]="img" class="me-3 rounded float-start thumbnails-item" alt="...">
+              <div *ngFor="let img of currentImgs" class="thumbnails-block">
+                <fa-icon class="btn-delete-img" [icon]="faClose" (click)="toggleDeleteGallery(img)"></fa-icon>
+                <img [src]="img" class="me-3 rounded float-start thumbnails-item" alt="...">
+              </div>
             </div>
+          </div>
+
+          <div class="form-group mb-2">
+            <input #inputFiles class="form-control" type="file" name="" id="" multiple
+              (change)="onFileSelected($event)">
           </div>
         </form>
       </div>
@@ -147,3 +157,33 @@
     <button cButton class="btn btn-danger btn-delete" (click)="handleDelete()">Delete</button>
   </c-modal-footer>
 </c-modal>
+
+
+<c-modal id="liveDemoModal" [visible]="visibleForm.gallery" alignment="center">
+  <c-modal-header>
+    <h5 cModalTitle>Delete this image?</h5>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="row">
+      <div class="col-md-12">Are you sure you want to delete ?</div>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleDeleteGallery()" cButton class="btn">Cancel</button>
+    <button cButton class="btn btn-danger btn-delete" (click)="handleDeleteGallery()">Delete</button>
+  </c-modal-footer>
+</c-modal>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Successfully</c-toast-body>
+  </c-toast>
+</c-toaster>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.error" [color]="toastColors.error">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Error</c-toast-body>
+  </c-toast>
+</c-toaster>

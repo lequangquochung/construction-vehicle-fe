@@ -91,8 +91,9 @@ export class ProductComponent implements OnInit {
       price: this.productForm.get('price')?.value!,
       amount: this.productForm.get('amount')?.value!,
       type: this.productForm.get('type')?.value!,
-      gallery: []
+      gallery: [],
     }
+    
     if (formData) {
       this.fileService.uploadMultiple(formData!).subscribe({
         next: (res) => {
