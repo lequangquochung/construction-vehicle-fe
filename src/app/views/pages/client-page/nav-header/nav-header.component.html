@@ -18,36 +18,35 @@
                     <a class="nav-link" routerLink="/dashboard/about-us">GIỚI THIỆU</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/parking">BÃI XE</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/installment">TRẢ GÓP</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" routerLink="/dashboard/products">SẢN PHẨM</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/dashboard/product-accessary">PHỤ TÙNG</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" routerLink="/dashboard/installment">TRẢ GÓP</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/dashboard/parking">VỊ TRÍ BÃI XE</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" routerLink="/dashboard/contact-us">LIÊN HỆ</a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
-          </li> -->
-            </ul>
-            <form class="d-flex" role="search">
+            <form class="ms-5 d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
+                <!-- <fa-icon class="action-row-icon edit me-3" [icon]="faIcon.faSearch"></fa-icon> -->
             </form>
+
+            <a class="nav-link" routerLink="/dashboard/cart">
+                <button type="button" class="ms-2 cart-badge btn btn-primary position-relative">
+                    <fa-icon class="action-row-icon edit me-3" [icon]="faIcon.faCartPlus"></fa-icon>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{cartCount}}
+                    </span>
+                </button></a>
+
         </div>
     </div>
 </nav>

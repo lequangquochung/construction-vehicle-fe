@@ -8,3 +8,71 @@
     <p class="product-item-count text-center">{{item.productCount}} SẢN PHẨM</p>
   </div>
 </div>
+
+<div class="nav-product-preview d-flex justify-content-center align-items-center mb-3">
+  <h3 class="text-center m-0">TẤT CẢ SẢN PHẨM</h3>
+</div>
+
+<div class="product-list">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- <table class="table table-image table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">THÔNG TIN</th>
+            <th scope="col">GIÁ</th>
+            <th scope="col">MÔ TẢ</th>
+            <th scope="col">ẢNH</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>
+              <div class="d-flex">
+                <div class="product-table-img">
+                  <img [src]="product?.image" class="img-fluid img-thumbnail" [alt]="product.name.contentEng"
+                    onerror="this.src='/assets/images/img-error.jpg';">
+                </div>
+                <div class="product-table-text ms-5">
+                  <p><b>{{product.model | uppercase}}</b></p>
+                  <p>{{product.name | uppercase}}</p>
+                  <p>{{product.category?.name | uppercase}}</p>
+                  <button class="btn-order" (click)="addToCart(product)">
+                    <fa-icon class="action-row-icon edit me-3"
+                      [icon]="faIcon.faCartPlus"></fa-icon><span>Order</span></button>
+                </div>
+              </div>
+            </td>
+            <td>
+              {{product.price}}
+            </td>
+            <td>
+              {{product.description}}
+            </td>
+            <td class="align-middle text-center">
+              <fa-icon class="action-row-icon edit me-3" [icon]="faIcon.faPhotoFilm"></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+      <div class="card mb-3" *ngFor="let product of products">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img [src]="product.image" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                content. This content is a little bit longer.</p>
+              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

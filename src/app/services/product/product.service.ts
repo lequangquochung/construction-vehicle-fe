@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IProductRequest } from '../../models/product/IProductRequest';
+import { IProduct } from '../../models/product/IProductRequest';
 import { Observable } from 'rxjs';
 import { IResponseData } from './../../models/IResponse-data.model';
 import { createRequestOptions } from "../../helpers/RequestOptions";
@@ -15,7 +15,7 @@ export class ProductService {
     }
     private baseUrl = `${environment.APIURL}`
 
-    create(payload: IProductRequest): Observable<IResponseData<any>> {
+    create(payload: IProduct): Observable<IResponseData<any>> {
         return this.httpClient.post<any>(this.baseUrl + '/cms/product', payload)
     }
 
@@ -30,7 +30,7 @@ export class ProductService {
         return this.httpClient.get<any>(this.baseUrl + `/cms/product/${id}`);
     }
 
-    edit(payload: IProductRequest): Observable<any> {
+    edit(payload: IProduct): Observable<any> {
         return this.httpClient.put<any>(this.baseUrl + `/cms/product/`, payload);
     }
 

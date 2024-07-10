@@ -1,0 +1,44 @@
+<div class="product-list">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-image table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">THÔNG TIN</th>
+            <th scope="col">GIÁ</th>
+            <th scope="col">MÔ TẢ</th>
+            <th scope="col">XOÁ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of cartProducts">
+            <td>
+              <div class="d-flex">
+                <div class="product-table-img">
+                  <img [src]="product?.image" class="img-fluid img-thumbnail" [alt]="product.name"
+                    onerror="this.src='/assets/images/img-error.jpg';">
+                </div>
+                <div class="product-table-text ms-5">
+                  <p><b>{{product.model | uppercase}}</b></p>
+                  <p>{{product.name | uppercase}}</p>
+                  <p>{{product.category?.name | uppercase}}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <!-- {{product.}} -->sdsa
+            </td>
+            <td>
+              {{product.description}}
+            </td>
+
+            <td class="align-middle text-center">
+              <fa-icon class="action-row-icon btn-delete" (click)="removeItem(product.id)" [icon]="faIcon.faTrash"></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { faClose, faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ColorsToast } from 'src/app/enum/colors';
-import { IProductRequest } from 'src/app/models/product/IProductRequest';
+import { IProduct } from 'src/app/models/product/IProductRequest';
 import { FileService } from 'src/app/services/file/file.service';
 
 @Component({
@@ -105,7 +105,7 @@ export class ProductListComponent implements OnInit {
       formData.append('files', file, file.name);
     });
 
-    let productRequest: IProductRequest = {
+    let productRequest: IProduct = {
       name: {
         contentEng: this.productEditForm.get('nameContentEng')?.value!,
         contentVie: this.productEditForm.get('nameContentVie')?.value!,
@@ -199,7 +199,7 @@ export class ProductListComponent implements OnInit {
     this.galleryItemId = id;
   }
 
-  editProduct(payload: IProductRequest) {
+  editProduct(payload: IProduct) {
     this.productService.edit(payload).subscribe({
       next: (res) => {
         this.isShowToast.success = true;

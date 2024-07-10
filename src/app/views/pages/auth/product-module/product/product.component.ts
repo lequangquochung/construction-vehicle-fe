@@ -1,13 +1,13 @@
-import { ProductService } from './../../../../../services/product/product.service';
-import { FileService } from 'src/app/services/file/file.service';
-import { Description, IProductRequest, ProductName } from './../../../../../models/product/IProductRequest';
 import { NgFor } from '@angular/common';
-import { EPRODUCT_TYPE } from './../../../../../enum/EProduct';
-import { CategoryService } from './../../../../../services/category/category.service';
-import { Component, ElementRef, NgModule, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormsModule, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
 import { ColorsToast } from 'src/app/enum/colors';
+import { FileService } from 'src/app/services/file/file.service';
+import { EPRODUCT_TYPE } from './../../../../../enum/EProduct';
+import { Description, IProduct, ProductName } from './../../../../../models/product/IProductRequest';
+import { CategoryService } from './../../../../../services/category/category.service';
+import { ProductService } from './../../../../../services/product/product.service';
 
 @Component({
   selector: 'app-product',
@@ -82,7 +82,7 @@ export class ProductComponent implements OnInit {
       contentVie: this.productForm.get('descriptionVie')?.value!,
     }
 
-    let request: IProductRequest = {
+    let request: IProduct = {
       name: productName,
       categoryId: parseInt(this.productForm.get('categoryId')?.value!),
       description: description,
@@ -128,7 +128,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  createProduct(payload: IProductRequest) {
+  createProduct(payload: IProduct) {
     this.productService.create(payload).subscribe({
       next: (res) => {
         this.isShowToast.success = true;

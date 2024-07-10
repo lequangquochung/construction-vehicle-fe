@@ -1,3 +1,4 @@
+import { AddToCartComponent } from './views/pages/client-page/add-to-cart/add-to-cart.component';
 import { AccessaryComponent } from './views/pages/client-page/accessary/accessary.component';
 import { ProductsComponent } from './views/pages/client-page/products/products.component';
 import { ContactUsComponent } from './views/pages/client-page/contact-us/contact-us.component';
@@ -46,6 +47,10 @@ export const routes: Routes = [
       {
         path: 'product-accessary',
         component: AccessaryComponent
+      },
+      {
+        path: 'cart',
+        component: AddToCartComponent
       }
     ]
   },

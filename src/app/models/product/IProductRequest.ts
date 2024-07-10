@@ -1,4 +1,4 @@
-export class IProductRequest {
+export class IProduct {
     id?: string | undefined;
     name: ProductName | undefined;
     categoryId: number | undefined;
