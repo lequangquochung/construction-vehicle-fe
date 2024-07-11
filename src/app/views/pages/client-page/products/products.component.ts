@@ -8,6 +8,7 @@ import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faEdit, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
 import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +21,9 @@ export class ProductsComponent implements OnInit {
   constructor(
     private categoryClientService: CategoryClientService,
     private productClientService: ProductClientService,
-    private addToCartService: AddToCartService
+    private addToCartService: AddToCartService,
+    private router: Router
+
   ) { }
   keyword: string = "";
   products: any = [];
@@ -73,5 +76,9 @@ export class ProductsComponent implements OnInit {
 
   addToCart(item: any) {
     this.addToCartService.sendData(item);
+  }
+
+  redirectToDetail(id: string){
+    this.router.navigate([`/dashboard/products/${id}`]);
   }
 }

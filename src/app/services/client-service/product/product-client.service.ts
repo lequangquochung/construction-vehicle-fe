@@ -20,5 +20,9 @@ export class ProductClientService {
         return this.httpClient.get<any>(this.baseUrl + `/product/vi`, options);
     }
 
+    getById(id: string, lang: string): Observable<any> {
+        return this.httpClient.get<any>(this.baseUrl + `/product/${id}/${lang}/`);
+    }
+
     
 }

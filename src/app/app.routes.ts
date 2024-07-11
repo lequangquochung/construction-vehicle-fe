@@ -1,3 +1,4 @@
+import { ProductDetailComponent } from './views/pages/client-page/product-detail/product-detail.component';
 import { AddToCartComponent } from './views/pages/client-page/add-to-cart/add-to-cart.component';
 import { AccessaryComponent } from './views/pages/client-page/accessary/accessary.component';
 import { ProductsComponent } from './views/pages/client-page/products/products.component';
@@ -43,6 +44,10 @@ export const routes: Routes = [
       {
         path: 'products',
         component: ProductsComponent
+      },
+      {
+        path: 'products/:id',
+        component: ProductDetailComponent
       },
       {
         path: 'product-accessary',
