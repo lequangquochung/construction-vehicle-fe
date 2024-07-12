@@ -6,6 +6,7 @@ import {UpperCasePipe} from '@angular/common';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preview',
@@ -16,7 +17,8 @@ import { CategoryClientService } from 'src/app/services/client-service/category/
 })
 export class PreviewComponent implements OnInit {
   constructor(
-    private categoryClientService: CategoryClientService
+    private categoryClientService: CategoryClientService,
+    private router: Router
   ) { }
   keyword: string = "";
   categorys: any = [];
@@ -43,5 +45,12 @@ export class PreviewComponent implements OnInit {
       },
       error: () => { }
     })
+  }
+
+  redirectToProductsl(categoryId: string){
+    const param = {
+      categoryId: categoryId,
+    }
+    this.router.navigate([`/dashboard/products/`],{queryParams: param});
   }
 }

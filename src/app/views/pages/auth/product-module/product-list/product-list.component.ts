@@ -131,7 +131,6 @@ export class ProductListComponent implements OnInit {
           this.changedCategoryImgs = res.data;
           productRequest.gallery = this.currentImgs?.concat(res.data);
           productRequest.gallery = this.removeImgLink(productRequest.gallery!);
-          console.log('productRequest', productRequest);
           
           this.editProduct(productRequest);
         },

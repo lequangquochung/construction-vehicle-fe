@@ -39,13 +39,12 @@ export class AddToCartComponent implements OnInit {
     const value = localStorage.getItem(this.STORAGE_KEY);
     let data: [] = value ? JSON.parse(value) : [];
 
-    console.log('data',data);
 
     // let uniqueArray = data.filter((item: any, index, self) =>
     //   index === self.findIndex((t: any) => t.id === item.id)
     // );
 
-    console.log(this.checkDuplicateCartItem(data));
+    // console.log(this.checkDuplicateCartItem(data));
 
 
     // this.cartProducts = [...uniqueArray];

@@ -8,7 +8,7 @@ import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faEdit, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
 import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TextColorDirective, ToastBodyComponent, ToastComponent, ToasterComponent, ToasterPlacement, ToastHeaderComponent } from '@coreui/angular';
 import { ColorsToast } from 'src/app/enum/colors';
 
@@ -30,7 +30,8 @@ export class ProductsComponent implements OnInit {
     private categoryClientService: CategoryClientService,
     private productClientService: ProductClientService,
     private addToCartService: AddToCartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
 
   ) { }
   keyword: string = "";
@@ -65,19 +66,25 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllProduct();
     this.getAllCategory();
+
+    // console.log('categoryId', this.route.snapshot.params['categoryId']);
+    this.route.queryParams.subscribe(param => {
+      if (param) {
+        this.productRequest.categoryId = param['categoryId'];
+      }
+      this.getAllProduct(this.productRequest);
+    })
+
   }
 
-  getAllProduct() {
-    this.productClientService.getAll(this.productRequest).subscribe({
+  getAllProduct(request: ClientProductRequest) {
+    this.productClientService.getAll(request).subscribe({
       next: (res) => {
         this.products = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;
           return item;
         });
-        console.log('products', this.products);
-
       },
       error: () => { }
     })
@@ -100,7 +107,13 @@ export class ProductsComponent implements OnInit {
     this.isShowToast.success = true;
   }
 
-  redirectToDetail(id: string){
+  redirectToDetail(id: string) {
     this.router.navigate([`/dashboard/products/${id}`]);
+  }
+
+  redirectProductList(categoryId: string) {
+    this.products = [];
+    this.productRequest.categoryId = parseInt(categoryId);
+    this.getAllProduct(this.productRequest);
   }
 }

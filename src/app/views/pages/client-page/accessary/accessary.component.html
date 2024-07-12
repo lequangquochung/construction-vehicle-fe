@@ -1,3 +1,91 @@
-<pre>
-  app-accessary
-</pre>
+<div class="nav-product-preview d-flex justify-content-center align-items-center mb-3">
+  <h3 class="text-center m-0">DANH MỤC SẢN PHẨM</h3>
+</div>
+<div class="product d-flex mb-3 flex-wrap">
+  <div class="product-item me-3 mb-3" *ngFor="let item of categorys">
+    <img [src]="item.image" alt="" width="200" height="100" (click)="redirectProductList(item.id)">
+    <p class="product-item-title text-center">{{item.name | uppercase }}</p>
+    <p class="product-item-count text-center">{{item.productCount}} SẢN PHẨM</p>
+  </div>
+</div>
+
+<div class="nav-product-preview d-flex justify-content-center align-items-center mb-3">
+  <h3 class="text-center m-0">TẤT CẢ SẢN PHẨM</h3>
+</div>
+
+<div class="product-list">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- <table class="table table-image table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">THÔNG TIN</th>
+            <th scope="col">GIÁ</th>
+            <th scope="col">MÔ TẢ</th>
+            <th scope="col">ẢNH</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>
+              <div class="d-flex">
+                <div class="product-table-img">
+                  <img [src]="product?.image" class="img-fluid img-thumbnail" [alt]="product.name.contentEng"
+                    onerror="this.src='/assets/images/img-error.jpg';">
+                </div>
+                <div class="product-table-text ms-5">
+                  <p><b>{{product.model | uppercase}}</b></p>
+                  <p>{{product.name | uppercase}}</p>
+                  <p>{{product.category?.name | uppercase}}</p>
+                  <button class="btn-order" (click)="addToCart(product)">
+                    <fa-icon class="action-row-icon edit me-3"
+                      [icon]="faIcon.faCartPlus"></fa-icon><span>Order</span></button>
+                </div>
+              </div>
+            </td>
+            <td>
+              {{product.price}}
+            </td>
+            <td>
+              {{product.description}}
+            </td>
+            <td class="align-middle text-center">
+              <fa-icon class="action-row-icon edit me-3" [icon]="faIcon.faPhotoFilm"></fa-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+      <div class="card mb-3" *ngFor="let product of products">
+        <div class="row g-0 product-row">
+          <div class="col-md-4">
+            <img [src]="product.image" class="img-fluid rounded-start" alt="{{product.model}}"   (click)="redirectToDetail(product.id)">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text">{{product.model}}</p>
+              <p class="card-text">{{product.description}}</p>
+              <p class="card-text"><b>Giá: {{product.price}}</b></p>
+            </div>
+            <div class="d-flex p-3">
+              <button class="btn-order position-absolute btn btn-outline-success" (click)="addToCart(product)">
+                <fa-icon class="action-row-icon edit me-3"
+                  [icon]="faIcon.faCartPlus"></fa-icon><span>Order</span></button>
+              <button class="btn btn-outline-secondary btn-detail position-absolute" (click)="redirectToDetail(product.id)">Xem Thêm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Đã thêm vào giỏ hàng</c-toast-body>
+  </c-toast>
+</c-toaster>

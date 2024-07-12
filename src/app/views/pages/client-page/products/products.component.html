@@ -2,8 +2,8 @@
   <h3 class="text-center m-0">DANH MỤC SẢN PHẨM</h3>
 </div>
 <div class="product d-flex mb-3 flex-wrap">
-  <div class="product-item me-3 mb-3" *ngFor="let item of categorys">
-    <img [src]="item.image" alt="" width="200" height="100">
+  <div class="product-item me-3 mb-3" *ngFor="let item of categorys" >
+    <img [src]="item.image" alt="" width="200" height="100" (click)="redirectProductList(item.id)">
     <p class="product-item-title text-center">{{item.name | uppercase }}</p>
     <p class="product-item-count text-center">{{item.productCount}} SẢN PHẨM</p>
   </div>
