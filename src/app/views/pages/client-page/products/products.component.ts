@@ -9,13 +9,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faEdit, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
 import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
 import { Router } from '@angular/router';
+import { TextColorDirective, ToastBodyComponent, ToastComponent, ToasterComponent, ToasterPlacement, ToastHeaderComponent } from '@coreui/angular';
+import { ColorsToast } from 'src/app/enum/colors';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: 'products.component.scss',
   standalone: true,
-  imports: [UpperCasePipe, NgFor, FontAwesomeModule]
+  imports: [UpperCasePipe, NgFor, FontAwesomeModule,
+    TextColorDirective,
+    ToastBodyComponent,
+    ToastComponent,
+    ToasterComponent,
+    ToastHeaderComponent
+  ]
 })
 export class ProductsComponent implements OnInit {
   constructor(
@@ -40,7 +48,20 @@ export class ProductsComponent implements OnInit {
   faIcon = {
     faPhotoFilm: faPhotoFilm,
     faCartPlus: faCartPlus
+  }
 
+  positionStatic = ToasterPlacement.BottomEnd;
+  toastColors = {
+    success: ColorsToast.success,
+    error: ColorsToast.danger
+  };
+
+  autoHide = true;
+  delay = 3000;
+  fade = true;
+  isShowToast = {
+    success: false,
+    error: false
   }
 
   ngOnInit(): void {
@@ -76,6 +97,7 @@ export class ProductsComponent implements OnInit {
 
   addToCart(item: any) {
     this.addToCartService.sendData(item);
+    this.isShowToast.success = true;
   }
 
   redirectToDetail(id: string){

@@ -36,7 +36,7 @@ export class PreviewComponent implements OnInit {
   getAllCategory() {
     this.categoryClientService.getAll(this.keyword).subscribe({
       next: (res) => {
-        this.categorys = res.data.data.map((item: any) => {
+        this.categorys = res.data.data.map((item: any) => { 
           item.image = `${this.baseApi}/${item.image}`;
           return item;
         });

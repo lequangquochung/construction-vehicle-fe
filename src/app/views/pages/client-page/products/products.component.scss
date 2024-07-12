@@ -57,6 +57,9 @@
     // }
     img.img-fluid {
         cursor: pointer;
+        height: 280px;
+        width: 400px;
+        object-fit: cover;
     }
 
     .btn-order {

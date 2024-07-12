@@ -1,3 +1,46 @@
-<pre>
-  app-product-detail
-</pre>
+<div class="row detail-title">
+  <h3>THÔNG TIN SẢN PHẨM {{product?.model}}</h3>
+</div>
+<div class="row mt-3">
+  <div class="col-6">
+    <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }"
+      [numVisible]="5">
+      <ng-template pTemplate="item" let-item>
+        <img class="img-item-main w-100" [src]="item" />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img class="img-item-thumbnails" [src]="item" />
+        </div>
+      </ng-template>
+    </p-galleria>
+  </div>
+  <div class="col-6 product-detail-text">
+    <div class="mb-3">
+      <h4>MODEL - SERIAL</h4>
+      <p>{{product?.model}}</p>
+    </div>
+    <div class="mb-3">
+      <h4>LOẠI XE</h4>
+      <p>{{product?.category.name}}</p>
+    </div>
+    <div class="mb-3">
+      <h4>TÌNH TRẠNG</h4>
+      <p>{{product?.description}}</p>
+    </div>
+    <div class="mb-3">
+      <h4>GIÁ</h4>
+      <p>{{product?.price}}</p>
+    </div>
+    <div class="mb-3">
+      <h4>LIÊN HỆ</h4>
+      <p><a href="tel:0903900294">0903900294</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="row my-3">
+  <div class="col  d-flex justify-content-center">
+    <button class="btn btn-outline-secondary" (click)="redirectToProducts()">XEM THÊM SẢN PHẨM</button>
+  </div>
+</div>

@@ -43,7 +43,9 @@
     "bootstrap": "^5.3.2",
     "chart.js": "^4.4.3",
     "lodash-es": "^4.17.21",
+    "ng-gallery": "^11.0.0",
     "ngx-scrollbar": "^13.0.3",
+    "primeng": "^17.18.4",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.6"

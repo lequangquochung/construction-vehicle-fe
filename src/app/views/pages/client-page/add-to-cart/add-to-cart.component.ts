@@ -38,16 +38,16 @@ export class AddToCartComponent implements OnInit {
   getCartItems() {
     const value = localStorage.getItem(this.STORAGE_KEY);
     let data: [] = value ? JSON.parse(value) : [];
-    
-    // console.log('data',data);
-  
+
+    console.log('data',data);
+
     // let uniqueArray = data.filter((item: any, index, self) =>
     //   index === self.findIndex((t: any) => t.id === item.id)
     // );
 
     console.log(this.checkDuplicateCartItem(data));
-     
-    
+
+
     // this.cartProducts = [...uniqueArray];
     // console.log(this.cartProducts);
 
@@ -55,11 +55,13 @@ export class AddToCartComponent implements OnInit {
   }
 
   checkDuplicateCartItem(arr: any) {
-    return arr.reduce((acc: any, item: any) => {
-      console.log('acc', acc[item]);
-      console.log('item', item);
-      // acc[item] = (acc[item] || 0) + 1;
-      return acc;
-    }, {});
+    let result =  [...new Set(arr)];
+    // let result = arr?.reduce((acc: any, item: any) => {
+    //   if (acc.indexOf(item) === -1) {
+    //     acc.push(item);
+    //   }
+    //   return acc;
+    // });
+    return result; 
   }
 }

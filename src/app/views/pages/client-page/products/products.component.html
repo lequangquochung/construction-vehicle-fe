@@ -59,7 +59,7 @@
       <div class="card mb-3" *ngFor="let product of products">
         <div class="row g-0 product-row">
           <div class="col-md-4">
-            <img [src]="product.image" class="img-fluid rounded-start" alt="..." >
+            <img [src]="product.image" class="img-fluid rounded-start" alt="{{product.model}}"   (click)="redirectToDetail(product.id)">
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -82,3 +82,10 @@
 
   </div>
 </div>
+
+<c-toaster [placement]="positionStatic">
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
+    <c-toast-header>Toast title</c-toast-header>
+    <c-toast-body>Đã thêm vào giỏ hàng</c-toast-body>
+  </c-toast>
+</c-toaster>
