@@ -34,13 +34,13 @@ export class NavHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.addToCartService.data$.subscribe(data => {
       this.itemInCart.push(data);
-      this.saveStorage(this.STORAGE_KEY, this.itemInCart);
+      this.saveStorage(this.itemInCart);
     });
     this.getCountItem();
   }
 
-  saveStorage(key: string, value: any) {
-    localStorage.setItem(key, JSON.stringify(value));
+  saveStorage(value: any) {
+    this.addToCartService.saveItem(value);
     this.getCountItem();
   }
 

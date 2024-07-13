@@ -54,13 +54,13 @@ export class AddToCartComponent implements OnInit {
   }
 
   checkDuplicateCartItem(arr: any) {
-    let result =  [...new Set(arr)];
+    // let result =  [...new Set(arr)];
     // let result = arr?.reduce((acc: any, item: any) => {
     //   if (acc.indexOf(item) === -1) {
     //     acc.push(item);
     //   }
     //   return acc;
     // });
-    return result; 
+    // return result; 
   }
 }

@@ -103,8 +103,21 @@ export class ProductsComponent implements OnInit {
   };
 
   addToCart(item: any) {
+    
+    console.log('item', item);
+    let cartData = this.addToCartService.getCartItem();
+    cartData.map((cartItem: any) => {
+      console.log('cartItem', cartItem);
+      
+      // if(cartItem.id !== item.id) {
+      //   cartData.push(item);
+      // } else {
+      //   alert("Sản phẩm này đã có trong giỏ hàng của bạn");   
+      // }
+    });
+    console.log(cartData);
     this.addToCartService.sendData(item);
-    this.isShowToast.success = true;
+    // this.isShowToast.success = true;
   }
 
   redirectToDetail(id: string) {

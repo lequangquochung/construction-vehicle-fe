@@ -94,8 +94,20 @@ export class AccessaryComponent implements OnInit {
   };
 
   addToCart(item: any) {
-    this.addToCartService.sendData(item);
-    this.isShowToast.success = true;
+    console.log(item);
+    
+    let cartData = this.addToCartService.getCartItem();
+    cartData.map((cartItem: any) => {
+      if(cartItem.id !== item.id) {
+        cartData.push(item);
+      } else {
+        alert("Sản phẩm này đã có trong giỏ hàng của bạn");   
+      }
+    });
+    console.log(cartData);
+    
+    // this.addToCartService.sendData(item);
+    // this.isShowToast.success = true;
   }
 
   redirectToDetail(id: string){
