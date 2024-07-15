@@ -25,6 +25,11 @@
 // We use those styles to show code examples, you should remove them in your application.
 @import "examples";
 
+* {
+    font-family: Montserrat,"Century Gothic",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ 
+}
+
 p {
     margin: 0;
 }
@@ -36,7 +41,7 @@ a {
 
 a:hover {
     color: #c0c0c0 !important;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .circle {
@@ -65,10 +70,11 @@ a:hover {
     width: 200px;
 }
 
-.btn-outline-primary{
+.btn-outline-primary {
     background: #080b8f !important;
     color: white;
 }
-.btn-primary{
+
+.btn-primary {
     background: #080b8f !important;
 }
