@@ -7,8 +7,7 @@
       <table class="table table-image table-hover table-bordered">
         <thead>
           <tr>
-            <th scope="col">THÔNG TIN</th>
-            <th scope="col">GIÁ</th>
+            <th scope="col">THÔNG TIN SẢN PHẨM</th>
             <th scope="col">MÔ TẢ</th>
             <th scope="col">XOÁ</th>
           </tr>
@@ -29,19 +28,33 @@
               </div>
             </td>
             <td>
-              <!-- {{product.}} -->sdsa
-            </td>
-            <td>
               {{product.description}}
             </td>
 
             <td class="align-middle text-center">
-              <fa-icon class="action-row-icon btn-delete" (click)="removeItem(product.id)" [icon]="faIcon.faTrash"></fa-icon>
+              <fa-icon class="action-row-icon btn-delete" (click)="removeItem(product.id)"
+                [icon]="faIcon.faTrash"></fa-icon>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+  </div>
+</div>
 
+<div class="row order-form d-flex justify-content-center">
+  <div class="col-md-6 col-sm-12">
+    <div class="mb-3">
+      <label for="userEmail" class="form-label">Email</label>
+      <input type="email" class="form-control" id="userEmail" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
+      <input type="number" class="form-control" id="phoneNumber">
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Lời Nhắn</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
   </div>
 </div>

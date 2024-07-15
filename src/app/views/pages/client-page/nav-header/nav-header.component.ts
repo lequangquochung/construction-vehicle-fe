@@ -28,19 +28,24 @@ export class NavHeaderComponent implements OnInit {
   constructor(
     private addToCartService: AddToCartService
   ) {
-
+    this.getCountItem();
   }
 
   ngOnInit(): void {
     this.addToCartService.data$.subscribe(data => {
       this.itemInCart.push(data);
       this.saveStorage(this.itemInCart);
+      this.getCountItem();
     });
-    this.getCountItem();
+    this.addToCartService.isChangedData$.subscribe(data => {
+      if(data) {
+        this.getCountItem();
+      };
+    })
   }
 
   saveStorage(value: any) {
-    this.addToCartService.saveItem(value);
+    this.addToCartService.addItem(value);
     this.getCountItem();
   }
 

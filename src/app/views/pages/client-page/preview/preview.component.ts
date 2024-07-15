@@ -7,6 +7,7 @@ import { ClientProductRequest } from 'src/app/models/product/ClientProductReques
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
 import { Router } from '@angular/router';
+import { CategoryClientRequest } from 'src/app/models/category/category-client-request';
 
 @Component({
   selector: 'app-preview',
@@ -31,12 +32,20 @@ export class PreviewComponent implements OnInit {
     pageSize: 15,
     type: EPRODUCT_TYPE.VEHICLE
   };
+
+  categoryRequest: CategoryClientRequest= {
+    categoryId: null,
+    keyword: "",
+    pageIndex: 1,
+    pageSize: 15,
+    type: EPRODUCT_TYPE.VEHICLE
+  };
   ngOnInit(): void {
     this.getAllCategory();
    }
 
   getAllCategory() {
-    this.categoryClientService.getAll(this.keyword).subscribe({
+    this.categoryClientService.getAll(this.categoryRequest).subscribe({
       next: (res) => {
         this.categorys = res.data.data.map((item: any) => { 
           item.image = `${this.baseApi}/${item.image}`;

@@ -1,9 +1,11 @@
-import { UpperCasePipe, NgFor } from '@angular/common';
+import { NgFor, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TextColorDirective, ToastBodyComponent, ToastComponent, ToasterComponent, ToasterPlacement, ToastHeaderComponent } from '@coreui/angular';
+import { ToasterPlacement } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPhotoFilm, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { ColorsToast } from 'src/app/enum/colors';
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
@@ -11,6 +13,7 @@ import { AddToCartService } from 'src/app/services/client-service/add-to-cart/ad
 import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
 import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { environment } from 'src/environments/environment';
+import { CategoryClientRequest } from './../../../../models/category/category-client-request';
 
 @Component({
   selector: 'app-accessary',
@@ -19,16 +22,21 @@ import { environment } from 'src/environments/environment';
   standalone: true,
   imports: [
     UpperCasePipe, NgFor, FontAwesomeModule,
-    TextColorDirective,
-    ToastBodyComponent,
-    ToastComponent,
-    ToasterComponent,
-    ToastHeaderComponent
-  ]
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class AccessaryComponent implements OnInit {
   keyword: string = "";
   productRequest: ClientProductRequest = {
+    categoryId: null,
+    keyword: "",
+    pageIndex: 1,
+    pageSize: 15,
+    type: EPRODUCT_TYPE.SPARE_PARTS
+  };
+
+  categoryRequest: ClientProductRequest = {
     categoryId: null,
     keyword: "",
     pageIndex: 1,
@@ -60,13 +68,14 @@ export class AccessaryComponent implements OnInit {
     private productClientService: ProductClientService,
     private categoryClientService: CategoryClientService,
     private addToCartService: AddToCartService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
 
   }
   ngOnInit(): void {
     this.getAllProduct(this.productRequest);
-    this.getAllCategory();
+    this.getAllCategory(this.categoryRequest);
   }
 
   getAllProduct(request: ClientProductRequest) {
@@ -81,8 +90,8 @@ export class AccessaryComponent implements OnInit {
     })
   }
 
-  getAllCategory() {
-    this.categoryClientService.getAll(this.keyword).subscribe({
+  getAllCategory(request: CategoryClientRequest) {
+    this.categoryClientService.getAll(request).subscribe({
       next: (res) => {
         this.categorys = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;
@@ -94,20 +103,17 @@ export class AccessaryComponent implements OnInit {
   };
 
   addToCart(item: any) {
-    console.log(item);
-    
     let cartData = this.addToCartService.getCartItem();
-    cartData.map((cartItem: any) => {
-      if(cartItem.id !== item.id) {
-        cartData.push(item);
-      } else {
-        alert("Sản phẩm này đã có trong giỏ hàng của bạn");   
-      }
-    });
-    console.log(cartData);
-    
-    // this.addToCartService.sendData(item);
-    // this.isShowToast.success = true;
+    if (cartData.some(cartItem => cartItem.id === item.id && cartItem.type === item.type)) {
+      this.messageService.add(
+        { severity: 'warn', summary: '', detail: 'Sản phẩm này đã có trong giỏ hàng của bạn' }
+      )
+    } else {
+      this.addToCartService.sendData(item);
+      this.messageService.add(
+        { severity: 'success', summary: '', detail: 'Đã thêm vào giỏ hàng' }
+      )
+    };
   }
 
   redirectToDetail(id: string){

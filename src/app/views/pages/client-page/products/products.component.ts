@@ -1,29 +1,28 @@
-import { ClientProductRequest } from './../../../../models/product/ClientProductRequest';
 import { NgFor, UpperCasePipe } from '@angular/common';
-import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
-import { CategoryClientService } from './../../../../services/client-service/category/category.service';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCartPlus, faEdit, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
-import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TextColorDirective, ToastBodyComponent, ToastComponent, ToasterComponent, ToasterPlacement, ToastHeaderComponent } from '@coreui/angular';
+import { ToasterPlacement } from '@coreui/angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCartPlus, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { ColorsToast } from 'src/app/enum/colors';
-
+import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
+import { CategoryClientRequest } from 'src/app/models/category/category-client-request';
+import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
+import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
+import { environment } from 'src/environments/environment';
+import { ClientProductRequest } from './../../../../models/product/ClientProductRequest';
+import { CategoryClientService } from './../../../../services/client-service/category/category.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: 'products.component.scss',
   standalone: true,
   imports: [UpperCasePipe, NgFor, FontAwesomeModule,
-    TextColorDirective,
-    ToastBodyComponent,
-    ToastComponent,
-    ToasterComponent,
-    ToastHeaderComponent
-  ]
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class ProductsComponent implements OnInit {
   constructor(
@@ -31,7 +30,8 @@ export class ProductsComponent implements OnInit {
     private productClientService: ProductClientService,
     private addToCartService: AddToCartService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService
 
   ) { }
   keyword: string = "";
@@ -39,6 +39,14 @@ export class ProductsComponent implements OnInit {
   categorys: any = [];
   baseApi = environment.APIURL;
   productRequest: ClientProductRequest = {
+    categoryId: null,
+    keyword: "",
+    pageIndex: 1,
+    pageSize: 15,
+    type: EPRODUCT_TYPE.VEHICLE
+  };
+
+  categoryRequest: CategoryClientRequest = {
     categoryId: null,
     keyword: "",
     pageIndex: 1,
@@ -66,7 +74,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllCategory();
+    this.getAllCategory(this.categoryRequest);
 
     // console.log('categoryId', this.route.snapshot.params['categoryId']);
     this.route.queryParams.subscribe(param => {
@@ -90,8 +98,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  getAllCategory() {
-    this.categoryClientService.getAll(this.keyword).subscribe({
+  getAllCategory(request: CategoryClientRequest) {
+    this.categoryClientService.getAll(this.categoryRequest).subscribe({
       next: (res) => {
         this.categorys = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;
@@ -103,21 +111,17 @@ export class ProductsComponent implements OnInit {
   };
 
   addToCart(item: any) {
-    
-    console.log('item', item);
     let cartData = this.addToCartService.getCartItem();
-    cartData.map((cartItem: any) => {
-      console.log('cartItem', cartItem);
-      
-      // if(cartItem.id !== item.id) {
-      //   cartData.push(item);
-      // } else {
-      //   alert("Sản phẩm này đã có trong giỏ hàng của bạn");   
-      // }
-    });
-    console.log(cartData);
-    this.addToCartService.sendData(item);
-    // this.isShowToast.success = true;
+    if (cartData.some(cartItem => cartItem.id === item.id)) {
+      this.messageService.add(
+        { severity: 'warn', summary: '', detail: 'Sản phẩm này đã có trong giỏ hàng của bạn' }
+      )
+    } else {
+      this.addToCartService.sendData(item);
+      this.messageService.add(
+        { severity: 'success', summary: '', detail: 'Đã thêm vào giỏ hàng' }
+      )
+    };
   }
 
   redirectToDetail(id: string) {
