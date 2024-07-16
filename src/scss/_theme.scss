@@ -8,7 +8,7 @@ body {
   @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
   will-change: auto;
   @include transition(padding .15s);
-}
+} 
 
 .header > .container-fluid,
 .sidebar-header {

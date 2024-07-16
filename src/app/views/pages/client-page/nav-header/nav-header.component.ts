@@ -28,7 +28,7 @@ export class NavHeaderComponent implements OnInit {
   slides: Slides[] = [
     {
       title: "",
-      src: "/assest/"
+      src: "/assets/images/slides/1.jpg"
     }
   ];
 
