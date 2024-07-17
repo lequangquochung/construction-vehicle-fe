@@ -13,10 +13,7 @@ import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterModule, FontAwesomeModule,
-    CarouselComponent,
-    CarouselControlComponent,
-    CarouselInnerComponent,
-    CarouselItemComponent,
+
     NgFor
   ]
 })
@@ -25,12 +22,7 @@ export class NavHeaderComponent implements OnInit {
     aboutUs: "about-us"
   };
 
-  slides: Slides[] = [
-    {
-      title: "",
-      src: "/assets/images/slides/1.jpg"
-    }
-  ];
+
 
   faIcon = {
     faCartPlus: faCartPlus,
@@ -72,6 +64,6 @@ export class NavHeaderComponent implements OnInit {
 }
 
 export class Slides {
-  title: string| undefined;
+  title: string | undefined;
   src: string | undefined;
 }

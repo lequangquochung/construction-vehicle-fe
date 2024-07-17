@@ -43,7 +43,8 @@ export class ProductsComponent implements OnInit {
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
-    type: EPRODUCT_TYPE.VEHICLE
+    type: EPRODUCT_TYPE.VEHICLE,
+    isDiscount: false
   };
 
   categoryRequest: CategoryClientRequest = {
@@ -51,7 +52,7 @@ export class ProductsComponent implements OnInit {
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
-    type: EPRODUCT_TYPE.VEHICLE
+    type: EPRODUCT_TYPE.VEHICLE,
   };
 
   faIcon = {

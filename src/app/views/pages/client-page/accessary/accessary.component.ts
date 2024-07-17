@@ -41,7 +41,8 @@ export class AccessaryComponent implements OnInit {
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
-    type: EPRODUCT_TYPE.SPARE_PARTS
+    type: EPRODUCT_TYPE.SPARE_PARTS,
+    isDiscount: false
   };
   products: any = [];
   categorys: any = [];

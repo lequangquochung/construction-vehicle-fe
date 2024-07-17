@@ -17,7 +17,6 @@
 
 // Some temp fixes
 //@import "fixes";
-
 // If you want to add custom CSS you can put it here.
 @import "custom";
 
@@ -25,9 +24,12 @@
 // We use those styles to show code examples, you should remove them in your application.
 @import "examples";
 
+body {
+    overflow-x: hidden;
+}
 
 * {
-    font-family: Montserrat,"Century Gothic",Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Montserrat, "Century Gothic", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 p {
