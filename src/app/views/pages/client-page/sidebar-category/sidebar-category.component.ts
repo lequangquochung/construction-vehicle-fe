@@ -42,8 +42,6 @@ export class SidebarCategoryComponent implements OnInit {
           item.image = `${this.baseApi}/${item.image}`;
           return item;
         });
-        console.log(this.categorys);
-        
       },
       error: () => { }
     })

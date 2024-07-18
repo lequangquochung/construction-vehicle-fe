@@ -108,7 +108,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getAllCategory(request: CategoryClientRequest) {
-    this.categoryClientService.getAll(this.categoryRequest).subscribe({
+    this.categoryClientService.getAll(request).subscribe({
       next: (res) => {
         this.categorys = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;

@@ -1,7 +1,11 @@
+import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { UpperCasePipe, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ICartOrderRequest } from 'src/app/models/cartOrder/cartOrderRequest';
 import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
 
 @Component({
@@ -9,18 +13,26 @@ import { AddToCartService } from 'src/app/services/client-service/add-to-cart/ad
   templateUrl: './add-to-cart.component.html',
   styleUrl: 'add-to-cart.component.scss',
   standalone: true,
-  imports: [UpperCasePipe, NgFor, FontAwesomeModule]
+  imports: [UpperCasePipe, NgFor, FontAwesomeModule, FormModule, ReactiveFormsModule]
 })
 export class AddToCartComponent implements OnInit {
-  constructor(private addToCartService: AddToCartService) {}
+  orderForm = this.fb.group({
+    name: ['', [Validators.required]],
+    email: ['', [Validators.email, Validators.required]],
+    phoneNumber: ['', [Validators.required]],
+    textContent: ['', [Validators.required]],
+    category: ['', [Validators.required]]
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private addToCartService: AddToCartService,
+    private productClientService: ProductClientService) { }
   faIcon = {
     faCartPlus: faCartPlus,
     faTrash: faTrash
   }
-
   cartProducts: any[] = [];
-
-  STORAGE_KEY = "cartItem";
 
   ngOnInit(): void {
     this.getCartItems();
@@ -33,7 +45,29 @@ export class AddToCartComponent implements OnInit {
   }
 
   getCartItems() {
-    const value =this.addToCartService.getCartItem();
+    const value = this.addToCartService.getCartItem();
     this.cartProducts = value;
+  }
+
+  submit() {
+    let cartItems = this.addToCartService.getCartItem();
+    console.log(cartItems);
+
+    let rq: ICartOrderRequest = {
+      email: this.orderForm.get('email')?.value!,
+      phoneNumber: this.orderForm.get('email')?.value!,
+      note: this.orderForm.get('email')?.value!,
+      name: this.orderForm.get('email')?.value!,
+      details: cartItems
+    }
+    console.log(rq);
+    
+    // this.productClientService.createOrder(rq).subscribe({
+    //   next: (res) => {
+    //     if(res.success) {
+          
+    //     }
+    //   }
+    // })
   }
 }
