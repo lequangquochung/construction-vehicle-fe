@@ -1,5 +1,5 @@
 import { NgFor, UpperCasePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterPlacement } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,17 +14,21 @@ import { ProductClientService } from 'src/app/services/client-service/product/pr
 import { environment } from 'src/environments/environment';
 import { ClientProductRequest } from './../../../../models/product/ClientProductRequest';
 import { CategoryClientService } from './../../../../services/client-service/category/category.service';
+import {SidebarCategoryComponent} from '../sidebar-category/sidebar-category.component';
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: 'products.component.scss',
   standalone: true,
   imports: [UpperCasePipe, NgFor, FontAwesomeModule,
-    ToastModule
+    ToastModule,
+    SidebarCategoryComponent
   ],
   providers: [MessageService]
 })
 export class ProductsComponent implements OnInit {
+  // categoryIds: Array<number> = [];
   constructor(
     private categoryClientService: CategoryClientService,
     private productClientService: ProductClientService,
@@ -32,7 +36,6 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private messageService: MessageService
-
   ) { }
   keyword: string = "";
   products: any = [];
@@ -87,6 +90,11 @@ export class ProductsComponent implements OnInit {
 
   }
 
+  emitCategoryIds(categoryIds: Array<number>) {
+    console.log('emit', categoryIds);
+    
+  }
+
   getAllProduct(request: ClientProductRequest) {
     this.productClientService.getAll(request).subscribe({
       next: (res) => {
@@ -129,9 +137,10 @@ export class ProductsComponent implements OnInit {
     this.router.navigate([`/dashboard/products/${id}`]);
   }
 
-  redirectProductList(categoryId: string) {
-    this.products = [];
-    this.productRequest.categoryId = parseInt(categoryId);
-    this.getAllProduct(this.productRequest);
-  }
+  ///ANCHOR - get product list new UI
+  // redirectProductList(categoryId: string) {
+  //   this.products = [];
+  //   this.productRequest.categoryId = parseInt(categoryId);
+  //   this.getAllProduct(this.productRequest);
+  // }
 }

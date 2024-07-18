@@ -1,11 +1,16 @@
 .footer {
     background: #080b8f;
+
     p {
         color: white;
     }
 
     .phone-number {
-        font-weight: bold;
+        a {
+            font-weight: bold;
+            color: white;
+        }
+
     }
 }
 

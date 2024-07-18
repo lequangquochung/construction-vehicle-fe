@@ -17,12 +17,13 @@ export class ContactUsComponent implements OnInit {
   faPhone = faPhone;
   faPager= faPager;
   isShowSpinner: boolean = true;
-  contactForm = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', Validators.email, Validators.required],
-    phoneNumber: ['', Validators.required],
-    textContent: ['', Validators.required]
-  })
+  // contactForm = this.fb.group({
+  //   name: ['', Validators.required],
+  //   email: ['', Validators.email, Validators.required],
+  //   phoneNumber: ['', Validators.required],
+  //   textContent: ['', Validators.required],
+  //   category: ['', Validators.required]
+  // })
   constructor(
     private fb: FormBuilder
   ){}

@@ -57,7 +57,14 @@
     .btn-detail {
         bottom: .5rem;
         right: .5rem;
+        background: none;
+        border: none;
+    }
+    .btn-detail:hover {
+        color: #a7a7a7;
     }
 }
 
-.product-table-img {}
+.sidebar-block {
+    padding-left: 2.5rem;
+}

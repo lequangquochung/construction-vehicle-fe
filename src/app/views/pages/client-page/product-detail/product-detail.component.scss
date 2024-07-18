@@ -8,10 +8,16 @@
 }
 
 .product-detail-text{
-    h4{
-        background: #cdcdcd;
-    }
+    // h4{
+    //     background: #cdcdcd;
+    // }
     p{
         font-size: 1.25rem;
+    }
+}
+
+.detail-title {
+    .product-name {
+        color: #080b8f;
     }
 }
