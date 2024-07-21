@@ -1,3 +1,10 @@
+.front-header {
+    border-bottom: 1px solid #d3d3d3;
+    .fa-brands {
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+}
 .logo-block {
 
     .logo-img {
@@ -7,7 +14,7 @@
     }
 
     .logo-text {
-        font-size: 1.25rem;
+        font-size: 1rem;
         font-weight: 700;
         color: #080b8f;
     }
@@ -30,7 +37,7 @@
         }
 
         .product-item-title {
-            font-size: 1.25rem;
+            font-size: 1rem;
             font-weight: 600;
             background: #c7c7c7;
         }
@@ -43,10 +50,18 @@
     li {
         a {
             font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 1px #8d8d8d;
-            font-size: 1.25rem;
+            color: #080b8f;
+            font-size: 1rem;
         }
     }
 }
 
+
+
+
+@media screen and (max-width: 768px) {
+    .nav-search-mobile {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+  }

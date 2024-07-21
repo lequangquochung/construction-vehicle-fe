@@ -10,10 +10,9 @@ import { ColorsToast } from 'src/app/enum/colors';
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
-import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
 import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { environment } from 'src/environments/environment';
-import { CategoryClientRequest } from './../../../../models/category/category-client-request';
+import { SidebarCategoryComponent } from '../sidebar-category/sidebar-category.component';
 
 @Component({
   selector: 'app-accessary',
@@ -22,14 +21,15 @@ import { CategoryClientRequest } from './../../../../models/category/category-cl
   standalone: true,
   imports: [
     UpperCasePipe, NgFor, FontAwesomeModule,
-    ToastModule
+    ToastModule,
+    SidebarCategoryComponent
   ],
   providers: [MessageService]
 })
 export class AccessaryComponent implements OnInit {
   keyword: string = "";
   productRequest: ClientProductRequest = {
-    categoryId: null,
+    categoryIds: [],
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
@@ -37,7 +37,7 @@ export class AccessaryComponent implements OnInit {
   };
 
   categoryRequest: ClientProductRequest = {
-    categoryId: null,
+    categoryIds: [],
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
@@ -58,16 +58,10 @@ export class AccessaryComponent implements OnInit {
     error: ColorsToast.danger
   };
 
-  autoHide = true;
-  delay = 3000;
-  fade = true;
-  isShowToast = {
-    success: false,
-    error: false
-  }
+  productType = EPRODUCT_TYPE.SPARE_PARTS
+  
   constructor(
     private productClientService: ProductClientService,
-    private categoryClientService: CategoryClientService,
     private addToCartService: AddToCartService,
     private router: Router,
     private messageService: MessageService
@@ -76,7 +70,6 @@ export class AccessaryComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getAllProduct(this.productRequest);
-    this.getAllCategory(this.categoryRequest);
   }
 
   getAllProduct(request: ClientProductRequest) {
@@ -91,17 +84,10 @@ export class AccessaryComponent implements OnInit {
     })
   }
 
-  getAllCategory(request: CategoryClientRequest) {
-    this.categoryClientService.getAll(request).subscribe({
-      next: (res) => {
-        this.categorys = res.data.data.map((item: any) => {
-          item.image = `${this.baseApi}/${item.image}`;
-          return item;
-        });
-      },
-      error: () => { }
-    })
-  };
+  emitCategoryIds(categoryIds: Array<number>) {
+    this.productRequest.categoryIds = categoryIds;
+    this.getAllProduct(this.productRequest);
+  }
 
   addToCart(item: any) {
     let cartData = this.addToCartService.getCartItem();
@@ -119,11 +105,5 @@ export class AccessaryComponent implements OnInit {
 
   redirectToDetail(id: string){
     this.router.navigate([`/dashboard/products/${id}`]);
-  }
-
-  redirectProductList(categoryId: string) {
-    this.products = [];
-    this.productRequest.categoryId = parseInt(categoryId);
-    this.getAllProduct(this.productRequest);
   }
 }

@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   standalone: true
 })
 export class NavFooterComponent {
-  
+  email = 'cogioiducanh77@gmail.com'
 }

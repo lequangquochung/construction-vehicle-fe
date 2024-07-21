@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { CategoryClientRequest } from 'src/app/models/category/category-client-request';
 import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
@@ -12,10 +12,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './sidebar-category.component.html',
   styleUrl: 'sidebar-category.component.scss',
   standalone: true,
-  imports: [NgFor, CheckboxModule, FormsModule ]
+  imports: [NgFor, CheckboxModule, FormsModule]
 })
 export class SidebarCategoryComponent implements OnInit {
   @Output() categoryIds = new EventEmitter<Array<number>>();
+  @Input() productType!: string;
 
   selectedCategories: any[] = [];
 
@@ -32,6 +33,9 @@ export class SidebarCategoryComponent implements OnInit {
     private categoryClientService: CategoryClientService
   ) { }
   ngOnInit(): void {
+    if (this.productType) {
+      this.categoryRequest.type = this.productType;
+    }
     this.getAllCategory(this.categoryRequest);
   }
 
@@ -49,11 +53,11 @@ export class SidebarCategoryComponent implements OnInit {
 
 
   selectOnchange(event: any, categoryId: number) {
-    if(event.checked && categoryId) {
+    if (event.checked && categoryId) {
       this.selectedCategories.push(categoryId);
     } else {
       const index = this.selectedCategories.indexOf(categoryId);
-      if(index !== -1 ) {
+      if (index !== -1) {
         this.selectedCategories.splice(index, 1);
       };
     }

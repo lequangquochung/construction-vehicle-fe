@@ -20,3 +20,10 @@ export class Description {
     contentEng: string | undefined;
     contentVie: string | undefined;
 }
+
+
+export class BrandModel {
+    id?: number | undefined;
+    name: ProductName | undefined;
+    categoryId: number | undefined;
+}

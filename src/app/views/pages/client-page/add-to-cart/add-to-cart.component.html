@@ -1,3 +1,4 @@
+<p-toast />
 <div class="row mx-4">
   <h3 class="px-0">THÔNG TIN GIỎ HÀNG</h3>
 </div>
@@ -55,7 +56,7 @@
       </div>
   
       <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Số Điện </label>
+        <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
         <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp" formControlName="phoneNumber">
       </div>  
   
@@ -64,7 +65,7 @@
         <textarea class="form-control" id="textContent" rows="3" formControlName="textContent"></textarea>
       </div>
       
-      <button type="submit" class="btn btn-primary" (click)="submit()">Gửi</button>
+      <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="orderForm.invalid">Gửi</button>
     </form>
   </div>
 </div>

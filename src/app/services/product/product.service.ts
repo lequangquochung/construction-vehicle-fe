@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IProduct } from '../../models/product/IProductRequest';
+import { BrandModel, IProduct } from '../../models/product/IProductRequest';
 import { Observable } from 'rxjs';
 import { IResponseData } from './../../models/IResponse-data.model';
 import { createRequestOptions } from "../../helpers/RequestOptions";
@@ -36,5 +36,9 @@ export class ProductService {
 
     delete(id: string): Observable<any> {
         return this.httpClient.delete<any>(this.baseUrl + `/cms/product/${id}`);
+    }
+
+    createBrand(rq: BrandModel) {
+        return this.httpClient.post<any>(this.baseUrl   + '//cms/brand', rq)
     }
 }

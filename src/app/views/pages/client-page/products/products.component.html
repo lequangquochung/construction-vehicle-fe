@@ -3,8 +3,8 @@
   <h3 class="text-center m-0">TẤT CẢ SẢN PHẨM</h3>
 </div>
 <div class="row m-0">
-  <div class="col-md-3 sidebar-block">
-    <app-sidebar-category (categoryIds)="emitCategoryIds($event)"></app-sidebar-category>
+  <div class="col-md-3 sidebar-block ps-4">
+    <app-sidebar-category [productType]="productType" (categoryIds)="emitCategoryIds($event)"></app-sidebar-category>
   </div>
   <div class="col-md-9">
     <div class="product-list pe-4">

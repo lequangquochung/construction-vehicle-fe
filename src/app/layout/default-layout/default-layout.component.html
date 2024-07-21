@@ -24,7 +24,7 @@
 </c-sidebar>
 
 <!--main-->
-<div class="wrapper d-flex flex-column min-vh-100">
+<div class="wrapper-auth d-flex flex-column min-vh-100">
   <!--app-header-->
   <app-default-header
     [cShadowOnScroll]="'sm'"
@@ -34,7 +34,7 @@
   />
   <!--app-body-->
   <div class="body flex-grow-1">
-    <c-container class="h-auto px-4 container-fluid" fluid="fluid">
+    <c-container class="h-auto px-4 container" fluid="true">
       <router-outlet />
     </c-container>
   </div>

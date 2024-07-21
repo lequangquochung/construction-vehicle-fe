@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-nav-header',
@@ -13,7 +14,7 @@ import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterModule, FontAwesomeModule,
-
+    FormsModule,
     NgFor
   ]
 })
@@ -21,8 +22,8 @@ export class NavHeaderComponent implements OnInit {
   pageLink = {
     aboutUs: "about-us"
   };
-
-
+  email = 'cogioiducanh77@gmail.com'
+  keyword?: string = "";
 
   faIcon = {
     faCartPlus: faCartPlus,

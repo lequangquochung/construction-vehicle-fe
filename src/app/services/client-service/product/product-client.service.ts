@@ -6,6 +6,7 @@ import { environment } from './../../../../environments/environment';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 import { ICartOrderRequest } from 'src/app/models/cartOrder/cartOrderRequest';
 import { IResponseData } from 'src/app/models/IResponse-data.model';
+import { BrandModel } from 'src/app/models/product/IProductRequest';
 @Injectable({
     providedIn: 'root'
 })
@@ -28,5 +29,9 @@ export class ProductClientService {
 
     createOrder(rq: ICartOrderRequest): Observable<IResponseData<any>> {
         return this.httpClient.post<any>(this.baseUrl + '/order', rq)
+    }
+
+    getAllBrands(language: string) {
+        return this.httpClient.get<IResponseData<IResponseData<BrandModel[]>>>(this.baseUrl + `/brand/${language}`);
     }
 }

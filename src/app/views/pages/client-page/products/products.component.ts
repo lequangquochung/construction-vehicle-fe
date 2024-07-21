@@ -14,7 +14,8 @@ import { ProductClientService } from 'src/app/services/client-service/product/pr
 import { environment } from 'src/environments/environment';
 import { ClientProductRequest } from './../../../../models/product/ClientProductRequest';
 import { CategoryClientService } from './../../../../services/client-service/category/category.service';
-import {SidebarCategoryComponent} from '../sidebar-category/sidebar-category.component';
+import { SidebarCategoryComponent } from '../sidebar-category/sidebar-category.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-products',
@@ -23,7 +24,8 @@ import {SidebarCategoryComponent} from '../sidebar-category/sidebar-category.com
   standalone: true,
   imports: [UpperCasePipe, NgFor, FontAwesomeModule,
     ToastModule,
-    SidebarCategoryComponent
+    SidebarCategoryComponent,
+    ProgressSpinnerModule
   ],
   providers: [MessageService]
 })
@@ -41,8 +43,9 @@ export class ProductsComponent implements OnInit {
   products: any = [];
   categorys: any = [];
   baseApi = environment.APIURL;
+  productType = EPRODUCT_TYPE.VEHICLE;
   productRequest: ClientProductRequest = {
-    categoryId: null,
+    categoryIds: [1, 2],
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
@@ -78,21 +81,12 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllCategory(this.categoryRequest);
-
-    // console.log('categoryId', this.route.snapshot.params['categoryId']);
-    this.route.queryParams.subscribe(param => {
-      if (param) {
-        this.productRequest.categoryId = param['categoryId'];
-      }
-      this.getAllProduct(this.productRequest);
-    })
-
+    this.getAllProduct(this.productRequest);
   }
 
   emitCategoryIds(categoryIds: Array<number>) {
-    console.log('emit', categoryIds);
-    
+    this.productRequest.categoryIds = categoryIds;
+    this.getAllProduct(this.productRequest);
   }
 
   getAllProduct(request: ClientProductRequest) {
@@ -106,18 +100,6 @@ export class ProductsComponent implements OnInit {
       error: () => { }
     })
   }
-
-  getAllCategory(request: CategoryClientRequest) {
-    this.categoryClientService.getAll(request).subscribe({
-      next: (res) => {
-        this.categorys = res.data.data.map((item: any) => {
-          item.image = `${this.baseApi}/${item.image}`;
-          return item;
-        });
-      },
-      error: () => { }
-    })
-  };
 
   addToCart(item: any) {
     let cartData = this.addToCartService.getCartItem();

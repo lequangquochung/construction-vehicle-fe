@@ -1,4 +1,31 @@
-<nav class="navbar navbar-expand-lg z-3">
+<div class="front-header row mx-0 px-4 py-3 d-flex align-items-baseline">
+    <div class="col-md-6 px-0"><b>Hotline</b>: <a href="tel:0935099099">0935099099 </a>-<a href="tel:0977527683"> 0977527683 </a>  | <b>Email</b>: {{email}}</div>
+    <div class="col-md-6 px-0">
+        <div class="row d-flex align-items-center">
+
+            <div class="col-6 d-flex">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Tìm sản phẩm"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <span class="input-group-text pe-0" id="basic-addon2">
+                        <fa-icon class="action-row-icon edit me-3"
+                            [icon]="faIcon.faSearch"></fa-icon></span>
+                </div>
+            </div>
+            <div class="col-6 d-flex justify-content-between">
+                <div class="social-icon d-flex align-items-center">
+                    <i class="fa-brands fa-facebook me-3"></i>
+                    <i class="fa-brands fa-youtube me-3"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div class="language">
+                    <span class="fi fi-vn"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg z-3 mb-3">
     <div class="container-fluid mx-4 px-0">
         <a href="">
             <div class="logo-block d-flex align-items-center">
@@ -17,6 +44,7 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -49,8 +77,8 @@
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{cartCount}}
                     </span>
-                </button></a>
+                </button>
+            </a>
         </div>
     </div>
 </nav>
-

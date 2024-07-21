@@ -1,3 +1,4 @@
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProductClientService } from './../../../../services/client-service/product/product-client.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,8 +10,10 @@ import { CategoryClientService } from 'src/app/services/client-service/category/
 import { Router, RouterModule } from '@angular/router';
 import { CategoryClientRequest } from 'src/app/models/category/category-client-request';
 import { Slides } from '../nav-header/nav-header.component';
-import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
-
+import { CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
+import { CardModule } from 'primeng/card';
+import { BrandModel } from 'src/app/models/product/IProductRequest';
+import { forEach } from 'lodash-es';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -20,11 +23,14 @@ import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, Ca
     CarouselControlComponent,
     CarouselInnerComponent,
     CarouselItemComponent,
-    RouterModule],
+    CarouselIndicatorsComponent,
+    RouterModule,
+    CardModule],
 })
 export class PreviewComponent implements OnInit {
   constructor(
     private categoryClientService: CategoryClientService,
+    private productClientService: ProductClientService,
     private router: Router
   ) { }
   keyword: string = "";
@@ -43,15 +49,27 @@ export class PreviewComponent implements OnInit {
     {
       title: "",
       src: "/assets/images/slides/3.jpg"
+    },
+    {
+      title: "",
+      src: "/assets/images/slides/4.jpg"
+    },
+    {
+      title: "",
+      src: "/assets/images/slides/5.jpg"
     }
   ];
-
+  brands: BrandModel[] = [];
+  productsByBrands: any[] = [];
+  products: any[] = [];
   productRequest: ClientProductRequest = {
-    categoryId: null,
+    categoryIds: [],
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
-    type: EPRODUCT_TYPE.VEHICLE
+    type: EPRODUCT_TYPE.VEHICLE,
+    brandId: undefined,
+    isHot: false,
   };
 
   categoryRequest: CategoryClientRequest = {
@@ -63,6 +81,7 @@ export class PreviewComponent implements OnInit {
   };
   ngOnInit(): void {
     this.getAllCategory();
+    this.getBrands('vi');
   }
 
   getAllCategory() {
@@ -82,5 +101,32 @@ export class PreviewComponent implements OnInit {
       categoryId: categoryId,
     }
     this.router.navigate([`/dashboard/products/`], { queryParams: param });
+  }
+
+  getBrands(language: string) {
+    this.productClientService.getAllBrands(language).subscribe({
+      next: (res) => {
+        this.brands = res.data?.data!;
+        this.brands.forEach((brand) => {
+          this.getProductByBrands(brand.id!)
+        })
+      }
+    })
+  }
+
+  getProductByBrands(brandId: number) {
+    this.productRequest.brandId = brandId;
+    this.productClientService.getAll(this.productRequest).subscribe({
+      next: (res) => {
+        res.data?.data.map((item: any) => {
+          let obj = {
+            name: item.name,
+            products: item
+          }
+          this.productsByBrands.push(obj);
+          return obj;
+        });
+      }
+    })
   }
 }
