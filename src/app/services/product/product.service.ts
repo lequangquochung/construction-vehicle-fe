@@ -5,6 +5,7 @@ import { BrandModel, IProduct } from '../../models/product/IProductRequest';
 import { Observable } from 'rxjs';
 import { IResponseData } from './../../models/IResponse-data.model';
 import { createRequestOptions } from "../../helpers/RequestOptions";
+import { BrandRequest } from 'src/app/models/brand/brand-request';
 
 @Injectable({
     providedIn: 'root'
@@ -42,8 +43,11 @@ export class ProductService {
         return this.httpClient.post<any>(this.baseUrl + '/cms/brand', rq)
     }
 
-    getALlBrand(): Observable<IResponseData<any>> {
-        return this.httpClient.get<any>(`${this.baseUrl}/cms/brand`);
+    getALlBrand(rq: BrandRequest): Observable<any> {
+        const options = createRequestOptions({
+            params: rq,
+        });
+        return this.httpClient.get<any>(`${this.baseUrl}/cms/brand`, options);
     }
 
     getBrandById(id: number): Observable<IResponseData<any>> {

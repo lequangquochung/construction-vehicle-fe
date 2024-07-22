@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { BrandRequest } from 'src/app/models/brand/brand-request';
 import { BrandModel } from 'src/app/models/product/IProductRequest';
 import { CategoryService } from 'src/app/services/category/category.service';
 
@@ -42,6 +43,10 @@ export class BrandListComponent implements OnInit {
   keyword: string = '';
   categoryList: any = [];
   currentID?: number;
+  brandRequest: BrandRequest = {
+    keyword: "",
+    categoryId: undefined
+  }
   constructor(private productService: ProductService,
     private fb: FormBuilder,
     private categoryService: CategoryService,
@@ -55,7 +60,7 @@ export class BrandListComponent implements OnInit {
   }
 
   getAll() {
-    this.productService.getALlBrand().subscribe({
+    this.productService.getALlBrand(this.brandRequest).subscribe({
       next: (res) => {
         this.brands = res.data.data;
       }

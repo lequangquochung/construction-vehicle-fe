@@ -12,8 +12,15 @@
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
-        <select class="form-select" aria-label="Default select example" id="category" formControlName="categoryId">
+        <select (change)="onChange($event)" class="form-select" aria-label="Default select example" id="category"
+          formControlName="categoryId">
           <option *ngFor="let category of categoryType" [value]="category.id">{{category.name.contentVie}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="brand" class="form-label">Brand</label>
+        <select class="form-select" aria-label="Default select example" id="brand" formControlName="brandId" [disabled]="true">
+          <option *ngFor="let item of brands" [value]="item.id">{{item.name?.contentVie}}</option>
         </select>
       </div>
       <div class="mb-3">
@@ -49,16 +56,11 @@
           </option>
         </select>
       </div>
-      <div class="mb-3">
-        <label for="brand" class="form-label">Brand</label>
-        <select class="form-select" aria-label="Default select example" id="brand" formControlName="brandId">
-          <option *ngFor="let item of brands" [value]="item.id">{{item.name?.contentVie}}</option>
-        </select>
-      </div>
+
       <div class="mb-3">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" formControlName="isHot" id="isHot">
-          <label class="form-check-label" for="isHot">  
+          <label class="form-check-label" for="isHot">
             Hot Product
           </label>
         </div>

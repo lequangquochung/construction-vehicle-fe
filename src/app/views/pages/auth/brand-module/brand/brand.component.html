@@ -1,4 +1,4 @@
-
+<p-toast />
 <div class="row">
   <div class="col-md-6 col-sm-12">
     <form [formGroup]="brandForm">
@@ -17,8 +17,7 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary" [disabled]="brandForm.invalid" (click)="createBrand()">Submit
-        <c-spinner size="sm"></c-spinner></button>
+        <c-spinner *ngIf="isLoading" size="sm"></c-spinner></button>
     </form>
   </div>
 </div>
-

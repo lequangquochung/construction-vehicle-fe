@@ -63,3 +63,18 @@
       <c-spinner *ngIf="isLoading" size="sm"></c-spinner></button>
   </c-modal-footer>
 </c-modal>
+
+<c-modal id="liveDemoModal" [visible]="visibleForm.delete" alignment="center">
+  <c-modal-header>
+    <h5 cModalTitle>Delete</h5>
+  </c-modal-header>
+  <c-modal-body>
+    <div class="row">
+      <div class="col-md-12">Are you sure you want to delete ?</div>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleDelete()" cButton class="btn">Cancel</button>
+    <button cButton class="btn btn-danger btn-delete" (click)="handleClickDelete()" >Delete</button>
+  </c-modal-footer>
+</c-modal>

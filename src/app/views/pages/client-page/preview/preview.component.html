@@ -10,12 +10,14 @@
     <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
   </c-carousel>
 </div>
-<div class="row mx-4 mb-3" *ngFor="let item of productsByBrands">
-  <div class="col-md-3 px-0" >
-    <h3>{{item.name}}</h3>
-    <p-card [header]="product.name" [subheader]="product.model" [style]="{ width: '360px' }" *ngFor="let product of item.products">
+<div class="row mx-4 mb-3 product-list" *ngFor="let item of productsByBrands">
+  <h3 class="text-center brand-title">{{item.name}}</h3>
+  <div class="col-md-3 px-0">
+    <p-card [header]="product.name" [subheader]="product.model" [style]="{ width: '360px' }"
+      *ngFor="let product of item.products">
       <ng-template pTemplate="header">
-        <img class="card-img" height="230px" [alt]="product.name" [src]="product.image" onerror="this.src='/assets/images/img-error.jpg';"/>
+        <img class="card-img" height="230px" [alt]="product.name" [src]="product.image"
+          onerror="this.src='/assets/images/img-error.jpg';" />
       </ng-template>
       <p class="card-content-text">
         {{product.description}}

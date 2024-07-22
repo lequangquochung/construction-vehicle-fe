@@ -1,3 +1,4 @@
+import { BrandRequest } from './../../../../../models/brand/brand-request';
 import { NgFor } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -59,6 +60,10 @@ export class ProductComponent implements OnInit {
   categoryType?: any;
   keyword: string = "";
   brands: BrandModel[] = [];
+  brandRequest: BrandRequest = {
+    keyword: "",
+    categoryId: undefined
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -68,7 +73,8 @@ export class ProductComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.getCategory();
-    this.getBrands();
+    console.log(this.brands);
+    
   }
 
   submitForm() {
@@ -89,7 +95,7 @@ export class ProductComponent implements OnInit {
 
     let request: IProduct = {
       name: productName,
-      categoryId: parseInt(this.productForm.get('categoryId')?.value!),
+      // categoryId: parseInt(this.productForm.get('categoryId')?.value!),
       description: description,
       model: this.productForm.get('model')?.value!,
       contact: this.productForm.get('contact')?.value!,
@@ -98,9 +104,9 @@ export class ProductComponent implements OnInit {
       type: this.productForm.get('type')?.value!,
       gallery: [],
 
-      isHot: this.productForm.get('isHot')?.value!,
-      isDiscount: this.productForm.get('isDiscount')?.value!,
-      brandId: this.productForm.get('brandId')?.value!,
+      isHot: this.productForm.get('isHot')?.value! ?? false,
+      // isDiscount: this.productForm.get('isDiscount')?.value! ?? false,
+      brandId: +this.productForm.get('brandId')?.value!,
     }
 
     if (formData) {
@@ -116,7 +122,6 @@ export class ProductComponent implements OnInit {
     } else {
       this.createProduct(request);
     }
-
   }
 
   onFileSelected(event: any) {
@@ -144,18 +149,28 @@ export class ProductComponent implements OnInit {
         this.productForm.reset();
         this.inputFiles.nativeElement.value = null;
       },
-      error: (error: Error) => {
+      error: () => {
         this.isShowToast.error = true;
       },
     });
   }
 
-  private getBrands() {
-    this.productService.getALlBrand().subscribe({
+  private getBrands(brandRequest: BrandRequest) {
+    this.productService.getALlBrand(brandRequest).subscribe({
       next: (res) => {
-        console.log(res);
         this.brands = res.data.data;
       }
     });
+  }
+
+  onChange(event: any) {
+    const selectElement = event.target as HTMLSelectElement;
+    console.log(selectElement.value);
+    
+    let rq: BrandRequest = {
+      keyword: "",
+      categoryId: +selectElement.value
+    }
+    this.getBrands(rq);
   }
 }

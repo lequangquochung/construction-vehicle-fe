@@ -1,7 +1,7 @@
 export class IProduct {
     id?: string | undefined;
     name: ProductName | undefined;
-    categoryId: number | undefined;
+    categoryId?: number | undefined;
     description: Description | undefined;
     model: string | undefined;
     contact: string | undefined;
@@ -10,8 +10,8 @@ export class IProduct {
     type: string | undefined;
     gallery: any[] | undefined;
     status?: number | undefined;
-    isHot: boolean | undefined;
-    isDiscount: boolean | undefined;
+    isHot?: boolean | undefined;
+    isDiscount?: boolean | undefined;
     brandId: number | undefined;
 }
 
