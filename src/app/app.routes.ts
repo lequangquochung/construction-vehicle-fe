@@ -76,6 +76,10 @@ export const routes: Routes = [
       {
         path: 'product',
         loadChildren: () => import('./views/pages/auth/product-module/product.routes').then(m => m.routes)
+      },
+      {
+        path: 'brand',
+        loadChildren: () => import('./views/pages/auth/brand-module/brand-routes').then(m => m.routes)
       }
       ,
       {

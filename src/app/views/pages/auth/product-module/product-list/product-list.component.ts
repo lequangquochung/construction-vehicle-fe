@@ -122,7 +122,11 @@ export class ProductListComponent implements OnInit {
       type: this.productEditForm.get('type')?.value!,
       id: this.currentID,
       gallery: this.changedCategoryImgs ? this.changedCategoryImgs : this.currentImgs!,
-      status: 1
+      status: 1,
+
+      isHot: this.productEditForm.get('isHot')?.value!,
+      isDiscount: this.productEditForm.get('isDiscount')?.value!,
+      brandId: this.productEditForm.get('brandId')?.value!,
     }
 
     if (this.changedCategoryImgs) {

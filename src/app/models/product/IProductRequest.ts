@@ -10,6 +10,9 @@ export class IProduct {
     type: string | undefined;
     gallery: any[] | undefined;
     status?: number | undefined;
+    isHot: boolean | undefined;
+    isDiscount: boolean | undefined;
+    brandId: number | undefined;
 }
 
 export class ProductName {

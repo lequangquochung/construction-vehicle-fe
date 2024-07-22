@@ -5,7 +5,7 @@ import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, 
 import { ColorsToast } from 'src/app/enum/colors';
 import { FileService } from 'src/app/services/file/file.service';
 import { EPRODUCT_TYPE } from './../../../../../enum/EProduct';
-import { Description, IProduct, ProductName } from './../../../../../models/product/IProductRequest';
+import { BrandModel, Description, IProduct, ProductName } from './../../../../../models/product/IProductRequest';
 import { CategoryService } from './../../../../../services/category/category.service';
 import { ProductService } from './../../../../../services/product/product.service';
 
@@ -51,15 +51,15 @@ export class ProductComponent implements OnInit {
     amount: [0, Validators.required],
     type: ['string', Validators.required],
 
-    brandId:[undefined, Validators.required],
+    brandId: [undefined, Validators.required],
     isHot: [false],
-    isDiscount:[false]
+    isDiscount: [false]
   });
   productType = Object.values(EPRODUCT_TYPE);
   categoryType?: any;
   keyword: string = "";
+  brands: BrandModel[] = [];
 
-  
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
@@ -97,8 +97,12 @@ export class ProductComponent implements OnInit {
       amount: this.productForm.get('amount')?.value!,
       type: this.productForm.get('type')?.value!,
       gallery: [],
+
+      isHot: this.productForm.get('isHot')?.value!,
+      isDiscount: this.productForm.get('isDiscount')?.value!,
+      brandId: this.productForm.get('brandId')?.value!,
     }
-    
+
     if (formData) {
       this.fileService.uploadMultiple(formData!).subscribe({
         next: (res) => {
@@ -150,7 +154,7 @@ export class ProductComponent implements OnInit {
     this.productService.getALlBrand().subscribe({
       next: (res) => {
         console.log(res);
-        
+        this.brands = res.data.data;
       }
     });
   }

@@ -39,10 +39,18 @@ export class ProductService {
     }
 
     createBrand(rq: BrandModel): Observable<IResponseData<any>> {
-        return this.httpClient.post<any>(this.baseUrl + '//cms/brand', rq)
+        return this.httpClient.post<any>(this.baseUrl + '/cms/brand', rq)
     }
 
     getALlBrand(): Observable<IResponseData<any>> {
         return this.httpClient.get<any>(`${this.baseUrl}/cms/brand`);
+    }
+
+    editBrand(rq: BrandModel, id?: string): Observable<IResponseData<any>> {
+        return this.httpClient.put<any>(this.baseUrl + '/cms/brand', rq)
+    }
+
+    deleteBrand(id: string): Observable<any> {
+        return this.httpClient.delete<any>(this.baseUrl + `/cms/brand/${id}`);
     }
 }

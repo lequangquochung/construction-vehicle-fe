@@ -18,11 +18,13 @@
       </div>
       <div class="mb-3">
         <label for="descriptionEng" class="form-label">Description (Eng)</label>
-        <textarea class="form-control" placeholder="Enter here" id="descriptionEng" formControlName="descriptionEng" style="height: 100px"></textarea>
+        <textarea class="form-control" placeholder="Enter here" id="descriptionEng" formControlName="descriptionEng"
+          style="height: 100px"></textarea>
       </div>
       <div class="mb-3">
         <label for="descriptionVie" class="form-label">Description (Vie)</label>
-        <textarea class="form-control" placeholder="Enter here" id="descriptionVie" formControlName="descriptionVie" style="height: 100px"></textarea>
+        <textarea class="form-control" placeholder="Enter here" id="descriptionVie" formControlName="descriptionVie"
+          style="height: 100px"></textarea>
       </div>
       <div class="mb-3">
         <label for="model" class="form-label">Model</label>
@@ -38,24 +40,50 @@
       </div>
       <div class="mb-3">
         <label for="amount" class="form-label">Amount</label>
-        <input type="number" class="form-control" id="amount" formControlName="amount">  
+        <input type="number" class="form-control" id="amount" formControlName="amount">
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Type</label>
         <select class="form-select" aria-label="Default select example" id="category" formControlName="type">
-          <option *ngFor="let item of productType" [value]="item">{{item == 'VEHICLE' ? 'Vehicle' : 'Spare Parts'}}</option>
+          <option *ngFor="let item of productType" [value]="item">{{item == 'VEHICLE' ? 'Vehicle' : 'Spare Parts'}}
+          </option>
         </select>
       </div>
       <div class="mb-3">
+        <label for="brand" class="form-label">Brand</label>
+        <select class="form-select" aria-label="Default select example" id="brand" formControlName="brandId">
+          <option *ngFor="let item of brands" [value]="item.id">{{item.name?.contentVie}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="isHot" id="isHot">
+          <label class="form-check-label" for="isHot">  
+            Hot Product
+          </label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="isDiscount" id="isDiscount">
+          <label class="form-check-label" for="isDiscount">
+            Discount Product
+          </label>
+        </div>
+      </div>
+
+      <div class="mb-3">
         <input #inputFiles class="form-control" type="file" name="" id="" multiple (change)="onFileSelected($event)">
       </div>
-      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit <c-spinner size="sm"></c-spinner></button>
+      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit <c-spinner
+          size="sm"></c-spinner></button>
     </form>
   </div>
 </div>
 
 <c-toaster [placement]="positionStatic">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success" >
+  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
     <c-toast-header>Toast title</c-toast-header>
     <c-toast-body>Successfully</c-toast-body>
   </c-toast>
