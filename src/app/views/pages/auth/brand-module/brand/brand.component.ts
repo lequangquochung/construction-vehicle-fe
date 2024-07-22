@@ -1,10 +1,13 @@
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SpinnerModule } from '@coreui/angular';
+import { ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, SpinnerModule } from '@coreui/angular';
 import { BrandModel } from 'src/app/models/product/IProductRequest';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { ProductService } from './../../../../../services/product/product.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-brand',
@@ -13,8 +16,8 @@ import { ProductService } from './../../../../../services/product/product.servic
   standalone: true,
   imports: [
     ReactiveFormsModule, NgFor, FormsModule, SpinnerModule,
-    
-  ]
+  ],
+  
 })
 export class BrandComponent implements OnInit {
   // BrandModel
@@ -24,10 +27,17 @@ export class BrandComponent implements OnInit {
     contentEng: ['', Validators.required],
     contentVie: ['', Validators.required],
     categoryId: [1, Validators.required]
-  })
+  });
+
+  visibleForm = {
+    edit: false,
+    delete: false
+  };
+
   constructor(private productService: ProductService,
     private categoryService: CategoryService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService,
   ) {
 
   }
@@ -53,10 +63,17 @@ export class BrandComponent implements OnInit {
     }
     this.productService.createBrand(rq).subscribe({
       next: (res) => {
-
+        if (res.success) {
+          this.messageService.add(
+            { severity: 'success', summary: '', detail: 'Successfully' },
+          );
+          this.brandForm.reset();
+        }
       },
       error: () => {
-
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Failed' }
+        )
       }
     })
   }

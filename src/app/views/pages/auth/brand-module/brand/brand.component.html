@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-md-6 col-sm-12">
     <form [formGroup]="brandForm">
@@ -15,8 +16,9 @@
           <option *ngFor="let category of categoryList" [value]="category.id">{{category.name.contentVie}}</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="brandForm.invalid" (click)="createBrand()">Submit <c-spinner
-          size="sm"></c-spinner></button>
+      <button type="submit" class="btn btn-primary" [disabled]="brandForm.invalid" (click)="createBrand()">Submit
+        <c-spinner size="sm"></c-spinner></button>
     </form>
   </div>
 </div>
+
