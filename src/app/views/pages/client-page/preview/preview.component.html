@@ -1,5 +1,5 @@
 <div class="row mx-4 mb-3">
-  <c-carousel [interval]="0" class="carousel w-100 mb-3">
+  <c-carousel [interval]="0" class="carousel w-100 p-0">
     <c-carousel-indicators></c-carousel-indicators>
     <c-carousel-inner>
       <c-carousel-item *ngFor="let slide of slides">
@@ -10,17 +10,15 @@
     <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
   </c-carousel>
 </div>
-<div class="row mx-4">
-  <div class="col-md-12">
-    <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+<div class="row mx-4 mb-3" *ngFor="let item of productsByBrands">
+  <div class="col-md-3 px-0" >
+    <h3>{{item.name}}</h3>
+    <p-card [header]="product.name" [subheader]="product.model" [style]="{ width: '360px' }" *ngFor="let product of item.products">
       <ng-template pTemplate="header">
-        <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+        <img class="card-img" height="230px" [alt]="product.name" [src]="product.image" onerror="this.src='/assets/images/img-error.jpg';"/>
       </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
-        deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-        neque
-        quas!
+      <p class="card-content-text">
+        {{product.description}}
       </p>
     </p-card>
   </div>

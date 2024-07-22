@@ -38,7 +38,11 @@ export class ProductService {
         return this.httpClient.delete<any>(this.baseUrl + `/cms/product/${id}`);
     }
 
-    createBrand(rq: BrandModel) {
-        return this.httpClient.post<any>(this.baseUrl   + '//cms/brand', rq)
+    createBrand(rq: BrandModel): Observable<IResponseData<any>> {
+        return this.httpClient.post<any>(this.baseUrl + '//cms/brand', rq)
+    }
+
+    getALlBrand(): Observable<IResponseData<any>> {
+        return this.httpClient.get<any>(`${this.baseUrl}/cms/brand`);
     }
 }

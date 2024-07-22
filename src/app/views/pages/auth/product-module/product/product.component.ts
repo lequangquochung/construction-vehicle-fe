@@ -50,6 +50,10 @@ export class ProductComponent implements OnInit {
     price: [0, Validators.required],
     amount: [0, Validators.required],
     type: ['string', Validators.required],
+
+    brandId:[undefined, Validators.required],
+    isHot: [false],
+    isDiscount:[false]
   });
   productType = Object.values(EPRODUCT_TYPE);
   categoryType?: any;
@@ -64,6 +68,7 @@ export class ProductComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.getCategory();
+    this.getBrands();
   }
 
   submitForm() {
@@ -138,6 +143,15 @@ export class ProductComponent implements OnInit {
       error: (error: Error) => {
         this.isShowToast.error = true;
       },
+    });
+  }
+
+  private getBrands() {
+    this.productService.getALlBrand().subscribe({
+      next: (res) => {
+        console.log(res);
+        
+      }
     });
   }
 }

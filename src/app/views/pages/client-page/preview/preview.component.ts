@@ -13,7 +13,6 @@ import { Slides } from '../nav-header/nav-header.component';
 import { CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
 import { CardModule } from 'primeng/card';
 import { BrandModel } from 'src/app/models/product/IProductRequest';
-import { forEach } from 'lodash-es';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -50,10 +49,10 @@ export class PreviewComponent implements OnInit {
       title: "",
       src: "/assets/images/slides/3.jpg"
     },
-    {
-      title: "",
-      src: "/assets/images/slides/4.jpg"
-    },
+    // {
+    //   title: "",
+    //   src: "/assets/images/slides/4.jpg"
+    // },
     {
       title: "",
       src: "/assets/images/slides/5.jpg"
@@ -96,12 +95,12 @@ export class PreviewComponent implements OnInit {
     })
   }
 
-  redirectToProductsl(categoryId: string) {
-    const param = {
-      categoryId: categoryId,
-    }
-    this.router.navigate([`/dashboard/products/`], { queryParams: param });
-  }
+  // redirectToProducts(categoryId: string) {
+  //   const param = {
+  //     categoryId: categoryId,
+  //   }
+  //   this.router.navigate([`/dashboard/products/`], { queryParams: param });
+  // }
 
   getBrands(language: string) {
     this.productClientService.getAllBrands(language).subscribe({
@@ -121,10 +120,16 @@ export class PreviewComponent implements OnInit {
         res.data?.data.map((item: any) => {
           let obj = {
             name: item.name,
-            products: item
+            products: [item]
           }
           this.productsByBrands.push(obj);
-          return obj;
+          this.productsByBrands.forEach((item: any) => {
+            console.log(item);
+            item.products.map((product: any) => {
+              product.image = `${this.baseApi}/${product.image}`
+              return product;
+            });
+          })
         });
       }
     })
