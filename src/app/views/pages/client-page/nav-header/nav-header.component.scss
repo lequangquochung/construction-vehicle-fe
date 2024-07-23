@@ -1,10 +1,16 @@
 .front-header {
     border-bottom: 1px solid #d3d3d3;
+
     .fa-brands {
         font-size: 1.5rem;
         cursor: pointer;
     }
+
+    .btn-click-search {
+        cursor: pointer;
+    }
 }
+
 .logo-block {
 
     .logo-img {
@@ -64,4 +70,4 @@
         width: 100%;
         margin-left: 0 !important;
     }
-  }
+}

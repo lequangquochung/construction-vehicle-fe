@@ -1,8 +1,4 @@
 <div class="col-md-12">
-  <p class="category-title mb-3">DANH MỤC CÁC LOẠI XE</p>
-  <!-- <div class="category-item" *ngFor="let category of categorys">
-    <p-checkbox class="mb-3" [ngModel]="selectedCategories" [value]="category" [binary]="true" [label]="category.name"
-      inputId="binary" (onChange)="selectOnchange($event, category.id)"/>
-  </div> -->
-  <p-tree class="w-full md:w-30rem" [value]="treeNode" />
-</div>  
+  <p class="category-title mb-3">DANH MỤC</p>
+  <p-tree class="w-full md:w-30rem" [value]="treeNode" selectionMode="single" (selectionChange)="clickSearchProduct($event)" />
+</div>

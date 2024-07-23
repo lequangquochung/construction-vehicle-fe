@@ -1,15 +1,14 @@
 <div class="front-header row mx-0 px-4 py-3 d-flex align-items-baseline">
-    <div class="col-md-6 px-0"><b>Hotline</b>: <a href="tel:0935099099">0935099099 </a>-<a href="tel:0977527683"> 0977527683 </a>  | <b>Email</b>: {{email}}</div>
+    <div class="col-md-6 px-0"><b>Hotline</b>: <a href="tel:0935099099">0935099099 </a>-<a href="tel:0977527683">
+            0977527683 </a> | <b>Email</b>: {{email}}</div>
     <div class="col-md-6 px-0">
         <div class="row d-flex align-items-center">
-
             <div class="col-6 d-flex">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Tìm sản phẩm"
-                        aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <span class="input-group-text pe-0" id="basic-addon2">
-                        <fa-icon class="action-row-icon edit me-3"
-                            [icon]="faIcon.faSearch"></fa-icon></span>
+                    <input type="text" class="form-control" placeholder="Tìm sản phẩm" (keydown.enter)="searchProduct()"
+                        aria-label="Recipient's username" [(ngModel)]="keyword" aria-describedby="basic-addon2">
+                    <span (click)="searchProduct()" class="input-group-text pe-0 btn-click-search" id="basic-addon2">
+                        <fa-icon class="action-row-icon edit me-3" [icon]="faIcon.faSearch"></fa-icon></span>
                 </div>
             </div>
             <div class="col-6 d-flex justify-content-between">

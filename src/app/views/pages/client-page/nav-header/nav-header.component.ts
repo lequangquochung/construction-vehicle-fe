@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { AddToCartService } from './../../../../services/client-service/add-to-cart/add-to-card.service';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -34,7 +34,8 @@ export class NavHeaderComponent implements OnInit {
   itemInCart: any[] = [];
   STORAGE_KEY = "cartItem";
   constructor(
-    private addToCartService: AddToCartService
+    private addToCartService: AddToCartService,
+    private router: Router
   ) {
     this.getCountItem();
   }
@@ -61,6 +62,12 @@ export class NavHeaderComponent implements OnInit {
     const value = localStorage.getItem(this.STORAGE_KEY);
     let data: Array<string> = value ? JSON.parse(value) : null;
     this.cartCount = data?.length ? data?.length : 0;
+  }
+
+  searchProduct() {
+    this.router.navigate(['/dashboard/products'], {
+      queryParams: { key1: 'value1', key2: 'value2' }
+    });
   }
 }
 

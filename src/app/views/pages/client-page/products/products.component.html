@@ -28,11 +28,13 @@
                   <button class="btn-order position-absolute btn btn-outline-success" (click)="addToCart(product)">
                     <fa-icon class="action-row-icon edit me-3"
                       [icon]="faIcon.faCartPlus"></fa-icon><span>Order</span></button>
-                  <button class="btn-detail position-absolute"
-                    (click)="redirectToDetail(product.id)">Xem Thêm</button>
+                  <button class="btn-detail position-absolute" (click)="redirectToDetail(product.id)">Xem Thêm</button>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row mt-3" *ngIf="products.length === 0">
+            <h3 class="text-center" style="color: red;">Không có sản phẩm nào!</h3>
           </div>
         </div>
       </div>

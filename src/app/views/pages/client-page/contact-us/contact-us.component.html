@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center mb-3 ps-0">
     <div class="circle me-3"><fa-icon [icon]="faAddressBook"></fa-icon></div>
     <p class="me-3"><b>Địa chỉ</b></p>
-    <p> 72 Xa lộ Hà Nội, Ấp Ngãi Thắng, Xã Bình Thắng, Thành Phố Dĩ An, Tỉnh Bình Dương</p>
+    <p> 26/9 (Số mới, 114 Tân Lập, Đông Hòa, Dĩ An, Bình Dương)</p>
   </div>
   <div class="d-flex align-items-center mb-3 ps-0">
     <div class="circle me-3"><fa-icon [icon]="faPhone"></fa-icon></div>
@@ -25,39 +25,40 @@
 <div class="row mx-4 contact-form mb-3">
   <div class="col-md-6 col-sm-12 ps-0">
     <form [formGroup]="contactForm">
-    <div class="mb-3">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="userName" class="form-label">Tên</label>
-      <input type="text" class="form-control" id="userName" formControlName="name">
-    </div>
-    <div class="mb-3">
-      <label for="userEmail" class="form-label">Email</label>
-      <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp" formControlName="email">
-    </div>
+      <div class="mb-3">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="userName" class="form-label">Tên</label>
+        <input type="text" class="form-control" id="userName" formControlName="name">
+      </div>
+      <div class="mb-3">
+        <label for="userEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp" formControlName="email">
+      </div>
 
-    <div class="mb-3">
-      <label for="phoneNumber" class="form-label">Số Điện </label>
-      <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp" formControlName="phoneNumber">
-    </div>  
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">Số Điện </label>
+        <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp"
+          formControlName="phoneNumber">
+      </div>
 
-    <div class="form-floating">
-      <textarea class="form-control" id="textContent" formControlName="textContent" rows="4"></textarea>
-      <label for="textContent">Comments</label>
-    </div>
+      <div class="form-floating">
+        <textarea class="form-control" id="textContent" formControlName="textContent" rows="4"></textarea>
+        <label for="textContent">Comments</label>
+      </div>
 
-    <div class="mb-3">
-      <label for="textContent" class="form-label">Lời Nhắn</label>
-      <textarea class="form-control" id="textContent" rows="3" formControlName="textContent"></textarea>
-    </div>
-    
-    <button type="submit" class="btn btn-primary" (click)="submit()">Gửi</button>
-  </form>
+      <div class="mb-3">
+        <label for="textContent" class="form-label">Lời Nhắn</label>
+        <textarea class="form-control" id="textContent" rows="3" formControlName="textContent"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" (click)="submit()">Gửi</button>
+    </form>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { NgFor, UpperCasePipe } from '@angular/common';
+import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterPlacement } from '@coreui/angular';
@@ -25,12 +25,12 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   imports: [UpperCasePipe, NgFor, FontAwesomeModule,
     ToastModule,
     SidebarCategoryComponent,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    NgIf
   ],
   providers: [MessageService]
 })
 export class ProductsComponent implements OnInit {
-  // categoryIds: Array<number> = [];
   constructor(
     private categoryClientService: CategoryClientService,
     private productClientService: ProductClientService,

@@ -29,7 +29,7 @@ export class SidebarCategoryComponent implements OnInit {
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
-    type: EPRODUCT_TYPE.VEHICLE,
+    type: undefined,
   };
 
   productRequest: ClientProductRequest = {
@@ -37,7 +37,7 @@ export class SidebarCategoryComponent implements OnInit {
     pageSize: null,
     keyword: "",
     categoryIds: [],
-    type: EPRODUCT_TYPE.VEHICLE,
+    type: undefined,
     isDiscount: false,
     isHot: false,
     brandId: undefined
@@ -46,51 +46,9 @@ export class SidebarCategoryComponent implements OnInit {
   treeGroup: any[] = [];
   brandIds: any[] = [];
   productByBrand: any[] = [];
-  treeNode: TreeNode[] = [
-    {
-      "key": "0",
-      "label": "Documents",
-      "data": "Documents Folder",
-      "icon": "pi pi-fw pi-inbox",
-      "children": [
-        {
-          "key": "0-0",
-          "label": "Work",
-          "data": "Work Folder",
-          "icon": "pi pi-fw pi-cog",
-          "children": [
-            {
-              "key": "0-0-0",
-              "label": "Expenses.doc",
-              "icon": "pi pi-fw pi-file",
-              "data": "Expenses Document"
-            },
-            {
-              "key": "0-0-1",
-              "label": "Resume.doc",
-              "icon": "pi pi-fw pi-file",
-              "data": "Resume Document"
-            }
-          ]
-        },
-        {
-          "key": "0-1",
-          "label": "Home",
-          "data": "Home Folder",
-          "icon": "pi pi-fw pi-home",
-          "children": [
-            {
-              "key": "0-1-0",
-              "label": "Invoices.txt",
-              "icon": "pi pi-fw pi-file",
-              "data": "Invoices for this month"
-            }
-          ]
-        }
-      ],
-      "parent": undefined
-    },
-  ];
+  treeNode: TreeNode[] = [];
+  selected!: TreeNode;
+
   baseApi = environment.APIURL;
   constructor(
     private categoryClientService: CategoryClientService,
@@ -99,6 +57,7 @@ export class SidebarCategoryComponent implements OnInit {
   ngOnInit(): void {
     if (this.productType) {
       this.categoryRequest.type = this.productType;
+      this.productRequest.type = this.productType;
     }
     this.getAllCategory(this.categoryRequest);
   }
@@ -146,12 +105,20 @@ export class SidebarCategoryComponent implements OnInit {
             })
           });
         })
-        this.categorys.map((item, index) => {
+
+        let arr: any[] = []
+        let mapCategory = this.categorys.map((item, index) => {
           return {
             label: item.categoryName,
+            children: item.brands.map((brand: any) => {
+              return {
+                key: brand.id,
+                label: brand.name
+              }
+            })
           }
         });
-        // this.treeNode = this.categorys;
+        this.treeNode = mapCategory;
 
       },
       error: () => { }
@@ -160,18 +127,12 @@ export class SidebarCategoryComponent implements OnInit {
 
   getProductByBrand(id: number): any {
     this.productRequest.brandId = id;
-
   }
 
-  selectOnchange(event: any, categoryId: number) {
-    if (event.checked && categoryId) {
-      this.selectedCategories.push(categoryId);
-    } else {
-      const index = this.selectedCategories.indexOf(categoryId);
-      if (index !== -1) {
-        this.selectedCategories.splice(index, 1);
-      };
+  clickSearchProduct(event: any) {
+    const idValue = event.key;
+    if (idValue) {
+      this.categoryIds.emit(idValue);
     }
-    this.categoryIds.emit(this.selectedCategories);
   }
 }
