@@ -38,14 +38,23 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private messageService: MessageService
-  ) { }
+  ) {
+    this.route.queryParams.subscribe(params => {
+      let param = params['keyword'];
+      if (param) {
+        this.productRequest.keyword = param;
+      }
+    });
+    this.getKeywordSearching();
+  }
   keyword: string = "";
   products: any = [];
   categorys: any = [];
   baseApi = environment.APIURL;
   productType = EPRODUCT_TYPE.VEHICLE;
+
   productRequest: ClientProductRequest = {
-    categoryIds: [1, 2],
+    categoryIds: [],
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
@@ -66,21 +75,8 @@ export class ProductsComponent implements OnInit {
     faCartPlus: faCartPlus
   }
 
-  positionStatic = ToasterPlacement.BottomEnd;
-  toastColors = {
-    success: ColorsToast.success,
-    error: ColorsToast.danger
-  };
-
-  autoHide = true;
-  delay = 3000;
-  fade = true;
-  isShowToast = {
-    success: false,
-    error: false
-  }
-
   ngOnInit(): void {
+    console.log(this.productRequest);
     this.getAllProduct(this.productRequest);
   }
 
@@ -115,14 +111,16 @@ export class ProductsComponent implements OnInit {
     };
   }
 
+  getKeywordSearching() {
+    this.productClientService.keywordService$.subscribe({
+      next: (res) => {
+        this.productRequest.keyword = res;
+        this.getAllProduct(this.productRequest);
+      }
+    })
+  }
+
   redirectToDetail(id: string) {
     this.router.navigate([`/dashboard/products/${id}`]);
   }
-
-  ///ANCHOR - get product list new UI
-  // redirectProductList(categoryId: string) {
-  //   this.products = [];
-  //   this.productRequest.categoryId = parseInt(categoryId);
-  //   this.getAllProduct(this.productRequest);
-  // }
 }

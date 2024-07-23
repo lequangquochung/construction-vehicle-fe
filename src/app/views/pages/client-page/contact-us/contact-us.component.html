@@ -1,3 +1,4 @@
+<p-toast />
 <div class="row mx-4 information mt-3">
   <div class="d-flex align-items-center mb-3 ps-0">
     <div class="circle me-3"><fa-icon [icon]="faAddressBook"></fa-icon></div>
@@ -26,16 +27,13 @@
   <div class="col-md-6 col-sm-12 ps-0">
     <form [formGroup]="contactForm">
       <div class="mb-3">
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select" aria-label="Default select example" formControlName="titleId">
+          <option *ngFor="let item of question" [value]="item.id">{{item.content}}</option>
         </select>
       </div>
       <div class="mb-3">
         <label for="userName" class="form-label">Tên</label>
-        <input type="text" class="form-control" id="userName" formControlName="name">
+        <input type="text" class="form-control" id="userName" formControlName="fullName">
       </div>
       <div class="mb-3">
         <label for="userEmail" class="form-label">Email</label>
@@ -43,22 +41,17 @@
       </div>
 
       <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Số Điện </label>
+        <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
         <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp"
           formControlName="phoneNumber">
       </div>
 
-      <div class="form-floating">
-        <textarea class="form-control" id="textContent" formControlName="textContent" rows="4"></textarea>
-        <label for="textContent">Comments</label>
-      </div>
-
       <div class="mb-3">
         <label for="textContent" class="form-label">Lời Nhắn</label>
-        <textarea class="form-control" id="textContent" rows="3" formControlName="textContent"></textarea>
+        <textarea class="form-control" id="textContent" rows="3" formControlName="content"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary" (click)="submit()">Gửi</button>
+      <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid" (click)="submit()">Gửi</button>
     </form>
   </div>
 </div>

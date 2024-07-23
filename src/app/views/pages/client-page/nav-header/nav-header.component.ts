@@ -1,11 +1,12 @@
 import { NgFor } from '@angular/common';
 import { AddToCartService } from './../../../../services/client-service/add-to-cart/add-to-card.service';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
+import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 
 @Component({
   selector: 'app-nav-header',
@@ -19,8 +20,10 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class NavHeaderComponent implements OnInit {
+  @Output() keywordProduct = new EventEmitter<string>;
   pageLink = {
-    aboutUs: "about-us"
+    aboutUs: "about-us",
+    product: "/dashboard/products"
   };
   email = 'cogioiducanh77@gmail.com'
   keyword?: string = "";
@@ -35,7 +38,8 @@ export class NavHeaderComponent implements OnInit {
   STORAGE_KEY = "cartItem";
   constructor(
     private addToCartService: AddToCartService,
-    private router: Router
+    private router: Router,
+    private productClientService: ProductClientService
   ) {
     this.getCountItem();
   }
@@ -65,9 +69,14 @@ export class NavHeaderComponent implements OnInit {
   }
 
   searchProduct() {
-    this.router.navigate(['/dashboard/products'], {
-      queryParams: { key1: 'value1', key2: 'value2' }
-    });
+    if (this.router.url.includes(this.pageLink.product)) {
+      this.productClientService.sendKeyword(this.keyword!);
+    } else {
+      this.router.navigate(['/dashboard/products'], {
+        queryParams: { keyword: this.keyword }
+      });
+    }
+
   }
 }
 

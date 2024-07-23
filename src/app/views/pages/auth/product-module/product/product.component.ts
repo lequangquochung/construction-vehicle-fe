@@ -73,8 +73,6 @@ export class ProductComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.getCategory();
-    console.log(this.brands);
-    
   }
 
   submitForm() {
@@ -165,8 +163,6 @@ export class ProductComponent implements OnInit {
 
   onChange(event: any) {
     const selectElement = event.target as HTMLSelectElement;
-    console.log(selectElement.value);
-    
     let rq: BrandRequest = {
       keyword: "",
       categoryId: +selectElement.value

@@ -14,14 +14,13 @@ import { ProductService } from './../../../../../services/product/product.servic
   styleUrl: 'brand.component.scss',
   standalone: true,
   imports: [
-    ReactiveFormsModule, NgFor, FormsModule, SpinnerModule,ToastModule,
-    NgIf
+    ReactiveFormsModule, NgFor, FormsModule, 
+    SpinnerModule,ToastModule, NgIf
   ],
   providers: [MessageService]
 
 })
 export class BrandComponent implements OnInit {
-  // BrandModel
   isLoading: boolean = false;
   keyword: string = '';
   categoryList: any = [];
@@ -30,11 +29,6 @@ export class BrandComponent implements OnInit {
     contentVie: ['', Validators.required],
     categoryId: [1, Validators.required]
   });
-
-  visibleForm = {
-    edit: false,
-    delete: false
-  };
 
   constructor(private productService: ProductService,
     private categoryService: CategoryService,

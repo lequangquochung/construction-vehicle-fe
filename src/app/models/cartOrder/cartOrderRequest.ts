@@ -5,7 +5,7 @@ export class ICartOrderRequest {
     phoneNumber: string | undefined;
     note: string | undefined;
     name: string | undefined;
-    details: Array<DetailCartItem> | undefined;
+    details?: Array<DetailCartItem> | undefined;
 }
 
 export class DetailCartItem {
