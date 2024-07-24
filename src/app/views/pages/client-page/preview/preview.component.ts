@@ -95,13 +95,6 @@ export class PreviewComponent implements OnInit {
     })
   }
 
-  // redirectToProducts(categoryId: string) {
-  //   const param = {
-  //     categoryId: categoryId,
-  //   }
-  //   this.router.navigate([`/dashboard/products/`], { queryParams: param });
-  // }
-
   getBrands(language: string) {
     this.productClientService.getAllBrands(language).subscribe({
       next: (res) => {
@@ -124,7 +117,6 @@ export class PreviewComponent implements OnInit {
           }
           this.productsByBrands.push(obj);
           this.productsByBrands.forEach((item: any) => {
-            console.log(item);
             item.products.map((product: any) => {
               product.image = `${this.baseApi}/${product.image}`
               return product;

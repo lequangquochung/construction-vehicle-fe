@@ -50,7 +50,7 @@ export class ProductComponent implements OnInit {
     contact: [''],
     price: [0, Validators.required],
     amount: [0, Validators.required],
-    type: ['string', Validators.required],
+    type: [EPRODUCT_TYPE.VEHICLE, Validators.required],
 
     brandId: [undefined, Validators.required],
     isHot: [false],

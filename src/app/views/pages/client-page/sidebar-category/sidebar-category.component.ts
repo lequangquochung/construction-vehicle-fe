@@ -89,7 +89,6 @@ export class SidebarCategoryComponent implements OnInit {
                 } else {
                   return;
                 }
-
               })
               item['product'] = arr;
               arr = [];
@@ -106,7 +105,6 @@ export class SidebarCategoryComponent implements OnInit {
           });
         })
 
-        let arr: any[] = []
         let mapCategory = this.categorys.map((item, index) => {
           return {
             label: item.categoryName,

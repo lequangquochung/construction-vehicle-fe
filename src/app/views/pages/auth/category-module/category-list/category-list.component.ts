@@ -97,6 +97,8 @@ export class CategoryListComponent implements OnInit {
   }
 
   submitForm() {
+    console.log('click');
+    
     let categoryRequest: CategoryRequestModel = {
       id: this.currentID,
       name: {
@@ -108,7 +110,7 @@ export class CategoryListComponent implements OnInit {
 
     const formData: FormData = new FormData();
     formData.append('file', this.changedCategoryImg!);
-
+    
     if (this.changedCategoryImg) {
       this.fileService.uploadSingle(formData).subscribe({
         next: (res) => {
@@ -118,6 +120,8 @@ export class CategoryListComponent implements OnInit {
           this.isShowToast.error = true;
         }
       });
+    } else {
+      this.editCategory(categoryRequest);
     };
   }
 

@@ -45,7 +45,6 @@ export class BrandListComponent implements OnInit {
   currentID?: number;
   brandRequest: BrandRequest = {
     keyword: "",
-    categoryId: undefined
   }
   constructor(private productService: ProductService,
     private fb: FormBuilder,

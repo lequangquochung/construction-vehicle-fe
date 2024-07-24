@@ -1,18 +1,19 @@
 .img-item-main {
     height: 500px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .img-item-thumbnails {
     width: 100px;
 }
 
-.product-detail-text{
-    // h4{
-    //     background: #cdcdcd;
-    // }
-    p{
+.product-detail-text {
+    p {
         font-size: 1.25rem;
+    }
+
+    .phone-number {
+        color: #080b8f;
     }
 }
 

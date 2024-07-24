@@ -1,10 +1,9 @@
 <div class="row detail-title mx-4 mt-3">
-  <h3 class="ps-0">THÔNG TIN SẢN PHẨM <b class="product-name">{{product?.model}}</b></h3>
+  <h3 class="ps-0">THÔNG TIN SẢN PHẨM <b class="product-name">{{product?.model | uppercase}}</b></h3>
 </div>
 <div class="row mt-3 mx-4">
-  <div class="col-md-5 col-sm-12 ps-0">
-    <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }"
-      [numVisible]="5">
+  <div class="col-md-8 col-sm-12 ps-0">
+    <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5">
       <ng-template pTemplate="item" let-item>
         <img class="img-item-main w-100" [src]="item" />
       </ng-template>
@@ -15,32 +14,35 @@
       </ng-template>
     </p-galleria>
   </div>
-  <div class="col-md-7 col-sm-12 product-detail-text">
-    <div class="mb-3">
-      <h4><b>MODEL - SERIAL</b></h4>
-      <p>{{product?.model}}</p>
-    </div>
-    <div class="mb-3">
-      <h4><b>LOẠI XE</b></h4>
-      <p>{{product?.category.name}}</p>
-    </div>
-    <div class="mb-3">
-      <h4><b>TÌNH TRẠNG</b></h4>
-      <p>{{product?.description}}</p>
-    </div>
-    <div class="mb-3">
-      <h4><b>GIÁ</b></h4>
-      <p>{{product?.price}}</p>
-    </div>
-    <div class="mb-3">
-      <h4><b>LIÊN HỆ</b></h4>
-      <p><a href="tel:0935099099">0935099099</a></p>
-    </div>
+  <div class="col-md-4 col-sm-12 product-detail-text">
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <td><b>MODEL</b></td>
+          <td>{{product?.model}}</td>
+        </tr>
+        <tr>
+          <td><b>MÔ TẢ</b></td>
+          <td>{{product?.description}}</td>
+        </tr>
+        <tr>
+          <td><b>GIÁ</b></td>
+          <td>{{product?.price}}</td>
+        </tr>
+        <tr>
+          <td><b>LIÊN HỆ</b></td>
+          <td>
+            <b>
+              <a class="phone-number" href="tel:0935099099">0935099099</a>
+            </b>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
 
-<div class="row my-3">
-  <div class="col  d-flex justify-content-center">
-    <button class="btn btn-outline-secondary" (click)="redirectToProducts()">XEM THÊM SẢN PHẨM</button>
+  <div class="row my-3">
+    <div class="col  d-flex justify-content-center">
+      <button class="btn btn-outline-secondary" (click)="redirectToProducts()">XEM THÊM SẢN PHẨM</button>
+    </div>
   </div>
-</div>

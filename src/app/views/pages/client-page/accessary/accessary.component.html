@@ -3,12 +3,12 @@
   <h3 class="text-center m-0">TẤT CẢ SẢN PHẨM</h3>
 </div>
 
-<div class="row m-0">
-  <div class="col-md-3 sidebar-block ps-4">
+<div class="row m-0 ">
+  <div class="col-md-3 sidebar-block">
     <app-sidebar-category [productType]="productType" (categoryIds)="emitCategoryIds($event)"></app-sidebar-category>
   </div>
   <div class="col-md-9">
-    <div class="product-list pe-4">
+    <div class="product-list">
       <div class="row">
         <div class="col-md-12 px-0">
           <div class="card mb-3" *ngFor="let product of products">
@@ -23,14 +23,13 @@
                   <p class="card-text"><b>Model</b>: {{product.model}}</p>
                   <p class="card-text"><b>Mô tả</b>: {{product.description}}</p>
                   <p class="card-text"><b>Giá</b>: {{product.price}}</p>
-                  <p class="card-text"><b>Liên hệ</b>: {{product.contact}}</p>
+                  <p class="card-text"><b>Liên hệ</b>: <a href="tel:0935099099">0935099099</a></p>
                 </div>
                 <div class="d-flex p-3">
                   <button class="btn-order position-absolute btn btn-outline-success" (click)="addToCart(product)">
                     <fa-icon class="action-row-icon edit me-3"
                       [icon]="faIcon.faCartPlus"></fa-icon><span>Order</span></button>
-                  <button class="btn-detail position-absolute"
-                    (click)="redirectToDetail(product.id)">Xem Thêm</button>
+                  <button class="btn-detail position-absolute" (click)="redirectToDetail(product.id)">Xem Thêm</button>
                 </div>
               </div>
             </div>
@@ -40,35 +39,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="product-list">
-  <div class="row mx-4">
-    <div class="col-md-12 px-0">
-      <div class="card mb-3" *ngFor="let product of products">
-        <div class="row g-0 product-row ">
-          <div class="col-md-4">
-            <img [src]="product.image" class="img-fluid rounded-start" alt="{{product.model}}"
-              (click)="redirectToDetail(product.id)">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{product.name}}</h5>
-              <p class="card-text">{{product.model}}</p>
-              <p class="card-text">{{product.description}}</p>
-              <p class="card-text"><b>Giá: {{product.price}}</b></p>
-            </div>
-            <div class="d-flex p-3">
-              <button class="btn-order position-absolute btn btn-outline-success" (click)="addToCart(product)">
-                <fa-icon class="action-row-icon edit me-3"
-                  [icon]="faIcon.faCartPlus"></fa-icon><span>Order</span></button>
-              <button class="btn btn-outline-secondary btn-detail position-absolute"
-                (click)="redirectToDetail(product.id)">Xem Thêm</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</div> -->

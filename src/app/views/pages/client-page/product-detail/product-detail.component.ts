@@ -1,16 +1,15 @@
-import { map } from 'rxjs';
-import { ProductClientService } from './../../../../services/client-service/product/product-client.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GalleriaModule } from 'primeng/galleria';
 import { environment } from 'src/environments/environment';
+import { ProductClientService } from './../../../../services/client-service/product/product-client.service';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrl: 'product-detail.component.scss',
   standalone: true,
-  imports: [GalleriaModule]
+  imports: [GalleriaModule, ]
 })
 export class ProductDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
