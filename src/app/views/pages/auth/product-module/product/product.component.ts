@@ -1,5 +1,5 @@
 import { BrandRequest } from './../../../../../models/brand/brand-request';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
@@ -15,7 +15,7 @@ import { ProductService } from './../../../../../services/product/product.servic
   templateUrl: './product.component.html',
   styleUrl: 'product.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor, FormsModule, SpinnerModule,
+  imports: [ReactiveFormsModule, NgIf, NgFor, FormsModule, SpinnerModule,
     TextColorDirective,
     ToastBodyComponent,
     ToastComponent,
@@ -26,24 +26,13 @@ import { ProductService } from './../../../../../services/product/product.servic
 export class ProductComponent implements OnInit {
 
   @ViewChild('inputFiles') inputFiles!: ElementRef;
-  positionStatic = ToasterPlacement.BottomEnd;
-  toastColors = {
-    success: ColorsToast.success,
-    error: ColorsToast.danger
-  };
-  autoHide = true;
-  delay = 3000;
-  fade = true;
-  isShowToast = {
-    success: false,
-    error: false
-  }
+  isLoading: boolean = false;
 
   selectedFiles: File[] = new Array();
   productForm = this.fb.group({
     nameContentEng: ['', Validators.required],
     nameContentVie: ['', Validators.required],
-    categoryId: ['', Validators.required],
+    categoryId: [1, Validators.required],
     descriptionEng: [''],
     descriptionVie: [''],
     model: [''],
@@ -52,9 +41,9 @@ export class ProductComponent implements OnInit {
     amount: [0, Validators.required],
     type: [EPRODUCT_TYPE.VEHICLE, Validators.required],
 
-    brandId: [undefined, Validators.required],
+    brandId: [1, Validators.required],
     isHot: [false],
-    isDiscount: [false]
+    discount: [0]
   });
   productType = Object.values(EPRODUCT_TYPE);
   categoryType?: any;
@@ -73,6 +62,7 @@ export class ProductComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.getCategory();
+    this.getBrands(this.brandRequest);
   }
 
   submitForm() {
@@ -93,7 +83,7 @@ export class ProductComponent implements OnInit {
 
     let request: IProduct = {
       name: productName,
-      // categoryId: parseInt(this.productForm.get('categoryId')?.value!),
+      categoryId: this.productForm.get('categoryId')?.value!,
       description: description,
       model: this.productForm.get('model')?.value!,
       contact: this.productForm.get('contact')?.value!,
@@ -103,9 +93,12 @@ export class ProductComponent implements OnInit {
       gallery: [],
 
       isHot: this.productForm.get('isHot')?.value! ?? false,
-      // isDiscount: this.productForm.get('isDiscount')?.value! ?? false,
+      discount: +(this.productForm.get('discount')?.value!),
       brandId: +this.productForm.get('brandId')?.value!,
     }
+
+    console.log(request);
+
 
     if (formData) {
       this.fileService.uploadMultiple(formData!).subscribe({
@@ -114,7 +107,7 @@ export class ProductComponent implements OnInit {
           this.createProduct(request);
         },
         error: (e: Error) => {
-          this.isShowToast.error = true;
+          // this.isShowToast.error = true;
         },
       })
     } else {
@@ -135,7 +128,7 @@ export class ProductComponent implements OnInit {
         this.categoryType = res.data.data;
       },
       error: (e: Error) => {
-        this.isShowToast.error = true;
+        // this.isShowToast.error = true;
       }
     });
   }
@@ -143,12 +136,12 @@ export class ProductComponent implements OnInit {
   createProduct(payload: IProduct) {
     this.productService.create(payload).subscribe({
       next: (res) => {
-        this.isShowToast.success = true;
+        // this.isShowToast.success = true;
         this.productForm.reset();
         this.inputFiles.nativeElement.value = null;
       },
       error: () => {
-        this.isShowToast.error = true;
+        // this.isShowToast.error = true;
       },
     });
   }
@@ -159,14 +152,5 @@ export class ProductComponent implements OnInit {
         this.brands = res.data.data;
       }
     });
-  }
-
-  onChange(event: any) {
-    const selectElement = event.target as HTMLSelectElement;
-    let rq: BrandRequest = {
-      keyword: "",
-      categoryId: +selectElement.value
-    }
-    this.getBrands(rq);
   }
 }

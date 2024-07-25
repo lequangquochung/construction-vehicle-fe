@@ -10,12 +10,6 @@
         <label for="englishName" class="form-label">Name (English)</label>
         <input type="text" class="form-control" id="englishName" formControlName="contentEng">
       </div>
-      <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <select class="form-select" aria-label="Default select example" id="category" formControlName="categoryId">
-          <option *ngFor="let category of categoryList" [value]="category.id">{{category.name.contentVie}}</option>
-        </select>
-      </div>
       <button type="submit" class="btn btn-primary" [disabled]="brandForm.invalid" (click)="createBrand()">Submit
         <c-spinner *ngIf="isLoading" size="sm"></c-spinner></button>
     </form>

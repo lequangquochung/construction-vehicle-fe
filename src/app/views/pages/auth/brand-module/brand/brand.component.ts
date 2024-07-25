@@ -14,20 +14,17 @@ import { ProductService } from './../../../../../services/product/product.servic
   styleUrl: 'brand.component.scss',
   standalone: true,
   imports: [
-    ReactiveFormsModule, NgFor, FormsModule, 
-    SpinnerModule,ToastModule, NgIf
+    ReactiveFormsModule, NgFor, FormsModule,
+    SpinnerModule, ToastModule, NgIf
   ],
   providers: [MessageService]
 
 })
 export class BrandComponent implements OnInit {
   isLoading: boolean = false;
-  keyword: string = '';
-  categoryList: any = [];
   brandForm = this.fb.group({
     contentEng: ['', Validators.required],
     contentVie: ['', Validators.required],
-    categoryId: [1, Validators.required]
   });
 
   constructor(private productService: ProductService,
@@ -37,17 +34,7 @@ export class BrandComponent implements OnInit {
   ) {
 
   }
-  ngOnInit(): void {
-    this.getCategoryByBrand(this.keyword);
-  }
-
-  getCategoryByBrand(keyword: string) {
-    this.categoryService.getAll(keyword).subscribe({
-      next: (res) => {
-        this.categoryList = res.data.data;
-      }
-    })
-  }
+  ngOnInit(): void { }
 
   createBrand() {
     this.isLoading = true;
@@ -56,7 +43,6 @@ export class BrandComponent implements OnInit {
         contentEng: this.brandForm.get('contentEng')?.value!,
         contentVie: this.brandForm.get('contentVie')?.value!
       },
-      categoryId: +this.brandForm.get('categoryId')?.value!
     }
     this.productService.createBrand(rq).subscribe({
       next: (res) => {
@@ -72,7 +58,7 @@ export class BrandComponent implements OnInit {
           { severity: 'error', summary: '', detail: 'Failed' }
         )
       },
-      complete: () =>{
+      complete: () => {
         this.isLoading = false;
       }
     })

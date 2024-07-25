@@ -99,7 +99,6 @@ export class BrandListComponent implements OnInit {
         contentEng: this.brandFormEdit.get('contentEng')?.value!,
         contentVie: this.brandFormEdit.get('contentVie')?.value!
       },
-      categoryId: +this.brandFormEdit.controls['categoryId']?.value!
     }
     this.isLoading = true;
     this.productService.editBrand(rq).subscribe({

@@ -20,5 +20,9 @@ export class CategoryClientService {
         return this.httpClient.get<any>(this.baseUrl + `/category/vi`, options);
     }
 
+    getSideBar() {
+        
+    }
+
     
 }

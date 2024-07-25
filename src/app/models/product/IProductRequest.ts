@@ -11,7 +11,7 @@ export class IProduct {
     gallery: any[] | undefined;
     status?: number | undefined;
     isHot?: boolean | undefined;
-    isDiscount?: boolean | undefined;
+    discount?: number | undefined;
     brandId: number | undefined;
 }
 
@@ -28,5 +28,4 @@ export class Description {
 export class BrandModel {
     id?: number | undefined;
     name: ProductName | undefined;
-    categoryId: number | undefined;
 }

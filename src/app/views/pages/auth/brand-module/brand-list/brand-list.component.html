@@ -5,7 +5,6 @@
       <tr>
         <th scope="col">English Name</th>
         <th scope="col">Vietnamese Name</th>
-        <th scope="col">Category</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -13,7 +12,6 @@
       <tr *ngFor="let brand of brands">
         <td>{{brand.name?.contentEng}}</td>
         <td>{{brand.name?.contentVie}}</td>
-        <td>{{brand.category.name.contentVie}}</td>
         <td>
           <div class="action-row">
             <fa-icon class="action-row-icon edit me-5" [icon]="faEdit"

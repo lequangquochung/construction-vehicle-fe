@@ -125,7 +125,7 @@ export class ProductListComponent implements OnInit {
       status: 1,
 
       isHot: this.productEditForm.get('isHot')?.value!,
-      isDiscount: this.productEditForm.get('isDiscount')?.value!,
+      // isDiscount: this.productEditForm.get('isDiscount')?.value!,
       brandId: this.productEditForm.get('brandId')?.value!,
     }
 
