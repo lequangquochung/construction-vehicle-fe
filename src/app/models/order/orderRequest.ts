@@ -3,4 +3,6 @@ export class OrderRequest {
     status?: string | null;
     startDate?: string | null;
     endDate?: string | null;
+    pageIndex?: number | undefined;
+    pageSize?: number | undefined;
 }

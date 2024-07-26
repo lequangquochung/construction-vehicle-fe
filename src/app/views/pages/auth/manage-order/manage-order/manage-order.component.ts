@@ -1,12 +1,15 @@
-import { OrderService } from './../../../../../services/order/order.service';
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SpinnerModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { OrderRequest } from 'src/app/models/order/orderRequest';
 import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { E_STATUS } from 'src/app/enum/ESTATUS';
+import { OrderRequest } from 'src/app/models/order/orderRequest';
+import { OrderService } from './../../../../../services/order/order.service';
+import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-manage-order',
   templateUrl: './manage-order.component.html',
@@ -15,7 +18,9 @@ import { FormsModule } from '@angular/forms';
   imports: [NgFor, FontAwesomeModule,
     CalendarModule,
     FormsModule,
-    SpinnerModule,]
+    SpinnerModule,
+    DropdownModule,
+    InputTextModule]
 })
 export class ManageOrderComponent implements OnInit {
   visibleForm = {
@@ -30,6 +35,16 @@ export class ManageOrderComponent implements OnInit {
   faIcon = {
     faEdit: faPencil,
     faDelete: faTrashCan
+  }
+  statusList = Object.values(E_STATUS).map((item: any) => {
+    return {
+      label: this.titleCaseWord(item),
+      value: item
+    }
+  });
+  selectStatus = {
+    label: "",
+    value: "",
   }
   orderRequest: OrderRequest = {
     keyword: "",
@@ -52,9 +67,24 @@ export class ManageOrderComponent implements OnInit {
     })
   }
 
-  getDate(){
+  search() {
     console.log('startDate', this.startDate);
     console.log('endDate', this.endDate);
+    console.log('selectStatus', this.selectStatus);
+    console.log('keyword', this.orderRequest.keyword);
+    
+    
+    this.orderRequest = {
+      keyword: this.orderRequest.keyword,
+      status: this.selectStatus.value,
+      startDate: this.startDate,
+      endDate: this.endDate
+    }
+  }
+
+  private titleCaseWord(word: string) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
   }
 
   toggleEditModal(id?: string) { }

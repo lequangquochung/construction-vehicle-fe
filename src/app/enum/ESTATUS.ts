@@ -1,0 +1,6 @@
+export enum E_STATUS {
+    NEW = 'NEW',
+    CANCELED = 'CANCELED',
+    PROCESSING = 'PROCESSING',
+    FINISHED = 'FINISHED'
+}
