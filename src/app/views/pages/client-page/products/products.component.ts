@@ -59,7 +59,7 @@ export class ProductsComponent implements OnInit {
     pageIndex: 1,
     pageSize: 15,
     type: EPRODUCT_TYPE.VEHICLE,
-    isDiscount: false
+    isDiscount: false,
   };
 
   categoryRequest: CategoryClientRequest = {

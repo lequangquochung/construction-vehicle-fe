@@ -1,14 +1,15 @@
-import { BrandRequest } from './../../../../../models/brand/brand-request';
 import { NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent, ToasterPlacement } from '@coreui/angular';
-import { ColorsToast } from 'src/app/enum/colors';
+import { SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToastHeaderComponent, ToasterComponent } from '@coreui/angular';
 import { FileService } from 'src/app/services/file/file.service';
 import { EPRODUCT_TYPE } from './../../../../../enum/EProduct';
+import { BrandRequest } from './../../../../../models/brand/brand-request';
 import { BrandModel, Description, IProduct, ProductName } from './../../../../../models/product/IProductRequest';
 import { CategoryService } from './../../../../../services/category/category.service';
 import { ProductService } from './../../../../../services/product/product.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-product',
@@ -16,12 +17,9 @@ import { ProductService } from './../../../../../services/product/product.servic
   styleUrl: 'product.component.scss',
   standalone: true,
   imports: [ReactiveFormsModule, NgIf, NgFor, FormsModule, SpinnerModule,
-    TextColorDirective,
-    ToastBodyComponent,
-    ToastComponent,
-    ToasterComponent,
-    ToastHeaderComponent,
-  ]
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class ProductComponent implements OnInit {
 
@@ -58,7 +56,8 @@ export class ProductComponent implements OnInit {
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private fileService: FileService,
-    private productService: ProductService
+    private productService: ProductService,
+    private messageService: MessageService
   ) { }
   ngOnInit(): void {
     this.getCategory();
@@ -97,9 +96,6 @@ export class ProductComponent implements OnInit {
       brandId: +this.productForm.get('brandId')?.value!,
     }
 
-    console.log(request);
-
-
     if (formData) {
       this.fileService.uploadMultiple(formData!).subscribe({
         next: (res) => {
@@ -107,7 +103,9 @@ export class ProductComponent implements OnInit {
           this.createProduct(request);
         },
         error: (e: Error) => {
-          // this.isShowToast.error = true;
+          this.messageService.add(
+            { severity: 'error', summary: '', detail: 'Lưu Thất Bại' }
+          );
         },
       })
     } else {
@@ -127,21 +125,26 @@ export class ProductComponent implements OnInit {
       next: (res) => {
         this.categoryType = res.data.data;
       },
-      error: (e: Error) => {
-        // this.isShowToast.error = true;
-      }
+      error: (e: Error) => { }
     });
   }
 
   createProduct(payload: IProduct) {
     this.productService.create(payload).subscribe({
       next: (res) => {
-        // this.isShowToast.success = true;
-        this.productForm.reset();
-        this.inputFiles.nativeElement.value = null;
+        if (res.success) {
+          this.messageService.add(
+            { severity: 'success', summary: '', detail: 'Lưu Thành Công' },
+          );
+          this.messageService
+          this.productForm.reset();
+          this.inputFiles.nativeElement.value = null;
+        }
       },
       error: () => {
-        // this.isShowToast.error = true;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Lưu Thất Bại' }
+        );
       },
     });
   }

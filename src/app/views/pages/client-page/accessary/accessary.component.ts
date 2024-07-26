@@ -1,4 +1,4 @@
-import { NgFor, UpperCasePipe } from '@angular/common';
+import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToasterPlacement } from '@coreui/angular';
@@ -22,7 +22,8 @@ import { SidebarCategoryComponent } from '../sidebar-category/sidebar-category.c
   imports: [
     UpperCasePipe, NgFor, FontAwesomeModule,
     ToastModule,
-    SidebarCategoryComponent
+    SidebarCategoryComponent,
+    NgIf
   ],
   providers: [MessageService]
 })

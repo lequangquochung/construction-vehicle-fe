@@ -60,6 +60,7 @@
         background: none;
         border: none;
     }
+
     .btn-detail:hover {
         color: #a7a7a7;
     }
@@ -67,7 +68,7 @@
 
 
 @media only screen and (max-width: 768px) {
-    .product-list{
+    .product-list {
         padding-left: 0 !important;
     }
-  }
+}

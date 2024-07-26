@@ -1,0 +1,44 @@
+<div class="row mb-3">
+  <div class="col-md-6 col-sm-12">
+    <label for="startDate" class="font-bold block mb-2"> Start Date </label>
+    <p-calendar [showIcon]="true" inputId="startDate" [(ngModel)]="startDate" dateFormat="mm/dd/yy"
+      [iconDisplay]="'input'" />
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <label for="startDate">Start Date</label>
+    <p-calendar [(ngModel)]="endDate" dateFormat="mm/dd/yy" [iconDisplay]="'input'" />
+  </div>
+  <div class="">
+    <button (click)="getDate()">Search</button>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <table class="table table-image table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">English Name</th>
+        <th scope="col">Vietnamese Name</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td class="w-25">
+          <img [src]="order?.image" class="img-fluid img-thumbnail" [alt]="order.name.contentEng"
+            onerror="this.src='/assets/images/img-error.jpg';">
+        </td>
+        <td>{{order.name?.contentEng}}</td>
+        <td>{{order.name?.contentVie}}</td>
+        <td>
+          <div class="action-row">
+            <fa-icon class="action-row-icon edit me-5" [icon]="faIcon.faEdit"
+              (click)="toggleEditModal(order?.id)"></fa-icon>
+            <fa-icon class="action-row-icon delete" [icon]="faIcon.faDelete" (click)="toggleDelete(order.id)"></fa-icon>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

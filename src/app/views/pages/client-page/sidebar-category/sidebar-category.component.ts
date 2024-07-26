@@ -48,7 +48,7 @@ export class SidebarCategoryComponent implements OnInit {
   productByBrand: any[] = [];
   treeNode: TreeNode[] = [];
   selected!: TreeNode;
-
+  sideBarType = EPRODUCT_TYPE.VEHICLE
   baseApi = environment.APIURL;
   constructor(
     private categoryClientService: CategoryClientService,
@@ -59,76 +59,34 @@ export class SidebarCategoryComponent implements OnInit {
       this.categoryRequest.type = this.productType;
       this.productRequest.type = this.productType;
     }
-    this.getAllCategory(this.categoryRequest);
+    this.getSideBar(this.sideBarType)
   }
 
-  getAllCategory(request: CategoryClientRequest) {
-    this.categoryClientService.getAll(request).subscribe({
+  getSideBar(type: string) {
+    this.productClientService.getSideBar(type).subscribe({
       next: (res) => {
-        this.categorys = res.data.data.map((item: any) => {
+        this.treeNode = res.data.data.map((item: any) => {
           return {
-            categoryName: item.name,
-            brands: item.brands
-          }
-        });
-        this.categorys.forEach((element: any) => {
-          element?.brands.forEach((brand: any) => {
-            this.brandIds.push(brand);
-          });
-        });
-
-        this.brandIds.forEach((item) => {
-          this.productRequest.brandId = item.id;
-          this.productClientService.getAll(this.productRequest).subscribe({
-            next: (res) => {
-              let arr: any[] = [];
-              this.productByBrand = res.data.data;
-              this.productByBrand.filter((product) => {
-                if (product.brand.id == item.id) {
-                  arr.push(product);
-                } else {
-                  return;
-                }
-              })
-              item['product'] = arr;
-              arr = [];
-            }
-          })
-        });
-        this.categorys.map((brands: any) => {
-          brands.brands.forEach((brand: any) => {
-            this.brandIds.forEach((item) => {
-              if (item.id == brand.id) {
-                brand['product'] = item.product;
-              }
-            })
-          });
-        })
-
-        let mapCategory = this.categorys.map((item, index) => {
-          return {
+            key: item.categoryId,
             label: item.categoryName,
             children: item.brands.map((brand: any) => {
               return {
-                key: brand.id,
+                key: `${item.categoryId},${brand.id}`,
                 label: brand.name
               }
             })
           }
         });
-        this.treeNode = mapCategory;
-
-      },
-      error: () => { }
+      }
     })
-  };
-
-  getProductByBrand(id: number): any {
-    this.productRequest.brandId = id;
   }
 
   clickSearchProduct(event: any) {
-    const idValue = event.key;
+    let isChildren: boolean = event.node?.parent;
+    if (!isChildren) {
+      event?.originalEvent.target?.children[0]?.click()
+    }
+    const idValue = event?.node.key;
     if (idValue) {
       this.categoryIds.emit(idValue);
     }

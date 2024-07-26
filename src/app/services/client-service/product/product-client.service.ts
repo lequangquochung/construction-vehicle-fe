@@ -43,7 +43,14 @@ export class ProductClientService {
         return this.httpClient.post<any>(this.baseUrl + '/question', rq)
     }
 
-    getAllBrands(language: string) {
+    getAllBrands(language: string): Observable<IResponseData<any>> {
         return this.httpClient.get<IResponseData<IResponseData<BrandModel[]>>>(this.baseUrl + `/brand/${language}`);
+    }
+
+    getSideBar(type: string): Observable<any> {
+        const options = createRequestOptions({
+            params: type,
+        });
+        return this.httpClient.get<any>(this.baseUrl + `/category/side-bar/vi`, options);
     }
 }

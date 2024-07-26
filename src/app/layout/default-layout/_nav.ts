@@ -64,6 +64,18 @@ export const navItems: INavData[] = [
         icon: 'nav-icon-bullet',
       },
     ]
+  },
+  {
+    name: 'Manage Order',
+    url: '/auth/manage-order',
+    iconComponent: { name: 'cil-drop' },
+    children: [
+      {
+        name: 'Order List',
+        url: '/auth/manage-order/list',
+        icon: 'nav-icon-bullet'
+      },
+    ]
   }
   // },
   // {

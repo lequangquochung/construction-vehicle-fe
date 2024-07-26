@@ -1,4 +1,4 @@
 <div class="col-md-12">
   <p class="category-title mb-3">DANH MỤC</p>
-  <p-tree class="w-full md:w-30rem" [value]="treeNode" selectionMode="single" (selectionChange)="clickSearchProduct($event)" />
+  <p-tree class="w-full md:w-30rem" [value]="treeNode" selectionMode="single" (onNodeSelect)="clickSearchProduct($event)" (onNodeUnselect)="clickSearchProduct($event)"/>
 </div>

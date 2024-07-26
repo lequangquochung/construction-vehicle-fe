@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<div class="row order-form d-flex justify-content-center mb-3">
+<div class="row order-form d-flex justify-content-center mb-3 mx-4">
   <div class="col-md-6 col-sm-12">
     <form [formGroup]="orderForm">
       <div class="mb-3">
@@ -54,17 +54,18 @@
         <label for="userEmail" class="form-label">Email</label>
         <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp" formControlName="email">
       </div>
-  
+
       <div class="mb-3">
         <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
-        <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp" formControlName="phoneNumber">
-      </div>  
-  
+        <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp"
+          formControlName="phoneNumber">
+      </div>
+
       <div class="mb-3">
         <label for="textContent" class="form-label">Lời Nhắn</label>
         <textarea class="form-control" id="textContent" rows="3" formControlName="textContent"></textarea>
       </div>
-      
+
       <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="orderForm.invalid">Gửi</button>
     </form>
   </div>

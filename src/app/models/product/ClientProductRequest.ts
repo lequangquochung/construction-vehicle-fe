@@ -2,7 +2,7 @@ export class ClientProductRequest {
     pageIndex?: number | null;
     pageSize?: number | null;
     keyword?: string | undefined;
-    categoryIds!: Array<number>;
+    categoryIds?: Array<number>;
     type?: string | undefined;
     isDiscount?: boolean | undefined;
     isHot?: boolean | undefined;

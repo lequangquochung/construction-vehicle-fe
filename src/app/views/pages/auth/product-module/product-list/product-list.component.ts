@@ -1,16 +1,17 @@
-import { map } from 'rxjs';
-import { ProductService } from './../../../../../services/product/product.service';
 import { NgFor } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ElementRefDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, SpinnerModule, TextColorDirective, ToastBodyComponent, ToastComponent, ToasterComponent, ToasterPlacement, ToastHeaderComponent, TooltipDirective } from '@coreui/angular';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { environment } from 'src/environments/environment';
-import { faClose, faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ElementRefDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, SpinnerModule, ToastModule, TooltipDirective } from '@coreui/angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faClose, faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'primeng/api';
+import { BrandModel, IProduct } from 'src/app/models/product/IProductRequest';
 import { CategoryService } from 'src/app/services/category/category.service';
-import { ColorsToast } from 'src/app/enum/colors';
-import { IProduct } from 'src/app/models/product/IProductRequest';
 import { FileService } from 'src/app/services/file/file.service';
+import { environment } from 'src/environments/environment';
+import { ProductService } from './../../../../../services/product/product.service';
+import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
+import { BrandRequest } from 'src/app/models/brand/brand-request';
 
 @Component({
   selector: 'app-product-list',
@@ -25,11 +26,8 @@ import { FileService } from 'src/app/services/file/file.service';
     ModalComponent, ModalHeaderComponent, ModalTitleDirective,
     ModalBodyComponent, ModalFooterComponent,
     ReactiveFormsModule,
-    TextColorDirective,
-    ToastBodyComponent,
-    ToastComponent,
-    ToasterComponent,
-    ToastHeaderComponent]
+    ToastModule],
+  providers: [MessageService]
 })
 export class ProductListComponent implements OnInit {
   keyword: string = "";
@@ -41,51 +39,49 @@ export class ProductListComponent implements OnInit {
   faEdit = faPencil;
   faClose = faClose;
   faDelete = faTrashCan;
-
-  positionStatic = ToasterPlacement.BottomEnd;
-  toastColors = {
-    success: ColorsToast.success,
-    error: ColorsToast.danger
-  };
-  autoHide = true;
-  delay = 3000;
-  fade = true;
-  isShowToast = {
-    success: false,
-    error: false
+  productType = Object.values(EPRODUCT_TYPE);
+  brandRequest: BrandRequest = {
+    keyword: "",
+    categoryId: undefined
   }
-
   visibleForm = {
     edit: false,
     delete: false,
     gallery: false
   };
+
   currentID?: string;
   galleryItemId?: string;
   currentImgs?: string[] = [];
   changedCategoryImgs?: string[] = [];
+  brands: BrandModel[] = [];
 
   productEditForm = this.fb.group({
     nameContentEng: ['', Validators.required],
     nameContentVie: ['', Validators.required],
-    categoryId: ['', Validators.required],
+    categoryId: [1, Validators.required],
     descriptionEng: [''],
     descriptionVie: [''],
     model: [''],
     contact: [''],
     price: [0, Validators.required],
     amount: [0, Validators.required],
-    type: ['string', Validators.required],
+    type: [EPRODUCT_TYPE.VEHICLE, Validators.required],
+    brandId: [1, Validators.required],
+    isHot: [false],
+    discount: [0]
   });
 
   constructor(private productService: ProductService,
     private categoryService: CategoryService,
     private fileService: FileService,
     private fb: FormBuilder,
+    private messageService: MessageService
   ) { }
   ngOnInit(): void {
     this.getAll();
     this.getCategory();
+    this.getBrands(this.brandRequest);
   }
 
   getAll() {
@@ -110,7 +106,7 @@ export class ProductListComponent implements OnInit {
         contentEng: this.productEditForm.get('nameContentEng')?.value!,
         contentVie: this.productEditForm.get('nameContentVie')?.value!,
       },
-      categoryId: parseInt(this.productEditForm.get('categoryId')?.value!),
+      categoryId: this.productEditForm.get('categoryId')?.value!,
       description: {
         contentEng: this.productEditForm.get('descriptionEng')?.value!,
         contentVie: this.productEditForm.get('descriptionVie')?.value!,
@@ -123,10 +119,9 @@ export class ProductListComponent implements OnInit {
       id: this.currentID,
       gallery: this.changedCategoryImgs ? this.changedCategoryImgs : this.currentImgs!,
       status: 1,
-
       isHot: this.productEditForm.get('isHot')?.value!,
-      // isDiscount: this.productEditForm.get('isDiscount')?.value!,
-      brandId: this.productEditForm.get('brandId')?.value!,
+      discount: +this.productEditForm.get('discount')?.value!,
+      brandId: +this.productEditForm.get('brandId')?.value!,
     }
 
     if (this.changedCategoryImgs) {
@@ -135,15 +130,17 @@ export class ProductListComponent implements OnInit {
           this.changedCategoryImgs = res.data;
           productRequest.gallery = this.currentImgs?.concat(res.data);
           productRequest.gallery = this.removeImgLink(productRequest.gallery!);
-          
+
           this.editProduct(productRequest);
         },
         error: (e: Error) => {
-          this.isShowToast.error = true;
+          this.messageService.add(
+            { severity: 'error', summary: '', detail: 'Lưu Thất Bại' }
+          );
         },
       })
     } else {
-      // this.createProduct(request);
+      this.editProduct(productRequest);
     }
   }
 
@@ -157,12 +154,16 @@ export class ProductListComponent implements OnInit {
   handleDelete() {
     this.productService.delete(this.currentID!).subscribe({
       next: () => {
-        this.isShowToast.success = true;
+        this.messageService.add(
+          { severity: 'success', summary: '', detail: 'Lưu Thành Công' },
+        );
         this.visibleForm.delete = false;
         this.getAll();
       },
       error: () => {
-        this.isShowToast.error = true;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Lưu Thất Bại' }
+        );
       },
     });
   }
@@ -174,6 +175,8 @@ export class ProductListComponent implements OnInit {
     if (this.currentID && this.visibleForm.edit) {
       this.productService.getById(this.currentID).subscribe({
         next: (res) => {
+          console.log(res.data);
+          
           this.productEditForm.patchValue({
             amount: parseInt(res.data?.amount),
             categoryId: res.data?.category.id,
@@ -185,6 +188,9 @@ export class ProductListComponent implements OnInit {
             nameContentVie: res.data?.name.contentVie,
             price: parseInt(res.data?.price),
             type: res.data?.type,
+            brandId: res.data.brand.id,
+            discount: res.data.discount,
+            isHot: res.data.isHot
           });
           this.currentImgs = this.replaceImgLink(res.data?.gallery)
         }
@@ -205,12 +211,16 @@ export class ProductListComponent implements OnInit {
   editProduct(payload: IProduct) {
     this.productService.edit(payload).subscribe({
       next: (res) => {
-        this.isShowToast.success = true;
+        this.messageService.add(
+          { severity: 'success', summary: '', detail: 'Lưu Thành Công' },
+        );
         this.inputFile.nativeElement.value = null;
         this.getAll();
       },
       error: () => {
-        this.isShowToast.error = true;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Lưu Thất Bại' }
+        );
       },
       complete: () => {
         this.visibleForm.edit = false;
@@ -237,7 +247,9 @@ export class ProductListComponent implements OnInit {
         this.categoryType = res.data.data;
       },
       error: (e: Error) => {
-        this.isShowToast.error = true;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Lưu Thất Bại' }
+        );
       }
     });
   }
@@ -252,5 +264,13 @@ export class ProductListComponent implements OnInit {
     });
 
     return newArr;
+  }
+
+  private getBrands(brandRequest: BrandRequest) {
+    this.productService.getALlBrand(brandRequest).subscribe({
+      next: (res) => {
+        this.brands = res.data.data;
+      }
+    });
   }
 }

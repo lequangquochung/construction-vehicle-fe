@@ -83,9 +83,13 @@ export const routes: Routes = [
       }
       ,
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/routes').then((m) => m.routes)
-      },
+        path: 'manage-order',
+        loadChildren: () => import('./views/pages/auth/manage-order/manage-order.routes').then(m => m.routes)
+      }
+      // {
+      //   path: 'base',
+      //   loadChildren: () => import('./views/base/routes').then((m) => m.routes)
+      // },
       // {
       //   path: 'buttons',
       //   loadChildren: () => import('./views/buttons/routes').then((m) => m.routes)

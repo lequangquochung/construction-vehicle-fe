@@ -45,18 +45,6 @@ export class PreviewComponent implements OnInit {
       title: "",
       src: "/assets/images/slides/2.jpg"
     },
-    {
-      title: "",
-      src: "/assets/images/slides/3.jpg"
-    },
-    // {
-    //   title: "",
-    //   src: "/assets/images/slides/4.jpg"
-    // },
-    {
-      title: "",
-      src: "/assets/images/slides/5.jpg"
-    }
   ];
   brands: BrandModel[] = [];
   productsByBrands: any[] = [];
@@ -68,7 +56,7 @@ export class PreviewComponent implements OnInit {
     pageSize: 15,
     type: EPRODUCT_TYPE.VEHICLE,
     brandId: undefined,
-    isHot: false,
+    isHot: true,
   };
 
   categoryRequest: CategoryClientRequest = {

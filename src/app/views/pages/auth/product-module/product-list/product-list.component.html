@@ -3,16 +3,14 @@
     <thead>
       <tr>
         <th scope="col">Image</th>
-        <th scope="col">English Name</th>
         <th scope="col">Vietnamese Name</th>
-        <th scope="col">English Description</th>
         <th scope="col">Vietnamese Description</th>
         <th scope="col">Model</th>
         <th scope="col">Amount</th>
         <th scope="col">Price</th>
         <th scope="col">Type</th>
-        <th scope="col">Contact</th>
-
+        <th scope="col">Hot Product</th>
+        <th scope="col">Discount</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
@@ -23,13 +21,7 @@
             onerror="this.src='/assets/images/img-error.jpg';">
         </td>
         <td>
-          <p class="ellipsis" cTooltip="{{product.name?.contentEng}}">{{product.name?.contentEng}}</p>
-        </td>
-        <td>
           <p class="ellipsis" cTooltip="{{product.name?.contentVie}}">{{product.name?.contentVie}}</p>
-        </td>
-        <td>
-          <p class="ellipsis" cTooltip="{{product.description?.contentEng}}">{{product.description?.contentEng}}</p>
         </td>
         <td>
           <p class="ellipsis" cTooltip="{{product.description?.contentVie}}">{{product.description?.contentVie}}</p>
@@ -47,7 +39,10 @@
           <p class="ellipsis" cTooltip="{{product.type}}">{{product.type}}</p>
         </td>
         <td>
-          <p class="ellipsis" cTooltip="{{product.contact}}">{{product.contact}}</p>
+          <p class="ellipsis" cTooltip="{{product.type}}">{{product.isHot ? "Hot" : "Normal"}}</p>
+        </td>
+        <td>
+          <p class="ellipsis" cTooltip="{{product.type}}">{{product.isDiscount}}</p>
         </td>
         <td>
           <div class="action-row pe-2">
@@ -85,6 +80,14 @@
             </select>
           </div>
 
+          <div class="mb-3">
+            <label for="brand" class="form-label">Brand</label>
+            <select class="form-select" aria-label="Default select example" id="brand" formControlName="brandId"
+              [disabled]="true">
+              <option *ngFor="let item of brands" [value]="item.id">{{item.name?.contentVie}}</option>
+            </select>
+          </div>
+
           <div class="form-group mb-2">
             <label for="descriptionEng">Description (Vie)</label>
             <input type="text" class="form-control" id="descriptionEng" placeholder="Enter here"
@@ -115,6 +118,28 @@
           <div class="form-group mb-2">
             <label for="amount">Amount</label>
             <input type="number" class="form-control" id="amount" placeholder="Enter here" formControlName="amount">
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Type</label>
+            <select class="form-select" aria-label="Default select example" id="category" formControlName="type">
+              <option *ngFor="let item of productType" [value]="item">{{item == 'VEHICLE' ? 'Vehicle' : 'Spare Parts'}}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" formControlName="isHot" id="isHot">
+              <label class="form-check-label" for="isHot">
+                Hot Product
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="discount" class="form-label">Discount</label>
+            <input type="number" class="form-control" id="discount" formControlName="discount">
           </div>
 
           <div class="form-group mb-2">
@@ -173,17 +198,3 @@
     <button cButton class="btn btn-danger btn-delete" (click)="handleDeleteGallery()">Delete</button>
   </c-modal-footer>
 </c-modal>
-
-<c-toaster [placement]="positionStatic">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
-    <c-toast-header>Toast title</c-toast-header>
-    <c-toast-body>Successfully</c-toast-body>
-  </c-toast>
-</c-toaster>
-
-<c-toaster [placement]="positionStatic">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.error" [color]="toastColors.error">
-    <c-toast-header>Toast title</c-toast-header>
-    <c-toast-body>Error</c-toast-body>
-  </c-toast>
-</c-toaster>

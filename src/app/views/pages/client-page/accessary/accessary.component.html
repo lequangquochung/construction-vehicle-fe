@@ -3,8 +3,8 @@
   <h3 class="text-center m-0">TẤT CẢ SẢN PHẨM</h3>
 </div>
 
-<div class="row m-0 ">
-  <div class="col-md-3 sidebar-block">
+<div class="row m-0 mx-4">
+  <div class="col-md-3 sidebar-block px-0 mb-3">
     <app-sidebar-category [productType]="productType" (categoryIds)="emitCategoryIds($event)"></app-sidebar-category>
   </div>
   <div class="col-md-9">
@@ -33,6 +33,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row mt-3" *ngIf="products.length === 0">
+            <h3 class="text-center" style="color: red;">Không có sản phẩm nào!</h3>
           </div>
         </div>
       </div>

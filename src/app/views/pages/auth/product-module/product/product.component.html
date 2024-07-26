@@ -1,3 +1,4 @@
+<p-toast />
 <div class="row">
   <div class="col-md-10 mb-3">
     <form [formGroup]="productForm">
@@ -12,14 +13,14 @@
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
-        <select class="form-select" aria-label="Default select example" id="category"
-          formControlName="categoryId">
+        <select class="form-select" aria-label="Default select example" id="category" formControlName="categoryId">
           <option *ngFor="let category of categoryType" [value]="category.id">{{category.name.contentVie}}</option>
         </select>
       </div>
       <div class="mb-3">
         <label for="brand" class="form-label">Brand</label>
-        <select class="form-select" aria-label="Default select example" id="brand" formControlName="brandId" [disabled]="true">
+        <select class="form-select" aria-label="Default select example" id="brand" formControlName="brandId"
+          [disabled]="true">
           <option *ngFor="let item of brands" [value]="item.id">{{item.name?.contentVie}}</option>
         </select>
       </div>
@@ -67,25 +68,15 @@
       </div>
 
       <div class="mb-3">
-        <label for="model" class="form-label">Model</label>
-        <input type="text" class="form-control" id="model" formControlName="model">
-      </div>
-
-      <div class="mb-3">
-        
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="discount" id="isDiscount">
-          <label class="form-check-label" for="isDiscount">
-            Discount Product
-          </label>
-        </div>
+        <label for="discount" class="form-label">Discount</label>
+        <input type="number" class="form-control" id="discount" formControlName="discount">
       </div>
 
       <div class="mb-3">
         <input #inputFiles class="form-control" type="file" name="" id="" multiple (change)="onFileSelected($event)">
       </div>
-      <button type="submit" class="btn btn-primary" *ngIf="isLoading" (click)="submitForm()">Submit <c-spinner
-          size="sm"></c-spinner></button>
+      <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit <c-spinner size="sm"
+          *ngIf="isLoading"></c-spinner></button>
     </form>
   </div>
 </div>
