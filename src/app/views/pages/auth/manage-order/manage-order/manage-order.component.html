@@ -25,18 +25,21 @@
     <thead>
       <tr>
         <th scope="col">Image</th>
-        <th scope="col">English Name</th>
-        <th scope="col">Vietnamese Name</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Message</th>
+        <th scope="col">Status</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let order of orders">
         <td class="w-25">
-          <img [src]="order?.image" class="img-fluid img-thumbnail" [alt]="order.name.contentEng"
+          <img [src]="order?.image" class="img-fluid img-thumbnail"
             onerror="this.src='/assets/images/img-error.jpg';">
         </td>
-        <td>{{order.name?.contentEng}}</td>
+        <td>{{order.name}}</td>
         <td>{{order.name?.contentVie}}</td>
         <td>
           <div class="action-row">

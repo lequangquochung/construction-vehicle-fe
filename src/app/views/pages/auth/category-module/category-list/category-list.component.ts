@@ -9,7 +9,8 @@ import { CategoryRequestModel, CategoryTableList } from 'src/app/models/category
 import { FileService } from 'src/app/services/file/file.service';
 import { environment } from 'src/environments/environment';
 import { CategoryService } from '../../../../../services/category/category.service';
-
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
@@ -20,11 +21,9 @@ import { CategoryService } from '../../../../../services/category/category.servi
     ModalComponent, ModalHeaderComponent, ModalTitleDirective,
     ModalBodyComponent, ModalFooterComponent,
     ReactiveFormsModule,
-    TextColorDirective,
-    ToastBodyComponent,
-    ToastComponent,
-    ToasterComponent,
-    ToastHeaderComponent]
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class CategoryListComponent implements OnInit {
   @ViewChild('inputFile') inputFile!: ElementRef;
@@ -37,20 +36,7 @@ export class CategoryListComponent implements OnInit {
     edit: false,
     delete: false
   };
-  positions = Object.values(ToasterPlacement);
-  position = ToasterPlacement.TopEnd;
-  positionStatic = ToasterPlacement.BottomEnd;
-  toastColors = {
-    success: ColorsToast.success,
-    error: ColorsToast.danger
-  };
-  autoHide = true;
-  delay = 3000;
-  fade = true;
-  isShowToast = {
-    success: false,
-    error: false
-  }
+
   currentID?: string;
 
   currentCategoryImg?: any;
@@ -62,7 +48,8 @@ export class CategoryListComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private fileService: FileService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService
   ) { }
   ngOnInit(): void {
     this.getAllCategory();
@@ -98,7 +85,7 @@ export class CategoryListComponent implements OnInit {
 
   submitForm() {
     console.log('click');
-    
+
     let categoryRequest: CategoryRequestModel = {
       id: this.currentID,
       name: {
@@ -110,14 +97,16 @@ export class CategoryListComponent implements OnInit {
 
     const formData: FormData = new FormData();
     formData.append('file', this.changedCategoryImg!);
-    
+
     if (this.changedCategoryImg) {
       this.fileService.uploadSingle(formData).subscribe({
         next: (res) => {
           categoryRequest.image = res.data;
           this.editCategory(categoryRequest);
         }, error: (e: Error) => {
-          this.isShowToast.error = true;
+          this.messageService.add(
+            { severity: 'error', summary: '', detail: 'Edit Failed' }
+          );
         }
       });
     } else {
@@ -128,11 +117,15 @@ export class CategoryListComponent implements OnInit {
   editCategory(payload: CategoryRequestModel) {
     this.categoryService.edit(payload).subscribe({
       next: (res) => {
-        this.isShowToast.success = true;
+        this.messageService.add(
+          { severity: 'success', summary: '', detail: 'Edit Successfully' },
+        );
         this.getAllCategory();
       },
       error: () => {
-        this.isShowToast.error = true;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Edit Failed' }
+        );
       },
       complete: () => {
         this.visibleForm.edit = false;
@@ -143,12 +136,16 @@ export class CategoryListComponent implements OnInit {
   handleDelete() {
     this.categoryService.delete(this.currentID!).subscribe({
       next: () => {
-        this.isShowToast.success = true;
+        this.messageService.add(
+          { severity: 'success', summary: '', detail: 'Delete Successfully' },
+        );
         this.visibleForm.delete = false;
         this.getAllCategory();
       },
       error: () => {
-        this.isShowToast.error = true;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Delete Failed' }
+        );
       }
     });
   }

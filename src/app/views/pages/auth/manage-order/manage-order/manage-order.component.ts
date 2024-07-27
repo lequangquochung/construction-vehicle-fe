@@ -61,7 +61,7 @@ export class ManageOrderComponent implements OnInit {
     this.orderService.getAll(rq).subscribe({
       next: (res) => {
         console.log(res);
-
+        
         this.orders = res.data.data;
       }
     })

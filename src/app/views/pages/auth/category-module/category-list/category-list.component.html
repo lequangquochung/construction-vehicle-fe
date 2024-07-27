@@ -1,3 +1,4 @@
+<p-toast />
 <div class="col-md-12">
   <table class="table table-image table-hover">
     <thead>
@@ -74,17 +75,3 @@
     <button cButton class="btn btn-danger btn-delete" (click)="handleDelete()" >Delete</button>
   </c-modal-footer>
 </c-modal>
-
-<c-toaster [placement]="positionStatic">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.success" [color]="toastColors.success">
-    <c-toast-header>Toast title</c-toast-header>
-    <c-toast-body>Successfully</c-toast-body>
-  </c-toast>
-</c-toaster>
-
-<c-toaster [placement]="positionStatic">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.error" [color]="toastColors.error">
-    <c-toast-header>Toast title</c-toast-header>
-    <c-toast-body>Error</c-toast-body>
-  </c-toast>
-</c-toaster>

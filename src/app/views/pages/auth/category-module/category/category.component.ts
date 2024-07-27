@@ -5,6 +5,8 @@ import { CategoryRequestModel } from 'src/app/models/category/category-request.m
 import { ColorsToast } from '../../../../../enum/colors';
 import { CategoryService } from '../../../../../services/category/category.service';
 import { FileService } from '../../../../../services/file/file.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
@@ -13,13 +15,10 @@ import { FileService } from '../../../../../services/file/file.service';
   styleUrl: 'category.component.scss',
   standalone: true,
   imports: [ReactiveFormsModule,
-    TextColorDirective,
-    ToastBodyComponent,
-    ToastComponent,
-    ToasterComponent,
-    ToastHeaderComponent,
+    ToastModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
+  providers: [MessageService]
 })
 export class CategoryComponent implements OnInit {
   @ViewChild('inputFile') inputFile!: ElementRef;
@@ -30,26 +29,12 @@ export class CategoryComponent implements OnInit {
     nameVie: new FormControl<string>('', [Validators.required]),
   });
 
-  positions = Object.values(ToasterPlacement);
-  position = ToasterPlacement.TopEnd;
-  positionStatic = ToasterPlacement.BottomEnd;
-  autoHide = true;
-  delay = 3000;
-  fade = true;
-  isShowToast = {
-    success: false,
-    error: false
-  };
-
-  toastColors = {
-    success: ColorsToast.success,
-    error: ColorsToast.danger
-  };
 
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    private fileService: FileService
+    private fileService: FileService,
+    private messageService: MessageService
   ) { }
   ngOnInit(): void {
 
@@ -73,14 +58,15 @@ export class CategoryComponent implements OnInit {
 
     const formData: FormData = new FormData();
     formData.append('file', this.categoryImg!);
-    if (formData) {
+    if (formData && this.categoryImg) {
       this.fileService.uploadSingle(formData).subscribe({
         next: (res) => {
           categoryName.image = res.data;
           this.createCategory(categoryName);
         }, error: (e: Error) => {
-          this.isShowToast.error = true;
-          this.toastColors.error = ColorsToast.danger;
+          this.messageService.add(
+            { severity: 'error', summary: '', detail: 'Failed' }
+          )
         }
       });
     } else {
@@ -91,11 +77,14 @@ export class CategoryComponent implements OnInit {
   createCategory(categoryName: CategoryRequestModel) {
     this.categoryService.create(categoryName).subscribe({
       next: (res: any) => {
-        this.isShowToast.success = true;
+        this.messageService.add(
+          { severity: 'success', summary: '', detail: 'Successfully' },
+        );
       },
       error: (e: Error) => {
-        this.isShowToast.error = true;
-        this.toastColors.error = ColorsToast.danger;
+        this.messageService.add(
+          { severity: 'error', summary: '', detail: 'Failed' }
+        )
       },
       complete: () => {
         this.categoryForm.patchValue({

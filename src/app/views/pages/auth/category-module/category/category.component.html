@@ -1,3 +1,4 @@
+<p-toast />
 <div class="col-md-6">
   <div class="row">
     <form [formGroup]="categoryForm" (ngSubmit)="submitForm()">
@@ -18,18 +19,5 @@
   </div>
 </div>
 
-<c-toaster [placement]="positionStatic" [ngStyle]="{display: 'contents'}">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast" [color]="toastColors.success" >
-    <c-toast-header>Toast title</c-toast-header>
-    <c-toast-body>Successfully</c-toast-body>
-  </c-toast>
-</c-toaster>
-
-<c-toaster [placement]="positionStatic">
-  <c-toast [autohide]="autoHide" [fade]="fade" [visible]="isShowToast.error" [color]="toastColors.error">
-    <c-toast-header>Toast title</c-toast-header>
-    <c-toast-body>Error</c-toast-body>
-  </c-toast>
-</c-toaster>
 
   

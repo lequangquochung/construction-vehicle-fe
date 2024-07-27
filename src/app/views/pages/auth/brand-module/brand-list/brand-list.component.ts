@@ -80,8 +80,6 @@ export class BrandListComponent implements OnInit {
     if (this.visibleForm.edit) {
       this.productService.getBrandById(id!).subscribe({
         next: (res) => {
-          console.log(res.data.category);
-
           this.brandFormEdit.patchValue({
             categoryId: res.data.category.id,
             contentEng: res?.data.name?.contentEng,
