@@ -1,12 +1,12 @@
 export class ClientProductRequest {
-    pageIndex?: number | null;
-    pageSize?: number | null;
-    keyword?: string | undefined;
-    categoryIds?: Array<number>;
-    type?: string | undefined;
-    isDiscount?: boolean | undefined;
-    isHot?: boolean | undefined;
-    brandId?: number | undefined;
+    pageIndex?: number | string;
+    pageSize?: number | string;
+    keyword?: string | string;
+    categoryIds?: Array<number> | string;
+    type?: string | null;
+    isDiscount?: boolean | null | string;
+    isHot?: boolean | null | string;
+    brandId?: number | null | string;
 }
 
 export class Brand {

@@ -12,16 +12,20 @@
 </div>
 <div class="row mx-4 mb-3 product-list">
   <h3 class="text-center brand-title">SẢN PHẨM NỔI BẬT</h3>
-  <div class="col-md-3 px-0 mt-3" *ngFor="let item of productsByBrands">
-    <p-card [header]="product.name" [subheader]="product.model" [style]="{ width: '360px', height: '460px'}"
-      *ngFor="let product of item.products">
+  <div class="col-md-3 px-0 mt-3" *ngFor="let item of products">
+    <p-card [header]="item.name" [subheader]="item.model" [style]="{ width: '430px', height: '460px'}">
       <ng-template pTemplate="header">
-        <img class="card-img" height="230px" [alt]="product.name" [src]="product.image"
+        <img class="card-img" height="230px" [alt]="item.name" [src]="item.image"
           onerror="this.src='/assets/images/img-error.jpg';" />
       </ng-template>
       <p class="card-content-text">
-        {{product.description}}
+        {{item.description}}
       </p>
     </p-card>
   </div>
+</div>
+<div class="row d-flex justify-content-center mx-0 mb-3 ">
+  <button class="btn btn-outline-secondary btn-more " (click)=redirectToProducts()>
+    Xem Tất Cả Sản Phẩm
+  </button>
 </div>

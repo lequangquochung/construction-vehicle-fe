@@ -12,7 +12,8 @@ import { environment } from 'src/environments/environment';
 import { ProductService } from './../../../../../services/product/product.service';
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { BrandRequest } from 'src/app/models/brand/brand-request';
-
+import { PaginatorModule } from 'primeng/paginator';
+import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -26,6 +27,7 @@ import { BrandRequest } from 'src/app/models/brand/brand-request';
     ModalComponent, ModalHeaderComponent, ModalTitleDirective,
     ModalBodyComponent, ModalFooterComponent,
     ReactiveFormsModule,
+    PaginatorModule,
     ToastModule],
   providers: [MessageService]
 })
@@ -43,6 +45,22 @@ export class ProductListComponent implements OnInit {
   brandRequest: BrandRequest = {
     keyword: "",
     categoryId: undefined
+  }
+
+  totalItems: number = 0;
+  first: number = 0;
+  rows: number = 5;
+  pageOptions = [5, 10, 20];
+
+  productRequest: ClientProductRequest = {
+    pageIndex: 1,
+    pageSize: this.rows,
+    keyword: "",
+    categoryIds: '',
+    type: '',
+    isDiscount: '',
+    isHot: '',
+    brandId: ''
   }
   visibleForm = {
     edit: false,
@@ -72,6 +90,15 @@ export class ProductListComponent implements OnInit {
     discount: [0]
   });
 
+  pageModel: PageEvent = {
+    first: undefined,
+    rows: undefined,
+    page: undefined,
+    pageCount: undefined
+  }
+
+
+
   constructor(private productService: ProductService,
     private categoryService: CategoryService,
     private fileService: FileService,
@@ -79,18 +106,26 @@ export class ProductListComponent implements OnInit {
     private messageService: MessageService
   ) { }
   ngOnInit(): void {
-    this.getAll();
+    this.getAll(this.productRequest);
     this.getCategory();
     this.getBrands(this.brandRequest);
   }
 
-  getAll() {
-    this.productService.getAll(this.keyword).subscribe({
+  onPageChange(event: any) {
+    this.productRequest.pageIndex = event.page + 1;
+    this.productRequest.pageSize = event.rows;
+    this.getAll(this.productRequest);
+
+  }
+
+  getAll(rq: ClientProductRequest) {
+    this.productService.getAll(rq).subscribe({
       next: (res) => {
         this.products = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`
           return item;
         });
+        this.totalItems = res.totalItems;
       }
     })
   }
@@ -158,7 +193,7 @@ export class ProductListComponent implements OnInit {
           { severity: 'success', summary: '', detail: 'Lưu Thành Công' },
         );
         this.visibleForm.delete = false;
-        this.getAll();
+        this.getAll(this.productRequest);
       },
       error: () => {
         this.messageService.add(
@@ -176,7 +211,7 @@ export class ProductListComponent implements OnInit {
       this.productService.getById(this.currentID).subscribe({
         next: (res) => {
           console.log(res.data);
-          
+
           this.productEditForm.patchValue({
             amount: parseInt(res.data?.amount),
             categoryId: res.data?.category.id,
@@ -215,7 +250,7 @@ export class ProductListComponent implements OnInit {
           { severity: 'success', summary: '', detail: 'Lưu Thành Công' },
         );
         this.inputFile.nativeElement.value = null;
-        this.getAll();
+        this.getAll(this.productRequest);
       },
       error: () => {
         this.messageService.add(
@@ -273,4 +308,11 @@ export class ProductListComponent implements OnInit {
       }
     });
   }
+}
+
+interface PageEvent {
+  first: number | undefined;
+  rows: number | undefined;
+  page: number | undefined;
+  pageCount: number | undefined;
 }

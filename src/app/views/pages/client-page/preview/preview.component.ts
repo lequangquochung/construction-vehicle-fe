@@ -1,18 +1,14 @@
-import { map } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ProductClientService } from './../../../../services/client-service/product/product-client.service';
+import { NgFor, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { UpperCasePipe } from '@angular/common';
-import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
-import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
-import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
 import { Router, RouterModule } from '@angular/router';
-import { CategoryClientRequest } from 'src/app/models/category/category-client-request';
-import { Slides } from '../nav-header/nav-header.component';
 import { CarouselComponent, CarouselControlComponent, CarouselIndicatorsComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
 import { CardModule } from 'primeng/card';
-import { BrandModel } from 'src/app/models/product/IProductRequest';
+import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
+import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
+import { CategoryClientService } from 'src/app/services/client-service/category/category.service';
+import { environment } from 'src/environments/environment';
+import { Slides } from '../nav-header/nav-header.component';
+import { ProductClientService } from './../../../../services/client-service/product/product-client.service';
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
@@ -32,8 +28,6 @@ export class PreviewComponent implements OnInit {
     private productClientService: ProductClientService,
     private router: Router
   ) { }
-  keyword: string = "";
-  categorys: any = [];
   baseApi = environment.APIURL;
 
   slides: Slides[] = [
@@ -46,11 +40,10 @@ export class PreviewComponent implements OnInit {
       src: "/assets/images/slides/2.jpg"
     },
   ];
-  brands: BrandModel[] = [];
-  productsByBrands: any[] = [];
+
   products: any[] = [];
   productRequest: ClientProductRequest = {
-    categoryIds: [],
+    categoryIds: '',
     keyword: "",
     pageIndex: 1,
     pageSize: 15,
@@ -59,59 +52,22 @@ export class PreviewComponent implements OnInit {
     isHot: true,
   };
 
-  categoryRequest: CategoryClientRequest = {
-    categoryId: null,
-    keyword: "",
-    pageIndex: 1,
-    pageSize: 15,
-    type: EPRODUCT_TYPE.VEHICLE
-  };
   ngOnInit(): void {
-    this.getAllCategory();
-    this.getBrands('vi');
+    this.getHotProduct(this.productRequest);
   }
 
-  getAllCategory() {
-    this.categoryClientService.getAll(this.categoryRequest).subscribe({
+  getHotProduct(rq: ClientProductRequest) {
+    this.productClientService.getAll(rq).subscribe({
       next: (res) => {
-        this.categorys = res.data.data.map((item: any) => {
+        console.log(res);
+        this.products = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;
           return item;
-        });
-      },
-      error: () => { }
-    })
-  }
-
-  getBrands(language: string) {
-    this.productClientService.getAllBrands(language).subscribe({
-      next: (res) => {
-        this.brands = res.data?.data!;
-        this.brands.forEach((brand) => {
-          this.getProductByBrands(brand.id!)
-        })
+        }).slice(0, 8);
       }
     })
   }
-
-  getProductByBrands(brandId: number) {
-    this.productRequest.brandId = brandId;
-    this.productClientService.getAll(this.productRequest).subscribe({
-      next: (res) => {
-        res.data?.data.map((item: any) => {
-          let obj = {
-            name: item.name,
-            products: [item]
-          }
-          this.productsByBrands.push(obj);
-          this.productsByBrands.forEach((item: any) => {
-            item.products.map((product: any) => {
-              product.image = `${this.baseApi}/${product.image}`
-              return product;
-            });
-          })
-        });
-      }
-    })
+  redirectToProducts() {
+    this.router.navigate(['/dashboard/products']);
   }
 }

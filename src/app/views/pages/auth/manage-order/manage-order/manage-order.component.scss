@@ -1,36 +1,51 @@
-
 h4 {
     margin: 2rem 0rem 1rem;
 }
 
-.table-image {
+.order-data {
+    margin-bottom: 5rem;
 
-    td,
-    th {
-        vertical-align: middle;
-    }
+    .table-image {
 
-    .img-thumbnail {
-        height: 120px;
-        width: 180px;
-        object-fit: cover;
-    }
-
-    .action-row {
-        .edit, .delete {
-            font-size: 1.5rem;
-            cursor: pointer;
+        td,
+        th {
+            vertical-align: middle;
         }
-        .delete{
-            color: red;
+
+        .img-thumbnail {
+            height: 120px;
+            width: 180px;
+            object-fit: cover;
+        }
+
+        .action-row {
+
+            .edit,
+            .delete {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .delete {
+                color: red;
+            }
         }
     }
+
 }
+
 
 .btn-delete {
     color: white;
 }
 
-.select-status{
+.select-status {
     padding-right: 7rem;
+}
+
+
+.paginator {
+    bottom: 0;
+    width: 100%;
+    left: 0;
 }

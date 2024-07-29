@@ -33,14 +33,14 @@ export class SidebarCategoryComponent implements OnInit {
   };
 
   productRequest: ClientProductRequest = {
-    pageIndex: null,
-    pageSize: null,
+    pageIndex: '',
+    pageSize: '',
     keyword: "",
     categoryIds: [],
-    type: undefined,
-    isDiscount: false,
-    isHot: false,
-    brandId: undefined
+    type: '',
+    isDiscount: '',
+    isHot: '',
+    brandId: ''
   }
   categorys: any[] = [];
   treeGroup: any[] = [];
@@ -85,10 +85,11 @@ export class SidebarCategoryComponent implements OnInit {
     let isChildren: boolean = event.node?.parent;
     if (!isChildren) {
       event?.originalEvent.target?.children[0]?.click()
-    }
-    const idValue = event?.node.key;
-    if (idValue) {
-      this.categoryIds.emit(idValue);
+    } else {
+      const idValue = event?.node.key;
+      if (idValue) {
+        this.categoryIds.emit(idValue);
+      }
     }
   }
 }

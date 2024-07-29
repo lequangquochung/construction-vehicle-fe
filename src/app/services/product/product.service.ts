@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { IResponseData } from './../../models/IResponse-data.model';
 import { createRequestOptions } from "../../helpers/RequestOptions";
 import { BrandRequest } from 'src/app/models/brand/brand-request';
+import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 
 @Injectable({
     providedIn: 'root'
@@ -20,9 +21,9 @@ export class ProductService {
         return this.httpClient.post<any>(this.baseUrl + '/cms/product', payload)
     }
 
-    getAll(param: string): Observable<any> {
+    getAll(param: ClientProductRequest): Observable<any> {
         const options = createRequestOptions({
-            params: { keyword: param },
+            params: param,
         });
         return this.httpClient.get<any>(this.baseUrl + `/cms/product`, options);
     }

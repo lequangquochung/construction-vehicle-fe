@@ -20,4 +20,8 @@ export class OrderService {
         });
         return this.httpClient.get<IResponseData<any[]>>(`${this.baseUrl}/cms/order`, options);
     }
+
+    getOrderById(id: number): Observable<any> {
+        return this.httpClient.get<IResponseData<any[]>>(`${this.baseUrl}/cms/order/${id}`);
+    }
 }

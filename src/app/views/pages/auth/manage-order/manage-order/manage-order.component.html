@@ -20,13 +20,13 @@
   </div>
 </div>
 
-<div class="col-md-12">
+<div class="col-md-12  order-data">
   <table class="table table-image table-hover">
     <thead>
       <tr>
-        <th scope="col">Image</th>
         <th scope="col">Name</th>
         <th scope="col">Email</th>
+        <th scope="col">Created Date</th>
         <th scope="col">Phone</th>
         <th scope="col">Message</th>
         <th scope="col">Status</th>
@@ -34,21 +34,89 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of orders">
-        <td class="w-25">
-          <img [src]="order?.image" class="img-fluid img-thumbnail"
-            onerror="this.src='/assets/images/img-error.jpg';">
-        </td>
+      <tr *ngFor="let order of orders" (click)="toggleEditModal($event,order.id)">
         <td>{{order.name}}</td>
-        <td>{{order.name?.contentVie}}</td>
+        <td>{{order.email}}</td>
+        <td>{{order.createdDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{order.phoneNumber}}</td>
+        <td>
+          <p class="ellipsis">{{order.note}}</p>
+        </td>
+        <td>{{order.status}}</td>
         <td>
           <div class="action-row">
             <fa-icon class="action-row-icon edit me-5" [icon]="faIcon.faEdit"
-              (click)="toggleEditModal(order?.id)"></fa-icon>
-            <fa-icon class="action-row-icon delete" [icon]="faIcon.faDelete" (click)="toggleDelete(order.id)"></fa-icon>
+              (click)="toggleEditModal($event,order?.id)"></fa-icon>
+            <fa-icon class="action-row-icon delete" [icon]="faIcon.faDelete"
+              (click)="toggleDelete($event,order.id)"></fa-icon>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+<div class="row position-absolute paginator">
+  <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="totalItems"
+    [rowsPerPageOptions]="pageOptions" />
+</div>
+
+<div class="card flex justify-content-center">
+  <p-dialog header="Edit" [modal]="true" [(visible)]="visibleForm.edit"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '30rem' }" [maximizable]="true">
+    <div class="row mb-3">
+      <div class="col">
+        <label for="userName">Name</label>
+        <input class="form-control" type="text" id="userName" [value]="currentOrder?.name" aria-label="readonly input"
+          readonly>
+      </div>
+
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" id="email" [value]="currentOrder?.email" aria-label="readonly input"
+          readonly>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="createdDate">Date</label>
+        <input class="form-control" type="text" id="createdDate" [value]="currentOrder?.createdDate"
+          aria-label="readonly input" readonly>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="phoneNumber">Phone Number</label>
+        <input class="form-control" type="text" id="phoneNumber" [value]="currentOrder?.name"
+          aria-label="readonly input" readonly>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="message">Message</label>
+        <input class="form-control" type="text" id="message" [value]="currentOrder?.note" aria-label="readonly input"
+          readonly>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="status">Status</label>
+        <select class="form-select" aria-label="Default select example"  [(ngModel)]="currentStatus">
+          <option selected *ngFor="let item of statusList" [value]="item.value">{{item.label}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col d-flex justify-content-end">
+        <button class="btn btn-primary me-3" (click)="handleEdit()">Save</button>
+        <button class="btn btn-outline-secondary" (click)="visibleForm.edit = false">Cancel</button>
+      </div>
+    </div>
+    
+
+  </p-dialog>
 </div>
