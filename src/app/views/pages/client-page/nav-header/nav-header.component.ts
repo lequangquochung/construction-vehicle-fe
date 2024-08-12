@@ -1,12 +1,11 @@
 import { NgFor } from '@angular/common';
-import { AddToCartService } from './../../../../services/client-service/add-to-cart/add-to-card.service';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, CarouselItemComponent } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { FormsModule } from '@angular/forms';
 import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
+import { AddToCartService } from './../../../../services/client-service/add-to-cart/add-to-card.service';
 
 @Component({
   selector: 'app-nav-header',
@@ -32,6 +31,7 @@ export class NavHeaderComponent implements OnInit {
     faCartPlus: faCartPlus,
     faSearch: faSearch
   }
+  
 
   cartCount: number = 0;
   itemInCart: any[] = [];

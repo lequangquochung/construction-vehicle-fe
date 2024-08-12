@@ -59,7 +59,6 @@ export class PreviewComponent implements OnInit {
   getHotProduct(rq: ClientProductRequest) {
     this.productClientService.getAll(rq).subscribe({
       next: (res) => {
-        console.log(res);
         this.products = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;
           return item;

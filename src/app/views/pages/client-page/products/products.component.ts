@@ -76,12 +76,12 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.productRequest);
     this.getAllProduct(this.productRequest);
   }
 
-  emitCategoryIds(categoryIds: Array<number>) {
-    this.productRequest.categoryIds = categoryIds;
+  emitCategoryIds(ids: any) {
+    this.productRequest.categoryIds = [ids.categoryId];
+    this.productRequest.brandId = ids.brandId;
     this.getAllProduct(this.productRequest);
   }
 

@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth/auth.service';
 import { Component, computed, DestroyRef, inject, Input } from '@angular/core';
 import {
   AvatarComponent,
@@ -35,7 +36,6 @@ import { delay, filter, map, tap } from 'rxjs/operators';
   imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
 })
 export class DefaultHeaderComponent extends HeaderComponent {
-
   readonly #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
@@ -52,7 +52,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
     return this.colorModes.find(mode=> mode.name === currentMode)?.icon ?? 'cilSun';
   });
 
-  constructor() {
+  constructor(
+    private authService: AuthService
+  ) {
     super();
     this.#colorModeService.localStorageItemName.set('coreui-free-angular-admin-template-theme-default');
     this.#colorModeService.eventName.set('ColorSchemeChange');
@@ -146,5 +148,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
     { id: 3, title: 'Add new layouts', value: 75, color: 'info' },
     { id: 4, title: 'Angular Version', value: 100, color: 'success' }
   ];
+
+  logout() {
+    this.authService.logout();
+  }
 
 }

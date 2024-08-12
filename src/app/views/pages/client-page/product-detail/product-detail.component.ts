@@ -54,7 +54,6 @@ export class ProductDetailComponent implements OnInit {
           item = `${this.baseApi}/${item}`;
           return item;
         });
-        console.log(this.product);
       }
     })
   }

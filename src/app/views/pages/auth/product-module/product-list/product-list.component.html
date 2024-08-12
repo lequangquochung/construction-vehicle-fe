@@ -1,4 +1,11 @@
-<div class="col-md-12 overflow-scroll product-data">
+<div class="row mb-3">
+  <div class="col-md-5 col-sm-12 d-flex align-items-center">
+    <label for="keyword" class="font-bold block me-3">Product Name</label>
+    <input class="me-5" type="text" id="keyword" pInputText [(ngModel)]="productRequest.keyword" />
+    <button class="btn btn-primary h-100" (click)="search()">Search</button>
+  </div>
+</div>
+<div class="col-md-12 overflow-x-scroll product-data">
   <table class="table table-image table-product table-hover">
     <thead>
       <tr>
@@ -15,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products" (dblclick)="toggleEditModal(product?.id)">
+      <tr *ngFor="let product of products">
         <td class="">
           <img [src]="product?.image" class="img-fluid img-thumbnail" [alt]="product.name.contentEng"
             onerror="this.src='/assets/images/img-error.jpg';">

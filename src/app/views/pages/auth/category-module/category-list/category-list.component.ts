@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
 import { CategoryService } from '../../../../../services/category/category.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { PaginatorModule } from 'primeng/paginator';
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
@@ -23,7 +22,7 @@ import { PaginatorModule } from 'primeng/paginator';
     ModalBodyComponent, ModalFooterComponent,
     ReactiveFormsModule,
     ToastModule,
-    PaginatorModule
+    
   ],
   providers: [MessageService]
 })
@@ -89,8 +88,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   submitForm() {
-    console.log('click');
-
     let categoryRequest: CategoryRequestModel = {
       id: this.currentID,
       name: {
@@ -166,18 +163,5 @@ export class CategoryListComponent implements OnInit {
       error: () => { }
     })
   }
-
-  onPageChange(event: any) {
-    console.log(event);
-    
-    // this.first = event.first;
-    // this.rows = event.rows;
-  }
-}
-
-interface PageEvent {
-  first: number;
-  rows: number;
-  page: number;
-  pageCount: number;
+  
 }

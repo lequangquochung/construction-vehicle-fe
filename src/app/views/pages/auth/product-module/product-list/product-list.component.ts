@@ -14,6 +14,7 @@ import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { BrandRequest } from 'src/app/models/brand/brand-request';
 import { PaginatorModule } from 'primeng/paginator';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
+import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -28,7 +29,8 @@ import { ClientProductRequest } from 'src/app/models/product/ClientProductReques
     ModalBodyComponent, ModalFooterComponent,
     ReactiveFormsModule,
     PaginatorModule,
-    ToastModule],
+    ToastModule,
+    InputTextModule],
   providers: [MessageService]
 })
 export class ProductListComponent implements OnInit {
@@ -109,6 +111,10 @@ export class ProductListComponent implements OnInit {
     this.getAll(this.productRequest);
     this.getCategory();
     this.getBrands(this.brandRequest);
+  }
+
+  search() {
+    this.getAll(this.productRequest);
   }
 
   onPageChange(event: any) {
@@ -210,11 +216,9 @@ export class ProductListComponent implements OnInit {
     if (this.currentID && this.visibleForm.edit) {
       this.productService.getById(this.currentID).subscribe({
         next: (res) => {
-          console.log(res.data);
-
           this.productEditForm.patchValue({
             amount: parseInt(res.data?.amount),
-            categoryId: res.data?.category.id,
+            categoryId: +res.data?.category.id,
             contact: res.data?.contact,
             descriptionEng: res.data?.description.contentEng,
             descriptionVie: res.data?.description.contentVie,

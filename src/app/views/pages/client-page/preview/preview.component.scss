@@ -63,6 +63,12 @@ img.card-img {
     }
 }
 
+@media screen and (max-width: 768px) {
+    ::ng-deep .p-card {
+        width: 100% !important;
+    }
+}
+
 .btn-more {
     width: 250px;
 }

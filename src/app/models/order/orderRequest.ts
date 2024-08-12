@@ -5,4 +5,5 @@ export class OrderRequest {
     endDate?: string | null;
     pageIndex?: number | undefined;
     pageSize?: number | undefined;
+    isDelete: boolean;
 }

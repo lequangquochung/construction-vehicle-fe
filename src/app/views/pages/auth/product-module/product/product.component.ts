@@ -82,7 +82,7 @@ export class ProductComponent implements OnInit {
 
     let request: IProduct = {
       name: productName,
-      categoryId: this.productForm.get('categoryId')?.value!,
+      categoryId: +this.productForm.get('categoryId')?.value!,
       description: description,
       model: this.productForm.get('model')?.value!,
       contact: this.productForm.get('contact')?.value!,

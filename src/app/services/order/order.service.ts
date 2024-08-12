@@ -24,4 +24,8 @@ export class OrderService {
     getOrderById(id: number): Observable<any> {
         return this.httpClient.get<IResponseData<any[]>>(`${this.baseUrl}/cms/order/${id}`);
     }
+
+    changeStatus(status: string, id: number): Observable<IResponseData<any>> {
+        return this.httpClient.put<IResponseData<any>>(`${this.baseUrl}/cms/order/${id}/${status}`, null);
+    }
 }

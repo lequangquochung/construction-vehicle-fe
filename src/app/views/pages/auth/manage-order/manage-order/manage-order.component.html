@@ -1,3 +1,4 @@
+<p-toast />
 <div class="row mb-3">
   <div class="col-md-3 col-sm-12 d-flex justify-content-between align-items-center">
     <label for="startDate" class="font-bold block"> Start Date </label>
@@ -15,7 +16,8 @@
   </div>
   <div class="col-md-3 d-flex justify-content-between align-items-center pe-3">
     <label for="status" class="font-bold block">Status</label>
-    <p-dropdown [options]="statusList" [(ngModel)]="selectStatus" optionLabel="label" placeholder="Select Status" />
+    <p-dropdown [style]="{width: '180px'}" [options]="statusList" [(ngModel)]="selectStatus" optionLabel="label"
+      placeholder="Select Status" />
     <button class="btn btn-primary h-100" (click)="search()">Search</button>
   </div>
 </div>
@@ -34,7 +36,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of orders" (click)="toggleEditModal($event,order.id)">
+      <tr *ngFor="let order of orders" >
         <td>{{order.name}}</td>
         <td>{{order.email}}</td>
         <td>{{order.createdDate | date: 'dd/MM/yyyy'}}</td>
@@ -42,11 +44,11 @@
         <td>
           <p class="ellipsis">{{order.note}}</p>
         </td>
-        <td>{{order.status}}</td>
+        <td [style.background]="checkStatusColor(order.status)">{{order.status}}</td>
         <td>
           <div class="action-row">
             <fa-icon class="action-row-icon edit me-5" [icon]="faIcon.faEdit"
-              (click)="toggleEditModal($event,order?.id)"></fa-icon>
+              (click)="toggleEditModal(order?.id)"></fa-icon>
             <fa-icon class="action-row-icon delete" [icon]="faIcon.faDelete"
               (click)="toggleDelete($event,order.id)"></fa-icon>
           </div>
@@ -62,10 +64,10 @@
 
 <div class="card flex justify-content-center">
   <p-dialog header="Edit" [modal]="true" [(visible)]="visibleForm.edit"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '30rem' }" [maximizable]="true">
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50rem' }" [maximizable]="true">
     <div class="row mb-3">
       <div class="col">
-        <label for="userName">Name</label>
+        <label for="userName"><b>Name</b></label>
         <input class="form-control" type="text" id="userName" [value]="currentOrder?.name" aria-label="readonly input"
           readonly>
       </div>
@@ -73,7 +75,7 @@
     </div>
     <div class="row mb-3">
       <div class="col">
-        <label for="email">Email</label>
+        <label for="email"><b>Email</b></label>
         <input class="form-control" type="email" id="email" [value]="currentOrder?.email" aria-label="readonly input"
           readonly>
       </div>
@@ -81,21 +83,43 @@
 
     <div class="row mb-3">
       <div class="col">
-        <label for="createdDate">Date</label>
-        <input class="form-control" type="text" id="createdDate" [value]="currentOrder?.createdDate"
-          aria-label="readonly input" readonly>
+        <label for=""><b>Order</b></label>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Thumbnail</th>
+              <th scope="col">Information</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of currentOrder.orderDetails">
+              <td>
+                <img class="thumbnail-item" [src]="item.product.image" class="rounded float-start" width="150px" height="150px">
+              </td>
+              <td colspan="2" class="ellipsis"><p>{{item.product.name?.contentVie}}</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="createdDate"><b>Date</b></label>
+        <input class="form-control" type="text" id="createdDate"
+          [value]="currentOrder?.createdDate | date: 'dd/MM/yyyy'" aria-label="readonly input" readonly>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col">
-        <label for="phoneNumber">Phone Number</label>
+        <label for="phoneNumber"><b>Phone Number</b></label>
         <input class="form-control" type="text" id="phoneNumber" [value]="currentOrder?.name"
           aria-label="readonly input" readonly>
       </div>
     </div>
     <div class="row mb-3">
       <div class="col">
-        <label for="message">Message</label>
+        <label for="message"><b>Message</b></label>
         <input class="form-control" type="text" id="message" [value]="currentOrder?.note" aria-label="readonly input"
           readonly>
       </div>
@@ -103,9 +127,9 @@
 
     <div class="row mb-3">
       <div class="col">
-        <label for="status">Status</label>
-        <select class="form-select" aria-label="Default select example"  [(ngModel)]="currentStatus">
-          <option selected *ngFor="let item of statusList" [value]="item.value">{{item.label}}</option>
+        <label for="status"><b>Status</b></label>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="currentStatus">
+          <option selected *ngFor="let item of statusList.slice(1)" [value]="item.value">{{item.label}}</option>
         </select>
       </div>
     </div>
@@ -116,7 +140,7 @@
         <button class="btn btn-outline-secondary" (click)="visibleForm.edit = false">Cancel</button>
       </div>
     </div>
-    
+
 
   </p-dialog>
 </div>

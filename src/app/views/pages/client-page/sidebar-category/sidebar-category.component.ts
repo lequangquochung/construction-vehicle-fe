@@ -19,7 +19,7 @@ import { TreeModule } from 'primeng/tree';
   imports: [NgFor, CheckboxModule, FormsModule, TreeModule]
 })
 export class SidebarCategoryComponent implements OnInit {
-  @Output() categoryIds = new EventEmitter<Array<number>>();
+  @Output() categoryIds = new EventEmitter<any>();
   @Input() productType!: string;
 
   selectedCategories: any[] = [];
@@ -87,9 +87,16 @@ export class SidebarCategoryComponent implements OnInit {
       event?.originalEvent.target?.children[0]?.click()
     } else {
       const idValue = event?.node.key;
+
       if (idValue) {
-        this.categoryIds.emit(idValue);
+        let categoryId: string = idValue.split(',')[0];
+        let brandId: string = idValue.split(',')[1];
+        this.categoryIds.emit({
+          categoryId: categoryId,
+          brandId: brandId
+        });
       }
     }
+
   }
 }
