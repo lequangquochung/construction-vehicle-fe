@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ElementRefDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, SpinnerModule, ToastModule, TooltipDirective } from '@coreui/angular';
+import { ElementRefDirective, ModalBodyComponent, ModalComponent, ModalFooterComponent, ModalHeaderComponent, ModalTitleDirective, SpinnerModule,TooltipDirective } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faClose, faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
@@ -15,6 +15,7 @@ import { BrandRequest } from 'src/app/models/brand/brand-request';
 import { PaginatorModule } from 'primeng/paginator';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',

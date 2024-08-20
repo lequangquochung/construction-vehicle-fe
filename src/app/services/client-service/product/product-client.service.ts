@@ -18,17 +18,23 @@ export class ProductClientService {
     private baseUrl = `${environment.APIURL}`
 
     private keywordService = new Subject<string>();
+    private changeLanguage = new Subject<boolean>();
     keywordService$ = this.keywordService.asObservable();
+    changeLanguage$ = this.changeLanguage.asObservable();
+
+    changeLang(changed: boolean) {
+        this.changeLanguage.next(changed);
+    }
 
     sendKeyword(message: string) {
         this.keywordService.next(message);
     }
 
-    getAll(param: ClientProductRequest): Observable<any> {
+    getAll(param: ClientProductRequest, lang: string): Observable<any> {
         const options = createRequestOptions({
             params: param,
         });
-        return this.httpClient.get<any>(this.baseUrl + `/product/vi`, options);
+        return this.httpClient.get<any>(this.baseUrl + `/product/${lang}`, options);
     }
 
     getById(id: string, lang: string): Observable<any> {
@@ -47,10 +53,10 @@ export class ProductClientService {
         return this.httpClient.get<IResponseData<IResponseData<BrandModel[]>>>(this.baseUrl + `/brand/${language}`);
     }
 
-    getSideBar(type: string): Observable<any> {
+    getSideBar(type: string, lang: string): Observable<any> {
         const options = createRequestOptions({
             params: type,
         });
-        return this.httpClient.get<any>(this.baseUrl + `/category/side-bar/vi`, options);
+        return this.httpClient.get<any>(this.baseUrl + `/category/side-bar/${lang}`, options);
     }
 }

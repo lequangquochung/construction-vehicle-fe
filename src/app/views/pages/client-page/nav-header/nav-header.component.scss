@@ -50,8 +50,6 @@
     }
 }
 
-.cart-badge {}
-
 .navbar-nav {
     li {
         a {
@@ -63,7 +61,19 @@
 }
 
 
+.language {
+    label {
+        cursor: pointer;
+    }
 
+    span {
+        cursor: pointer;
+    }
+    cursor: pointer;
+    .lang-title{
+        font-weight: 500;
+    }
+}
 
 @media screen and (max-width: 768px) {
     .nav-search-mobile {

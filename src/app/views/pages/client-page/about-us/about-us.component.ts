@@ -1,10 +1,11 @@
-import { NgFor } from '@angular/common';
+import { NgFor, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CarouselComponent, CarouselControlComponent, CarouselInnerComponent, CarouselItemComponent, SpinnerModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAddressCard, faPager, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { Slides } from '../nav-header/nav-header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-about-us',
@@ -13,6 +14,7 @@ import { Slides } from '../nav-header/nav-header.component';
   standalone: true,
   imports: [SpinnerModule, CarouselComponent, CarouselInnerComponent,
     FontAwesomeModule,
+    TranslateModule, UpperCasePipe,
     CarouselItemComponent, CarouselControlComponent, RouterLink, NgFor]
 })
 export class AboutUsComponent implements OnInit {

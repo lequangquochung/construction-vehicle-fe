@@ -35,7 +35,11 @@ export const routes: Routes = [
       },
       {
         path: 'installment',
-        component: InstallmentComponent
+        loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
+        data: {
+          title: 'Page 404'
+        }
+        // component: InstallmentComponent
       },
       {
         path: 'contact-us',

@@ -13,6 +13,8 @@ import { AddToCartService } from 'src/app/services/client-service/add-to-cart/ad
 import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { environment } from 'src/environments/environment';
 import { SidebarCategoryComponent } from '../sidebar-category/sidebar-category.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { E_LANGUAGE } from 'src/app/enum/ELanguage';
 
 @Component({
   selector: 'app-accessary',
@@ -23,7 +25,8 @@ import { SidebarCategoryComponent } from '../sidebar-category/sidebar-category.c
     UpperCasePipe, NgFor, FontAwesomeModule,
     ToastModule,
     SidebarCategoryComponent,
-    NgIf
+    NgIf,
+    TranslateModule
   ],
   providers: [MessageService]
 })
@@ -58,7 +61,7 @@ export class AccessaryComponent implements OnInit {
     success: ColorsToast.success,
     error: ColorsToast.danger
   };
-
+  defaultLang: string = "";
   productType = EPRODUCT_TYPE.SPARE_PARTS
   
   constructor(
@@ -70,11 +73,16 @@ export class AccessaryComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.getCurrentLanguage();
     this.getAllProduct(this.productRequest);
   }
 
+  getCurrentLanguage() {
+    this.defaultLang = localStorage.getItem('language') || E_LANGUAGE.VI;
+  }
+
   getAllProduct(request: ClientProductRequest) {
-    this.productClientService.getAll(request).subscribe({
+    this.productClientService.getAll(request,this.defaultLang).subscribe({
       next: (res) => {
         this.products = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;

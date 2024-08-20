@@ -1,11 +1,14 @@
-import { NgFor } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { E_LANGUAGE } from './../../../../enum/ELanguage';
+import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { AddToCartService } from './../../../../services/client-service/add-to-cart/add-to-card.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-nav-header',
@@ -15,11 +18,17 @@ import { AddToCartService } from './../../../../services/client-service/add-to-c
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [RouterModule, FontAwesomeModule,
     FormsModule,
-    NgFor
+    NgFor,
+    NgIf,
+    TranslateModule,
+    UpperCasePipe,
+    DialogModule
   ]
 })
 export class NavHeaderComponent implements OnInit {
+  @ViewChild('dropdownLanguage') dropdownLanguage: ElementRef;
   @Output() keywordProduct = new EventEmitter<string>;
+  private translate = inject(TranslateService);
   pageLink = {
     aboutUs: "about-us",
     product: "/dashboard/products"
@@ -31,15 +40,23 @@ export class NavHeaderComponent implements OnInit {
     faCartPlus: faCartPlus,
     faSearch: faSearch
   }
-  
+
+  isEnglish: boolean = false;
+
+  COUNTRY_ENUM = {
+    VI: "vi",
+    EN: "en"
+  }
 
   cartCount: number = 0;
   itemInCart: any[] = [];
   STORAGE_KEY = "cartItem";
+
+  visibleLanguageModal: boolean = false;
   constructor(
     private addToCartService: AddToCartService,
     private router: Router,
-    private productClientService: ProductClientService
+    private productClientService: ProductClientService,
   ) {
     this.getCountItem();
   }
@@ -55,6 +72,23 @@ export class NavHeaderComponent implements OnInit {
         this.getCountItem();
       };
     })
+
+    const defaultLang = localStorage.getItem('language') || E_LANGUAGE.VI;
+    defaultLang === E_LANGUAGE.EN ? this.isEnglish = true : this.isEnglish = false;
+    this.translate.setDefaultLang(defaultLang);
+    this.translate.use(defaultLang);
+  }
+
+  showLanguageModal() {
+    this.visibleLanguageModal = true;
+  }
+
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('language', lang);
+    this.visibleLanguageModal = false;
+    this.productClientService.changeLang(true);
+    this.setCountryFlag(lang);
   }
 
   saveStorage(value: any) {
@@ -77,6 +111,14 @@ export class NavHeaderComponent implements OnInit {
       });
     }
 
+  }
+
+  setCountryFlag(country: string) {
+    if (country === "en") {
+      this.isEnglish = true;
+    } else {
+      this.isEnglish = false;
+    }    
   }
 }
 

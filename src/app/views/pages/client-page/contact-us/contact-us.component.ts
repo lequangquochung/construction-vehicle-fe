@@ -1,21 +1,25 @@
-import { NgFor } from '@angular/common';
+import { NgFor, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormModule, SpinnerModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAddressBook, faPager, faParking, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
+import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { IContactUS } from './../../../../models/contact-us/IContactUs';
 import { ContactUsService } from './../../../../services/client-service/contact-us/contact-us.service';
-import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
   styleUrl: 'contact-us.component.scss',
   standalone: true,
-  imports: [ToastModule, FontAwesomeModule, SpinnerModule, FormModule, ReactiveFormsModule, NgFor],
+  imports: [ToastModule, FontAwesomeModule, SpinnerModule, 
+    FormModule, ReactiveFormsModule, NgFor,
+    TranslateModule,
+    UpperCasePipe,
+  ],
   providers: [MessageService]
 })
 export class ContactUsComponent implements OnInit {
@@ -36,7 +40,7 @@ export class ContactUsComponent implements OnInit {
   question: any[] = [];
   constructor(
     private fb: FormBuilder,
-    private addToCartService: AddToCartService,
+    
     private contactUsService: ContactUsService,
     private productClientService: ProductClientService,
     private messageService: MessageService

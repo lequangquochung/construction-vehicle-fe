@@ -1,6 +1,6 @@
 <p-toast />
 <div class="row mx-4">
-  <h3 class="px-0">THÔNG TIN GIỎ HÀNG</h3>
+  <h3 class="px-0">{{'CART INFORMATION' | translate }}</h3>
 </div>
 <div class="product-list mt-3">
   <div class="row mx-4">
@@ -8,9 +8,9 @@
       <table class="table table-image table-hover table-bordered">
         <thead>
           <tr>
-            <th scope="col">THÔNG TIN SẢN PHẨM</th>
-            <th scope="col">MÔ TẢ</th>
-            <th scope="col">XOÁ</th>
+            <th scope="col">{{'PRODUCT INFORMATION' | translate }}</th>
+            <th scope="col">{{'Description' | translate | uppercase}}</th>
+            <th scope="col">{{'DELETE' | translate}}</th>
           </tr>
         </thead>
         <tbody>
@@ -31,7 +31,6 @@
             <td>
               {{product.description}}
             </td>
-
             <td class="align-middle text-center">
               <fa-icon class="action-row-icon btn-delete" (click)="removeItem(product.id)"
                 [icon]="faIcon.faTrash"></fa-icon>
@@ -43,11 +42,11 @@
   </div>
 </div>
 
-<div class="row order-form d-flex justify-content-center mb-3 mx-4">
+<div class="row order-form d-flex justify-content-center mb-3 mx-4" *ngIf="cartProducts.length">
   <div class="col-md-6 col-sm-12">
     <form [formGroup]="orderForm">
       <div class="mb-3">
-        <label for="userName" class="form-label">Tên</label>
+        <label for="userName" class="form-label">{{'Name' | translate }}</label>
         <input type="text" class="form-control" id="userName" formControlName="name">
       </div>
       <div class="mb-3">
@@ -56,17 +55,17 @@
       </div>
 
       <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
+        <label for="phoneNumber" class="form-label">{{'Phone Number' | translate}}</label>
         <input type="text" class="form-control" id="phoneNumber" aria-describedby="emailHelp"
           formControlName="phoneNumber">
       </div>
 
       <div class="mb-3">
-        <label for="textContent" class="form-label">Lời Nhắn</label>
+        <label for="textContent" class="form-label">{{'Message' | translate}}</label>
         <textarea class="form-control" id="textContent" rows="3" formControlName="textContent"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="orderForm.invalid">Gửi</button>
+      <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="orderForm.invalid">{{'Send' | translate}}</button>
     </form>
   </div>
 </div>

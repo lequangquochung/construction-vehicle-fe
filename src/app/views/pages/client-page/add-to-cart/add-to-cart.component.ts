@@ -1,9 +1,10 @@
-import { NgFor, UpperCasePipe } from '@angular/common';
+import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormModule } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { TranslateModule } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DetailCartItem, ICartOrderRequest } from 'src/app/models/cartOrder/cartOrderRequest';
@@ -15,7 +16,7 @@ import { ProductClientService } from 'src/app/services/client-service/product/pr
   templateUrl: './add-to-cart.component.html',
   styleUrl: 'add-to-cart.component.scss',
   standalone: true,
-  imports: [UpperCasePipe, NgFor, FontAwesomeModule, FormModule, ReactiveFormsModule, ToastModule],
+  imports: [UpperCasePipe, NgFor, NgIf, TranslateModule, FontAwesomeModule, FormModule, ReactiveFormsModule, ToastModule],
   providers: [MessageService]
 })
 export class AddToCartComponent implements OnInit {

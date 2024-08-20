@@ -1,6 +1,7 @@
 .img-item-main {
     height: 500px;
     object-fit: contain;
+    background: white;
 }
 
 .img-item-thumbnails {
@@ -20,5 +21,13 @@
 .detail-title {
     .product-name {
         color: #080b8f;
+    }
+}
+
+:host {
+    ::ng-deep {
+        .p-galleria .p-galleria-thumbnail-container {
+            background: white;
+        }
     }
 }

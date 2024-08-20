@@ -1,21 +1,20 @@
 import { NgFor, NgIf, UpperCasePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToasterPlacement } from '@coreui/angular';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faPhotoFilm } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
-import { ColorsToast } from 'src/app/enum/colors';
 import { EPRODUCT_TYPE } from 'src/app/enum/EProduct';
 import { CategoryClientRequest } from 'src/app/models/category/category-client-request';
 import { AddToCartService } from 'src/app/services/client-service/add-to-cart/add-to-card.service';
 import { ProductClientService } from 'src/app/services/client-service/product/product-client.service';
 import { environment } from 'src/environments/environment';
-import { ClientProductRequest } from './../../../../models/product/ClientProductRequest';
-import { CategoryClientService } from './../../../../services/client-service/category/category.service';
 import { SidebarCategoryComponent } from '../sidebar-category/sidebar-category.component';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ClientProductRequest } from './../../../../models/product/ClientProductRequest';
+import { TranslateModule } from '@ngx-translate/core';
+import { E_LANGUAGE } from 'src/app/enum/ELanguage';
 
 @Component({
   selector: 'app-products',
@@ -26,13 +25,13 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ToastModule,
     SidebarCategoryComponent,
     ProgressSpinnerModule,
-    NgIf
+    NgIf,
+    TranslateModule
   ],
   providers: [MessageService]
 })
 export class ProductsComponent implements OnInit {
   constructor(
-    private categoryClientService: CategoryClientService,
     private productClientService: ProductClientService,
     private addToCartService: AddToCartService,
     private router: Router,
@@ -75,8 +74,15 @@ export class ProductsComponent implements OnInit {
     faCartPlus: faCartPlus
   }
 
+  defaultLang: string = "";
+
   ngOnInit(): void {
+    this.getCurrentLanguage();
     this.getAllProduct(this.productRequest);
+  }
+
+  getCurrentLanguage() {
+    this.defaultLang = localStorage.getItem('language') || E_LANGUAGE.VI;
   }
 
   emitCategoryIds(ids: any) {
@@ -86,7 +92,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getAllProduct(request: ClientProductRequest) {
-    this.productClientService.getAll(request).subscribe({
+    this.productClientService.getAll(request, this.defaultLang).subscribe({
       next: (res) => {
         this.products = res.data.data.map((item: any) => {
           item.image = `${this.baseApi}/${item.image}`;

@@ -106,8 +106,6 @@ export class ManageOrderComponent implements OnInit {
   getOrderById(id: number) {
     this.orderService.getOrderById(id).subscribe({
       next: (res) => {
-        console.log(res);
-
         this.currentOrder = res.data;
         this.currentStatus = res.data.status;
         this.currentOrder.orderDetails = this.currentOrder.orderDetails.map((item: any) => {

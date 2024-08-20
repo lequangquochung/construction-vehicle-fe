@@ -16,7 +16,8 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './product.component.html',
   styleUrl: 'product.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgFor, FormsModule, SpinnerModule,
+  imports: [ReactiveFormsModule,
+     NgIf, NgFor, FormsModule, SpinnerModule,
     ToastModule
   ],
   providers: [MessageService]
