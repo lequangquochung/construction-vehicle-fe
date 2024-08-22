@@ -4,3 +4,7 @@ export enum E_STATUS {
     PROCESSING = 'PROCESSING',
     FINISHED = 'FINISHED'
 }
+
+export enum MAX_SIZE {
+    MAX_UPLOAD_SIZE = 5242880
+}

@@ -16,6 +16,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ClientProductRequest } from 'src/app/models/product/ClientProductRequest';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -31,7 +32,9 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     PaginatorModule,
     ToastModule,
-    InputTextModule],
+    InputTextModule,
+    
+  ],
   providers: [MessageService]
 })
 export class ProductListComponent implements OnInit {

@@ -55,10 +55,9 @@ export class ProductsComponent implements OnInit {
   productRequest: ClientProductRequest = {
     categoryIds: [],
     keyword: "",
-    pageIndex: 1,
-    pageSize: 15,
+    // pageIndex: 2,
+    // pageSize: 99,
     type: EPRODUCT_TYPE.VEHICLE,
-    isDiscount: false,
   };
 
   categoryRequest: CategoryClientRequest = {

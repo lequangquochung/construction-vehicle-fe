@@ -1,0 +1,10 @@
+.gallery-upload {
+    overflow-x: auto;
+    .btn-delete-img {
+        cursor: pointer;
+        right: 3%;
+    }
+    img {
+        object-fit: cover;
+    }
+}
